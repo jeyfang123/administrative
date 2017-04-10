@@ -7,7 +7,7 @@
 
     $config = include_once WEB_BASE . '/config/config.php';
 
-    $product = \Klein\Request::queryProduct($config['products'],'property');
+    $product = \Klein\Request::queryProduct($config['products'],'easier');
 
     if ($product === false){
         header('Location:/404.html');
