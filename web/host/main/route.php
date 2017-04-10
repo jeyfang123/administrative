@@ -5,20 +5,10 @@
     date_default_timezone_set('Etc/GMT-8');
     include_once WEB_BASE . '/vendor/autoload.php';
 
-    $config = include_once WEB_BASE . '/config/config.php';
-
-    $product = \Klein\Request::queryProduct($config['products'],'easier');
-
-    if ($product === false){
-        header('Location:/404.html');
-        exit();
-    }
-
-    define('PRODUCT', $product);
+    define('PRODUCT', 'easier');
     define('DEBUG', false);
 
     include_once WEB_BASE . '/config/app.php';
-    // include_once WEB_BASE . '/config/'.PRODUCT.'/dtprec.php';
 	include_once WEB_BASE . '/config/dtprec.php';
 
     $router = new \Klein\Klein();
@@ -52,10 +42,10 @@
         }
 
         /** 权限验证 */
-        $permission = Box::getObject('Permission', 'controller', 'zhwy');
-        //$permission->noLoginPermission($request);
-        $permission->checkLogin($request);
-        return $obj->$func($request, $response, $service);
+//        $permission = Box::getObject('Permission', 'controller', 'zhwy');
+//        $permission->noLoginPermission($request);
+//        $permission->checkLogin($request);
+//        return $obj->$func($request, $response, $service);
     }
 
 
