@@ -43,8 +43,5 @@ return array(
     'Filtros'                   => $baseDir . '/phplibs/filter.class.php',
     'Dlog'                      => $baseDir . '/phplibs/dlog.class.php',
 
-    'DanaClient'                => $baseDir . '/danasdk/client.dana.php',
     'RequestUtil'              => $baseDir . '/app/util/RequestUtil.php',
-//    'DanaFile'                => $baseDir . '/danasdk/file.dana.php',
-//    'DanaTask'                => $baseDir . '/danasdk/task.dana.php',
 );
