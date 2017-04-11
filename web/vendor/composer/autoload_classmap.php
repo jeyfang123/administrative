@@ -9,7 +9,7 @@ return array(
     'ArchiveStream'             => $vendorDir . '/zipstream/stream.php',
     'ArchiveStream_Zip'         => $vendorDir . '/zipstream/zipstream.php',
     'ArchiveStream_Tar'         => $vendorDir . '/zipstream/tarstream.php',
-    'PHPExcel'                  => $vendorDir . '/PHPExcel/PHPExcel.php',
+    'PHPExcel'                  => $vendorDir . '/phplibs/PHPExcel.php',
 
     'HttpRequest'               => $vendorDir . '/openstack/httprequest.php',
     'OpenStack'                 => $vendorDir . '/openstack/openstack.php',
