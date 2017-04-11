@@ -1,0 +1,24 @@
+.property-block ul.dropdown-menu li{
+    font-size: 15px;
+    padding-top: 2px;
+    padding-bottom: 1px;
+}
+.property-block ul.dropdown-menu li:hover{
+    background: rgba(224, 222, 222, 0.85);
+    cursor: default;
+}
+
+
+.panel-heading a[data-toggle=collapse].collapsed:before {
+    content: '\e64b';
+}
+
+.panel-heading a[data-toggle=collapse]:before {
+    content: '\e648';
+    display: block;
+    float: right;
+    font-family: 'themify';
+    font-size: 14px;
+    text-align: right;
+    width: 25px;
+}

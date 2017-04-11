@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>智慧物业-人口数据采集上报平台</title>
+    <link href="/plugins/bower_components/bootstrap-old/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
+    <link href="/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
+    <link href="/plugins/bower_components/custom-select/custom-select.css" rel="stylesheet" type="text/css" />
+    <link href="/plugins/bower_components/dropzone-master/dist/dropzone.css" rel="stylesheet" type="text/css" />
+    <link href="/plugins/bower_components/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
+    <link href="/plugins/bower_components/morrisjs/morris.css" rel="stylesheet"/>
+    <link href="/easier/css/animate.css" rel="stylesheet">
+    <link href="/easier/css/style.css" rel="stylesheet">
+    <link href="/easier/css/colors/blue.css" id="theme"  rel="stylesheet">
+    <link rel="stylesheet" href="/easier/css/housestyle.css">
+    <link href="/plugins/bower_components/dropzone-master/dist/dropzone.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="preloader">
+    <div class="cssload-speeding-wheel"></div>
+</div>
+<div id="wrapper">
+    <nav class="navbar navbar-default navbar-static-top m-b-0">
+        <div class="navbar-header">
+            <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0);" data-toggle="collapse" data-target=".navbar-collapse">
+                <i class="ti-menu"></i>
+            </a>
+            <div class="top-left-part">
+                <a class="logo" href="../nav/data_collect.html">
+                    <b>
+                        <img src="/easier/img/chaoyang-logo.png" alt="home" />
+                    </b>
+                    <span class="hidden-xs">
+                        <img width="111px" src="/easier/img/chaoyang-text.png" alt="home" />
+                    </span>
+                </a>
+            </div>
+            <ul class="nav navbar-top-links navbar-left hidden-xs">
+                <li>
+                    <a href="javascript:void(0);" class="open-close hidden-xs waves-effect waves-light">
+                        <i class="icon-arrow-left-circle ti-menu"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"  class="waves-effect">
+                        朝阳区智慧物业-人口数据采集上报平台
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav navbar-top-links navbar-right pull-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="javascript:void(0);">
+                        <img src="/plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">
+                        <b class="hidden-xs">{{ data.user.nickname }}</b>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user animated flipInY">
+                        <!--<li><a href="javascript:void(0);">
+                                <i class="ti-user"></i> 基础信息
+                            </a>
+                        </li>
+                        <li role="separator" class="divider"></li>-->
+                        <li>
+                            <a class="exit" href="javascript:void(0);">
+                                <i class="fa fa-power-off"></i> 退出
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse slimscrollsidebar">
+            <ul class="nav" id="side-menu">
+                <!--{% for menu in data.menu %}
+                    <li class="menu">
+                        {% if(menu.url=='') %}
+                        <a href="#" class="waves-effect">
+                        {% endif %}
+                        {% if(menu.url!='') %}
+                        <a data-url="{{menu.url}}" href="index#{{menu.url}}" class="waves-effect">
+                        {% endif %}
+                            <i data-icon="{{ menu.iconcls }}" class="linea-icon linea-basic fa-fw"></i>
+                            <span class="hide-menu">{{ menu.name }}
+                            </span>
+                        </a>
+                        {% if(menu.son) %}
+                            <ul class="nav nav-second-level">
+                                {% for son in menu.son %}
+                                <li><a data-url="{{son.url}}" href="index#{{son.url}}">{{son.name}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}-->
+                <li class="menu">
+                    <a data-url="#"  class="waves-effect">
+                        <div class="col-md-3" style="margin-right:-10px;">
+                            <i class="linea-icon linea-basic fa-fw" data-icon="a" style="float: left"></i>
+                        </div>
+                        <div class="col-md-9">
+                            <span class="hide-menu">信息总览</span>
+                        </div>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li><a data-url="home" href="index#home">工作记录</a></li>
+                        <li><a data-url="inform/peopleInfo" href="index#inform/peopleInfo">人口信息</a></li>
+                        <li><a data-url="inform/houseInfo" href="index#inform/houseInfo">房屋信息</a></li>
+                    </ul>
+                </li>
+                <li class="menu">
+                    <a data-url="inform/message" href="index#inform/message" class="waves-effect">
+                        <div class="col-md-3" style="margin-right:-10px;">
+                            <i class="fa fa-bell-o" data-icon="a"></i>
+                        </div>
+                        <div class="col-md-9">
+                            <span class="hide-menu">消息中心</span>
+                        </div>
+                    </a>
+                </li>
+                <li class="menu">
+                    <a href="javascript:void(0);" class="waves-effect">
+                        <div class="col-md-3" style="margin-right:-10px;">
+                            <i class="linea-icon linea-music fa-fw" data-icon="D"></i>
+                        </div>
+                        <div class="col-md-9">
+                            <span class="hide-menu">通知公告</span>
+                        </div>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a data-url="notice/add" href="index#notice/add">通知公告录入</a>
+                        </li>
+                        <li>
+                            <a data-url="notice/query" href="index#notice/query">通知公告查询</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu">
+                    <a href="#" class="waves-effect">
+                        <div class="col-md-3" style="margin-right:-10px;">
+                            <i data-icon="&#xe008;" class="linea-icon linea-basic fa-fw"></i>
+                        </div>
+                        <div class="col-md-9">
+                            <span class="hide-menu">信息录入</span>
+                        </div>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li><a data-url="inform/add" href="index#inform/add">实时录入</a></li>
+                        <li><a data-url="inform/addhouser" href="index#inform/addhouser">楼门长信息录入</a></li>
+                        <li><a data-url="inform/addcars" href="index#inform/addcars">车辆信息录入</a></li>
+                        <li><a data-url="inform/import" href="index#inform/import">批量导入</a></li>
+                        <!--<li><a data-url="inform/structrue" href="index#inform/structure">结构导入</a></li>-->
+                    </ul>
+                </li>
+                <li class="menu">
+                    <a href="#" class="waves-effect">
+                        <div class="col-md-3" style="margin-right:-10px;">
+                            <i data-icon=")" class="linea-icon linea-basic fa-fw"></i>
+                        </div>
+                        <div class="col-md-9">
+                            <span class="hide-menu">信息查询</span>
+                        </div>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li><a data-url="inform/condition" href="index#inform/condition">人口精确查询</a></li>
+                        <li><a data-url="inform/important" href="index#inform/important">重点人员查询</a></li>
+                    </ul>
+                </li>
+                <li class="menu">
+                    <a data-url="inform/revise" href="index#inform/revise" class="waves-effect">
+                        <div class="col-md-3" style="margin-right:-10px;">
+                            <i data-icon="=" class="linea-icon linea-basic"></i>
+                        </div>
+                        <div class="col-md-9">
+                            <span class="hide-menu">信息修改</span>
+                        </div>
+
+
+                    </a>
+                </li>
+                <li class="menu">
+                    <a data-url="inform/reviewed" href="index#inform/reviewed" class="waves-effect">
+                        <div class="col-md-3" style="margin-right:-10px;">
+                            <i data-icon="&#xe018;" class="linea-icon linea-basic"></i>
+                        </div>
+                        <div class="col-md-9">
+                            <span class="hide-menu">信息审核</span>
+                        </div>
+
+
+                    </a>
+                </li>
+                <li class="menu">
+                    <a href="#" class="waves-effect">
+                        <div class="col-md-3" style="margin-right:-10px;">
+                            <i data-icon=")" class="linea-icon linea-basic fa-fw"></i>
+                        </div>
+                        <div class="col-md-9">
+                            <span class="hide-menu">重点房屋</span>
+                        </div>
+
+
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li><a data-url="inform/addkeyhouse" href="index#inform/addkeyhouse">重点房屋录入</a></li>
+                        <li><a data-url="inform/querykeyhouse" href="index#inform/querykeyhouse">重点房屋查询</a></li>
+                    </ul>
+                </li>
+
+                <!--<li class="menu">-->
+                <!--<a data-url="inform/roomInfo" href="index#inform/roomInfo" class="waves-effect">-->
+                <!--<div class="col-md-3" style="margin-right:-10px;">-->
+                <!--<i data-icon="&#xe018;" class="linea-icon linea-basic"></i>-->
+                <!--</div>-->
+                <!--<div class="col-md-9">-->
+                <!--<span class="hide-menu">房间信息</span>-->
+                <!--</div>-->
+
+
+                <!--</a>-->
+                <!--</li>-->
+                <li class="menu">
+                    <a data-url="eventlist" href="index#eventlist" class="waves-effect">
+                        <div class="col-md-3" style="margin-right:-10px;">
+                            <i data-icon="&#xe018;" class="linea-icon linea-basic"></i>
+                        </div>
+                        <div class="col-md-9">
+                            <span class="hide-menu">事件处理</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="page-wrapper" class="page-content">
+        <div class="container-fluid page-content-area" data-ajax-content="true">
+
+        </div>
+        <footer class="footer text-center"> 2016 &copy; 北京市朝阳区信息办 </footer>
+    </div>
+
+    <!-- 弹出层 -->
+    <div class="modal fade" id="ajax-lg" role="basic" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content"></div>
+        </div>
+    </div>
+    <!-- 弹出层 -->
+    <div class="modal fade" id="ajax-md" role="basic" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content"></div>
+        </div>
+    </div>
+    <!-- 弹出层 -->
+    <div class="modal fade" id="ajax-sm" role="basic" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content"></div>
+        </div>
+    </div>
+
+    <script src="/plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/plugins/bower_components/bootstrap-old/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/cookie/jquery.cookie.min.js"></script>
+    <script src="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/twbsPagination/jquery.twbsPagination.min.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/dropzone-master/dist/dropzone.js"></script>
+    <script type="text/javascript" src="/public/js/ace.js"></script>
+    <script type="text/javascript" src="/public/js/ace.ajax-content.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/toast-master/js/jquery.toast.js"></script>
+    <script src="/plugins/bower_components/morrisjs/morris.js"></script>
+    <script src="/plugins/bower_components/raphael/raphael-min.js"></script>
+    <script src="/public/js/jquery.slimscroll.js"></script>
+    <script src="/public/js/waves.js"></script>
+    <script src="/public/js/custom.js"></script>
+    <script src="/public/js/d3.js"></script>
+    <script src="/plugins/bower_components/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="/public/js/public.js"></script>
+    <script type="text/javascript" src="/easier/js/model.js"></script>
+    <script src="/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+    <script type="text/javascript" src="/plugins/bower_components/dropzone-master/dist/dropzone.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('body').on('hidden.bs.modal', '.modal:not(.modal-cached)', function () {
+                $(this).find('.modal-content').html('');
+                $(this).removeData('bs.modal');
+            });
+            $('ul.dropdown-menu li a.exit').click(function(){
+                Model.logout(null,function(result){
+                    window.location.href = '/easier/login';
+                },{},{});
+            });
+        });
+
+        window.UEDITOR_HOME_URL = "/plugins/bower_components/ueditor/";
+    </script>
+</div>
+</body>
+</html>

@@ -1,15 +1,15 @@
 <?php
     header("Access-Control-Allow-Origin: *");
-    define ('WEB_ROOT', __DIR__ . '/');		//\administrative\web\host\main
+    define ('WEB_ROOT', __DIR__ . '/');		//\administrative\web\host\main	
     define ('WEB_BASE', dirname(dirname(WEB_ROOT)));   //\administrative\web
     date_default_timezone_set('Etc/GMT-8');
     include_once WEB_BASE . '/vendor/autoload.php';
 
     define('PRODUCT', 'easier');
-    define('DEBUG', false);
+    define('DEBUG', true);
 
     include_once WEB_BASE . '/config/app.php';
-	include_once WEB_BASE . '/config/dtprec.php';
+    include_once WEB_BASE . '/config/dtprec.php';
 
     $router = new \Klein\Klein();
 
@@ -37,15 +37,15 @@
         $obj = Box::getObject($request->controller, 'controller', $product);
         $func = $request->func;
         if($obj == null || !method_exists($obj,$func)){
-            header('HTTP/1.1 404 Not Found');
-            return;
+            header('Location:/404.html');
+            exit();
         }
 
         /** 权限验证 */
 //        $permission = Box::getObject('Permission', 'controller', 'zhwy');
 //        $permission->noLoginPermission($request);
 //        $permission->checkLogin($request);
-//        return $obj->$func($request, $response, $service);
+        return $obj->$func($request, $response, $service);
     }
 
 
