@@ -6,7 +6,13 @@
     include_once WEB_BASE . '/vendor/autoload.php';
 
     define('PRODUCT', 'easier');
-    define('DEBUG', true);
+
+    if(DEBUG){
+        ini_set('display_errors','1');
+    }
+    else{
+        ini_set('display_errors','0');
+    }
 
     include_once WEB_BASE . '/config/app.php';
     include_once WEB_BASE . '/config/dtprec.php';
