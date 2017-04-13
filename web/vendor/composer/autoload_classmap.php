@@ -27,7 +27,7 @@ return array(
 
     'Box'                       => $baseDir . '/app/system/box.class.php',
     'Curl'                      => $baseDir . '/phplibs/curl.class.php',
-    'Connection'                => $baseDir . '/phplibs/connection.class.php',
+
     'Util'                      => $baseDir . '/phplibs/util.class.php',
     'Security'                  => $baseDir . '/phplibs/security.class.php',
     'Session'                   => $baseDir . '/phplibs/session.class.php',
