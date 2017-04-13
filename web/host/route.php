@@ -1,7 +1,7 @@
 <?php
     header("Access-Control-Allow-Origin: *");
-    define ('WEB_ROOT', __DIR__ . '/');		//\administrative\web\host\main	
-    define ('WEB_BASE', dirname(dirname(WEB_ROOT)));   //\administrative\web
+    define ('WEB_ROOT', __DIR__ . '/');		//\administrative\web\host\
+    define ('WEB_BASE', dirname(WEB_ROOT));   //\administrative\web
     date_default_timezone_set('Etc/GMT-8');
     include_once WEB_BASE . '/vendor/autoload.php';
 
