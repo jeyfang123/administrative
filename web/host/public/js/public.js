@@ -3,7 +3,9 @@ var CODE_ERROR = 300;
 var CODE_RELOGIN = 211;
 var CODE_Already_Registered =  212;
 var CODE_NotAdmin =  213;
-// var CODE_USER_HAVELOGIN = 205;
+var CODE_PARAMETER_ERROR = 400;
+var CODE_USER_HAVELOGIN = 205;
+
 var scrollFixed = function(el) {
     if (!el) return;
     var loaded = true;

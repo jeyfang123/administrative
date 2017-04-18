@@ -14,6 +14,6 @@ class IndexController extends Controller{
 
     function render(){
         $this->_twig->assign('data','Hello Word');
-        return $this->viewTpl ('index.htm');
+        return $this->viewTpl ('index.html');
     }
 }

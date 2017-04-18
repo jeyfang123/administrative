@@ -3,6 +3,7 @@
 	class DB{
 	 	private static $_instances = [];
         const TB_USER = 'ea_user';
+        const TB_BG_USER = 'bg_user';
 
 	    private function __construct() {
 	    }

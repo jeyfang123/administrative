@@ -4,8 +4,8 @@
     define ('WEB_BASE', dirname(WEB_ROOT));   //\administrative\web
     date_default_timezone_set('Etc/GMT-8');
     include_once WEB_BASE . '/vendor/autoload.php';
-
-    define('PRODUCT', 'easier');
+    include_once WEB_BASE . '/config/app.php';
+    include_once WEB_BASE . '/config/dtprec.php';
 
     if(DEBUG){
         ini_set('display_errors','1');
@@ -14,27 +14,36 @@
         ini_set('display_errors','0');
     }
 
-    include_once WEB_BASE . '/config/app.php';
-    include_once WEB_BASE . '/config/dtprec.php';
-
     $router = new \Klein\Klein();
 
     $router->respond(['GET','POST'], '/[:product]/[:controller]/[:func]', function($request, $response, $service){
+        define('PRODUCT', $request->product);
+        define('PRODUCT_TEMPLATE_DIR', WEB_BASE . "/host/" . PRODUCT.'/views/');
+
         return routerCallback($request, $response, $service, $request->product);
     });
 
     $router->respond(['GET','POST'], '/[:product]/[:controller]', function($request, $response, $service){
+        define('PRODUCT', $request->product);
+        define('PRODUCT_TEMPLATE_DIR', WEB_BASE . "/host/" . PRODUCT.'/views/');
+
         $request->func = "render";
         return routerCallback($request, $response, $service, $request->product);
     });
 
     $router->respond(['GET','POST'], '/[:product]', function($request, $response, $service){
+        define('PRODUCT', $request->product);
+        define('PRODUCT_TEMPLATE_DIR', WEB_BASE . "/host/" . PRODUCT.'/views/');
+
         $request->controller = "index";
         $request->func = "render";
         return routerCallback($request, $response, $service, $request->product);
     });
 
     $router->respond(['GET','POST'], '/', function($request, $response, $service){
+        define('PRODUCT', $request->product);
+        define('PRODUCT_TEMPLATE_DIR', WEB_BASE . "/host/" . PRODUCT.'/views/');
+
         header('Location:/index.html');
         exit;
     });
@@ -47,11 +56,21 @@
             exit();
         }
 
+        if(strtolower($func) == 'login' || strtolower($func) == 'dologin'){
+            return $obj->$func($request, $response, $service);
+        }
+
         /** 权限验证 */
-//        $permission = Box::getObject('Permission', 'controller', 'zhwy');
-//        $permission->noLoginPermission($request);
-//        $permission->checkLogin($request);
-        return $obj->$func($request, $response, $service);
+        $permission = Box::getObject('common', 'controller', 'public');
+        $checkLoginRes = json_decode($permission->checkLogin($request));
+        if($checkLoginRes->code === CODE_RELOGIN){
+            return Box::getObject('user','controller',$product)->login();
+            exit();
+        }
+        if($checkLoginRes->code === CODE_USER_HAVELOGIN){
+            $permission->checkPermission($request,$checkLoginRes->user);
+            return $obj->$func($request, $response, $service);
+        }
     }
 
 

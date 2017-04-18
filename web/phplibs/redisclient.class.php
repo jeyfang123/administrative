@@ -9,6 +9,7 @@ class RedisClient
                 ini_set('default_socket_timeout', -1);
                 $this->redis = new Redis();
                 $this->redis->connect(REDIS_IP,REDIS_PORT);
+                $this->redis->auth(REDIS_PASSWORD);
             }catch(RedisException $e){
                 $this->redis = null;
             }        

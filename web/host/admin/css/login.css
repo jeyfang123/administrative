@@ -1,0 +1,495 @@
+.white-box .box-title {
+    margin: 0px 0px 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+.m-b-20 {
+    margin-bottom: 20px !important;
+}
+h3 {
+    line-height: 30px;
+    font-size: 21px;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #2b2b2b;
+    font-family: 'Poppins', sans-serif;
+    margin: 10px 0;
+    font-weight: 300;
+}
+
+#wrapper {
+    width: 100%;
+}
+.login {
+    background-color: #666 !important;
+}
+
+.login .logo {
+    margin: 0 auto 20px auto;
+    padding: 15px;
+    text-align: center;
+}
+
+.login .content {
+    background: url(../img/bg-opacity.png) repeat;
+    width: 360px;
+    margin: 0 auto;
+    margin-bottom: 0px;
+    padding: 30px;
+    padding-top: 20px;
+    padding-bottom: 15px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+    border-radius: 7px;
+}
+
+.login-div{
+    position:fixed;
+    top:25%;
+    left:calc(50% - 200px);
+}
+.login .content p,
+.login .content label {
+    color: #999999
+}
+
+.login .content .login-form{
+    padding: 0px;
+    margin: 0px;
+}
+
+.login .content .form-control {
+    background-color: #fff;
+}
+
+/* select2 dropdowns */
+.login .content .select2-container i {
+    display: inline-block;
+    position: relative;
+    color: #ccc;
+    z-index: 1;
+    top: 1px;
+    margin: 4px 4px 0px -1px;
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    /***
+    Login page
+    ***/
+    .login .logo {
+        margin-top: 10px;
+    }
+
+    .login .content {
+        padding: 30px;
+        width: 222px;
+    }
+
+    .login .content h3 {
+        font-size: 22px;
+    }
+
+    .login .checkbox {
+        font-size: 13px;
+    }
+}
+
+.input-icon > i {
+    color: #ccc;
+    display: block;
+    position: absolute;
+    margin: 11px 2px 4px 10px;
+    z-index: 3;
+    width: 16px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.input-icon > .form-control {
+    padding-left: 33px;
+}
+.form-control {
+    font-size: 14px;
+    font-weight: normal;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    box-shadow: none;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.login .blue.btn:hover,.login  .blue.btn:focus, .login .blue.btn:active, .login .blue.btn.active {
+    color: #FFFFFF;
+    background-color: #2386ca;
+}
+.login .blue.btn {
+    color: #FFFFFF;
+    background-color: #3598dc;
+}
+
+.login .btn {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    border-radius: 2px;
+    border-width: 0 !important;
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+    padding: 9px 14px 8px 14px;
+    outline: none !important;
+    background-image: none !important;
+    background-image: none !important;
+    outline: none !important;
+}
+.login .btn > i {
+    margin-top: 0;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.login .btn > i {
+    font-size: 14px;
+}
+.m-icon-swapright {
+    background-position: -27px -10px;
+}
+.m-icon-white {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 3px;
+    line-height: 14px;
+    background-image: url(../img/syncfusion-icons-white.png);
+}
+.visible-ie9 {
+    display: none;
+}
+.visible-ie8 {
+    display: none;
+}
+.videocontainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -9999;
+    overflow: hidden;
+}
+
+.login{
+    background:url(../img/bg2.jpg) no-repeat;
+    background-size:cover;
+    font-family:Microsoft YaHei;
+}
+.login .logo{
+    margin:0 auto;
+    padding:0;
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    outline:none;
+}
+.input-icon>.form-control{
+    padding-left:10px;
+}
+.white-box {
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    border-radius:5px;
+    background: #ffffff;
+    padding: 25px;
+    margin-bottom: 15px;
+}
+
+.input-group-addon, .input-group-btn {
+    width: 1%;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.input-group-addon {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #555;
+    text-align: center;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.input-group-addon {
+    border-radius: 2px;
+    border: 1px solid rgba(120, 130, 140, 0.13);
+}
+
+
+
+.checkbox, .radio {
+    position: relative;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.pull-left {
+    float: left!important;
+}
+.p-t-0 {
+    padding-top: 0px !important;
+}
+.pull-left {
+    float: left;
+}
+.form-horizontal .checkbox, .form-horizontal .checkbox-inline, .form-horizontal .radio, .form-horizontal .radio-inline {
+    padding-top: 7px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.form-horizontal .checkbox, .form-horizontal .radio {
+    min-height: 27px;
+}
+.checkbox {
+    padding-left: 20px;
+}
+input[type=checkbox], input[type=radio] {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+}
+.checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio] {
+    position: absolute;
+    margin-top: 4px\9;
+    margin-left: -20px;
+}
+.checkbox input[type="checkbox"] {
+    cursor: pointer;
+    opacity: 0;
+    z-index: 1;
+    outline: none !important;
+}
+input[type=checkbox], input[type=radio] {
+    margin: 4px 0 0;
+    margin-top: 1px\9;
+    line-height: normal;
+}
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+label {
+    font-weight: 500;
+}
+.checkbox label, .radio label {
+    min-height: 20px;
+    padding-left: 20px;
+    margin-bottom: 0;
+    font-weight: 400;
+    cursor: pointer;
+}
+.checkbox label {
+    display: inline-block;
+    padding-left: 5px;
+    position: relative;
+}
+.checkbox label::before {
+    -o-transition: 0.3s ease-in-out;
+    -webkit-transition: 0.3s ease-in-out;
+    background-color: #ffffff;
+    border-radius: 1px;
+    border: 1px solid rgba(120, 130, 140, 0.13);
+    content: "";
+    display: inline-block;
+    height: 17px;
+    left: 0;
+    margin-left: -20px;
+    position: absolute;
+    transition: 0.3s ease-in-out;
+    width: 17px;
+    outline: none !important;
+}
+
+.checkbox-primary input[type="checkbox"]:checked + label::before {
+    background-color: #269abc;
+    border-color: #ab8ce4;
+}
+.checkbox input[type="checkbox"]:focus + label::before {
+    outline-offset: -2px;
+    outline: none;
+    outline: thin dotted;
+}
+
+.checkbox label::after {
+    color: #2b2b2b;
+    display: inline-block;
+    font-size: 11px;
+    height: 16px;
+    left: 0;
+    margin-left: -20px;
+    padding-left: 3px;
+    padding-top: 1px;
+    position: absolute;
+    top: 0;
+    width: 16px;
+}
+.checkbox input[type="checkbox"]:checked + label::after {
+    content: "\f00c";
+    font-family: 'FontAwesome';
+}
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+    width: 6px;
+}
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #f6f6f6;
+    border-radius: 8px;
+    background: #f6f6f6;
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #d2d2d2;
+    -webkit-box-shadow: inset 0 0 6px rgba(208,220,234,0);
+}
+
+/*添加居民人员*/
+.form-group .nav-top > div{
+    color: black;
+    float: left;
+}
+.form-group .nav-top a{
+    color: black;
+}
+.nav-top div:hover{
+    cursor: pointer;
+}
+.option {
+    position: absolute;
+    width: 250px;
+    height: 300px;
+    top: 40px;
+    display: none;
+    z-index: 9999;
+    min-height: 300px;
+    padding-bottom: 20px;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: -1px 1px 10px rgba(143, 143, 143, 1);
+}
+.option .title{
+    text-align: left;
+    padding-left: 14px;
+    padding-top: 8px;
+    padding-bottom: 3px;
+}
+
+.option .ul-list{
+    height: 272px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.option ul li:hover{
+    background: rgba(224, 222, 222, 0.85);
+    cursor: default;
+}
+
+.option .cancel{
+    position: absolute;
+    right: 9px;
+    top: 8px;
+}
+
+/*服务人员*/
+.search-col{
+    display: inline-block;
+    margin-left: 1.2%;
+    float: left;
+    margin-right: 20px;
+}
+.court-block ul.dropdown-menu li{
+    font-size: 14px;
+    padding-top: 2px;
+    padding-bottom: 1px;
+}
+.court-block ul.dropdown-menu li:hover{
+    background: rgba(224, 222, 222, 0.85);
+    cursor: default;
+}
+
+
+/*详情*/
+#ajax .modal-dialog{
+    width: 75%;
+}
+.detail-page .details{
+    font-size: 14px;
+    width: 80%;
+    margin: 0 auto;
+}
+.detail-page .details p{
+    text-align: center;
+    background-color: rgba(0, 160, 233, 0.63);
+    color: white;
+    margin: 12px 7.5px 0px 7.5px;
+    /* margin: 0 7.5px; */
+    line-height: 2.5;
+}
+.detail-page .details .col-md-12 div{
+    padding: 10px;
+    border: 1px solid #C2CCD1;
+}
+.detail-page .details > div{
+    overflow: hidden;
+    outline: 1px solid #C2CCD1;
+}
+
+.fundamental .col-md-12 div,
+.registry .col-md-12 div,
+.work .col-md-12 div,
+.address .col-md-12 div{
+    white-space: nowrap;
+    border-right-width: 0 !important;
+    border-bottom-width: 0 !important;
+}
+
+.fundamental .col-md-12 div:last-child,
+.registry .col-md-12 div:last-child,
+.work .col-md-12 div:last-child,
+.address .col-md-12 div:last-child{
+    border-right-width: 1px !important;
+}
+
+.fundamental .col-md-12:last-child div,
+.registry .col-md-12:last-child div,
+.work .col-md-12:last-child div,
+.address .col-md-12:last-child div{
+    border-bottom-width: 1px !important;
+}
+
+.fundamental .col-md-12 div:nth-child(odd),
+.registry .col-md-12 div:nth-child(odd),
+.work .col-md-12 div:nth-child(odd),
+.address .col-md-12 div:nth-child(odd){
+    text-align: center;
+}
