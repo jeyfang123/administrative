@@ -7,7 +7,7 @@
  */
 class TokenModel
 {
-    private $_time_save = 7200;
+    private $_time_save = 2 * 60 * 60;
     private $_resdis = null;
     public $RepeatIP ;
     function __construct()
