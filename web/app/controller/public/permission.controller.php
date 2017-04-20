@@ -7,6 +7,7 @@
  */
 
 class PermissionController extends Controller{
+
     public function checkLogin($req){
         $token = $req->param('token','');
         if(empty($token)){

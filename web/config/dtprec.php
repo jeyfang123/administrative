@@ -1,6 +1,7 @@
 <?php
 // 定义PHP 常用变量
 
+define('CODE_NOPER',203);
 define('CODE_SUCCESS',  200);
 define('CODE_PARAMETER_ERROR',400); //参变量错误
 define('CODE_NOT_FOUND',405);

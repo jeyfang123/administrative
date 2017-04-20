@@ -6,6 +6,7 @@
     include_once WEB_BASE . '/vendor/autoload.php';
     include_once WEB_BASE . '/config/app.php';
     include_once WEB_BASE . '/config/dtprec.php';
+    $permissionConf = include_once WEB_BASE . '/config/config.php';
 
     if(DEBUG){
         ini_set('display_errors','1');
@@ -61,11 +62,18 @@
         }
 
         /** 权限验证 */
+        $straightPass = straightPass($request);
+        if($straightPass === true){
+            return $obj->$func($request, $response, $service);
+        }
         $permission = Box::getObject('permission', 'controller', 'public');
         $checkLoginRes = json_decode($permission->checkLogin($request));
         if($checkLoginRes->code === CODE_RELOGIN){
             return Box::getObject('user','controller',$product)->login();
             exit();
+        }
+        else if($checkLoginRes->code === CODE_NOPER){
+            return $obj->$func($request, $response, $service);
         }
         if($checkLoginRes->code === CODE_USER_HAVELOGIN){
             $permission->checkPermission($request,$checkLoginRes->user);
@@ -73,6 +81,18 @@
         }
     }
 
+    function straightPass($req){
+        $product = $req->product;
+        $controller = $req->controller;
+        $func = $req->func;
+        global $permissionConf;
+        if(@$permissionConf['func'][$func] == true){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
     $router->dispatch();
 
