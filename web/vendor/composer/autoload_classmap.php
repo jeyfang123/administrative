@@ -22,8 +22,7 @@ return array(
     'Controller'                => $baseDir . '/app/controller/controller.php',
     'ModelBase'                 => $baseDir . '/app/model/model.php',
     'DB'                        => $baseDir . '/app/model/db.php',
-    'Datrixdb'                  => $baseDir . '/app/model/datrixdb.php',
-    'PlatformDB'                => $baseDir . '/app/model/platformdb.php',
+    'Common'                    => $baseDir . '/app/controller/public/common.php',
 
     'Box'                       => $baseDir . '/app/system/box.class.php',
     'Curl'                      => $baseDir . '/phplibs/curl.class.php',

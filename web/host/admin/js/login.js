@@ -9,38 +9,28 @@ $(function() {
         $('#more').popover({trigger:"hover"})
     }
 
-    var logining = false;
     $("#loginBtn").click(function () {
-        if (!logining) {
-            logining = true;
-            var username = $('#username').val();
-            var password = $('#password').val();
-            if (username != '' && password != '') {
-                Model.loginin({"username": username, "password": hex_md5(password)}, function (res) {
-                    if (res.code === CODE_SUCCESS) {
-                        $.cookie('token', res.token,{ expires: 7 });
-                        if ($("#checkbox-signup").prop("checked")) {
-                            $.cookie("rmbUser", "true", { expires: 7 });
-                            $.cookie("username", username, { expires: 7 });
-                            $.cookie("password", password, { expires: 7 });
-                        }else{
-                            $.cookie("rmbUser", "false", { expires: -1 });
-                            $.cookie("username", "", { expires: -1 });
-                            $.cookie("password", "", { expires: -1 });
-                        }
-                        window.location.href = "/admin/index";
+        var username = $('#username').val();
+        var password = $('#password').val();
+        if (username != '' && password != '') {
+            Model.loginin({"username": username, "password": hex_md5(password)}, function (res) {
+                if (res.code === CODE_SUCCESS) {
+                    $.cookie('token', res.token,{ expires: 7 });
+                    if ($("#checkbox-signup").prop("checked")) {
+                        $.cookie("rmbUser", "true", { expires: 7 });
+                        $.cookie("username", username, { expires: 7 });
+                        $.cookie("password", password, { expires: 7 });
+                    }else{
+                        $.cookie("rmbUser", "false", { expires: -1 });
+                        $.cookie("username", "", { expires: -1 });
+                        $.cookie("password", "", { expires: -1 });
                     }
-                    else {
-                        tip(res.msg);
-                    }
-                    logining = false;
-                }, {}, function (res) {
-                    logining = false;
-                });
-            } else {
-                tip("用户名或者密码未填写");
-                logining = false;
-            }
+                    window.location.href = "/admin/index";
+                }
+                else {
+                    tip(res.msg);
+                }
+            }, {}, {});
         }
     });
 

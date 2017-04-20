@@ -61,7 +61,7 @@
         }
 
         /** 权限验证 */
-        $permission = Box::getObject('common', 'controller', 'public');
+        $permission = Box::getObject('permission', 'controller', 'public');
         $checkLoginRes = json_decode($permission->checkLogin($request));
         if($checkLoginRes->code === CODE_RELOGIN){
             return Box::getObject('user','controller',$product)->login();

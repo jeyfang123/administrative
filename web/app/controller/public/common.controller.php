@@ -6,32 +6,36 @@
  * Time: 11:47
  */
 
-class CommonController extends Controller{
-
-    public function checkLogin($req){
-        $token = $req->param('token','');
-        if(empty($token)){
-            return $this->returnJson(['code'=>CODE_RELOGIN]);
+class Common extends Controller{
+    public function returnControRes($res,$count = null){
+        switch ($res){
+            case CODE_ERROR :
+                return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'请求失败,请重试']);
+                break;
+            case CODE_NOT_FOUND :
+                return $this->returnJson(['code'=>CODE_NOT_FOUND,'msg'=>'未找寻到匹配的信息']);
+                break;
+            case CODE_SUCCESS :
+                if($count === false){
+                    return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'请求失败,请重试']);
+                }
+                return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>$res,'count'=>$count]);
+                break;
         }
-        $user = Box::getObject('token','model','public')->getUser($token);
-        if($user == false){
-            return $this->returnJson(['code'=>CODE_RELOGIN]);
-        }
-        return $this->returnJson(['code'=>CODE_USER_HAVELOGIN,'user'=>$user]);
     }
 
-    public function checkPermission($req,$user){
-        $token = $req->param('token', '');
-        if(!$user && substr($token, 0, 4) === SUPER_ADMIN) {
-            $user = Box::getObject('Admin','model','admin')->getUser($token);
-            $req->user = $user;
-            return true;
+    public function returnModelRes($res){
+        if($res === false){
+            return false;
         }
-        if(!$user){
-            echo json_encode(['code' => CODE_RELOGIN,'msg' => 'token已过期']);
-            exit();
+        else if(empty($res)){
+            return null;
         }
-        $req->user = $user;
-        return true;
+        else{
+            if(func_num_args() > 1){
+                return func_num_args();
+            }
+            return $res;
+        }
     }
 }
