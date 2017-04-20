@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>京州市行政服务中心-后台登录</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <link href="/plugins/bower_components/bootstrap-old/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/plugins/bower_components/font-awesome-4.6.3/Font-Awesome-master/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/admin/css/login.css" rel="stylesheet" type="text/css"/>
+    <link rel="shortcut icon" href="/favicon.ico"/>
+</head>
+<body class="page-md login">
+
+<div class="login-div">
+    <div class="logo">
+        <a href="javascript:;">
+            <img src="/admin/img/logo.png" alt="京州市行政服务中心" style="width:256px;" />
+        </a>
+    </div>
+    <div class="content" style="background:none;width:400px;">
+        <form class="login-form"  action="#" method="post">
+            <div class="form-group">
+                <div class="input-icon">
+                    <input class="form-control placeholder-no-fix" type="text" autocomplete="off"
+                           placeholder="账号" name="username" id="username" maxlength="128" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-icon">
+                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off"
+                           placeholder="密码" name="password" id="password"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="checkbox pull-right" style="padding-left:20px;font-weight:normal;font-ize:13px; margin-top: 0">
+                    <input type="checkbox" name="remember" value="1" id="checkbox" style="opacity:1;"/>记住密码
+                </label>
+                <button type="button" class="btn btn-block" id="loginBtn" style="background:#03a9f3;color:#fff;font-size:14px; font-weight:normal;height:44px;line-heigh:34px;">
+                    登录
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/plugins/bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
+<script src="/plugins/bower_components/bootstrap-old/dist/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/plugins/bower_components/cookie/jquery.cookie.min.js" type="text/javascript"></script>
+<script src="/plugins/bower_components/md5/md5.js" type="text/javascript"></script>
+<script src="/public/js/public.js"></script>
+<script src="/admin/js/model.js"></script>
+<script src="/admin/js/login.js"></script>
+</body>
+</html>
