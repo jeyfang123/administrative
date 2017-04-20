@@ -57,10 +57,6 @@
             exit();
         }
 
-        if(strtolower($func) == 'login' || strtolower($func) == 'dologin'){
-            return $obj->$func($request, $response, $service);
-        }
-
         /** 权限验证 */
         $straightPass = straightPass($request);
         if($straightPass === true){
@@ -86,7 +82,7 @@
         $controller = $req->controller;
         $func = $req->func;
         global $permissionConf;
-        if(@$permissionConf['func'][$func] == true){
+        if(@$permissionConf['func'][$func] === true){
             return true;
         }
         else{
