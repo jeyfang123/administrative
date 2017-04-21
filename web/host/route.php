@@ -82,7 +82,7 @@
         $controller = $req->controller;
         $func = $req->func;
         global $permissionConf;
-        if(@$permissionConf['func'][$func] === true){
+        if(@$permissionConf['func'][$func] === true && $product !== 'admin'){
             return true;
         }
         else{
