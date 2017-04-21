@@ -56,6 +56,9 @@
             header('Location:/404.html');
             exit();
         }
+        if($func == 'login' || $func == 'doLogin'){
+            return $obj->$func($request, $response, $service);
+        }
 
         /** 权限验证 */
         $straightPass = straightPass($request);
@@ -82,7 +85,7 @@
         $controller = $req->controller;
         $func = $req->func;
         global $permissionConf;
-        if(@$permissionConf['func'][$func] === true && $product !== 'admin'){
+        if(@$permissionConf['func'][$func] === true){
             return true;
         }
         else{
