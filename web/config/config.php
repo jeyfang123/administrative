@@ -9,8 +9,6 @@
 return [
     'func' => [
         'render' => true,
-        'login' => true,
-        'doLogin' => true,
     ],
     'controller' => [
 
