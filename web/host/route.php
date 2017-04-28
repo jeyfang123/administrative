@@ -56,6 +56,7 @@
             header('Location:/404.html');
             exit();
         }
+//        return $obj->$func($request, $response, $service);
         if($func == 'login' || $func == 'doLogin'){
             return $obj->$func($request, $response, $service);
         }
@@ -66,16 +67,13 @@
             return $obj->$func($request, $response, $service);
         }
         $permission = Box::getObject('permission', 'controller', 'public');
-        $checkLoginRes = json_decode($permission->checkLogin($request));
-        if($checkLoginRes->code === CODE_RELOGIN){
+        $checkLoginRes = json_decode($permission->checkLogin($request),true);
+        if($checkLoginRes['code'] === CODE_RELOGIN){
             return Box::getObject('user','controller',$product)->login();
             exit();
         }
-        else if($checkLoginRes->code === CODE_NOPER){
-            return $obj->$func($request, $response, $service);
-        }
-        if($checkLoginRes->code === CODE_USER_HAVELOGIN){
-            $permission->checkPermission($request,$checkLoginRes->user);
+        if($checkLoginRes['code'] === CODE_USER_HAVELOGIN){
+            $permission->checkPermission($request,$checkLoginRes['user']);
             return $obj->$func($request, $response, $service);
         }
     }

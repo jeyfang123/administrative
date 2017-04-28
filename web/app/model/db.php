@@ -3,7 +3,9 @@
 	class DB{
 	 	private static $_instances = [];
         const TB_USER = 'ea_user';
-        const TB_BG_USER = 'bg_user';
+        const TB_ROLE_USER = 'role_user';
+        const TB_PERMISSION = 'ea_permission';
+        const TB_ROLE_PERMISSION = 'role_permission';
 
 	    private function __construct() {
 	    }

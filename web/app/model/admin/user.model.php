@@ -14,7 +14,7 @@ class UserModel{
     }
 
     function login($username,$password){
-        $sql = "select * from ".DB::TB_BG_USER." where username = ? and pwd = ? limit 1";
+        $sql = "select * from ".DB::TB_ROLE_USER." where username = ? and password = ? limit 1";
         return $this->_db->getRow($sql,[$username,$password]);
     }
 }

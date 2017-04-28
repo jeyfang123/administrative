@@ -71,29 +71,38 @@ class TokenModel
     }
 
     /**
+     * 把$key作为键名的redis删掉
      * @param $token
-     * 把token作为键名的redis删掉
+     * @return bool
      */
-    public function redisDel($token)
+    public function redisDel($key)
     {
-        return $this->_redis->del($token);
+        return $this->_redis->del($key);
     }
 
     /**
-     * @param $token
      * 获取token作为键名的redis
+     * @param $token
+     * @return bool
      */
     public function getTokenStr($token)
     {
         $value = $this->_redis->get($token);
         if ($value)
-            $this->_redis->expire($token, $this->_time_save);
+            try{
+                $this->_redis->expire($token, $this->_time_save);
+            }
+            catch(RedisException $e){
+                var_dump($e);
+                die();
+            }
         return $value;
     }
 
     /**
-     * @param $indentify code
      * 缓存验证码
+     * @param $phone
+     * @param $num
      */
     public function identifyCode($phone, $num)
     {
@@ -101,8 +110,9 @@ class TokenModel
     }
 
     /**
-     * @param $phone
      * 获验证码
+     * @param $phone
+     * @return bool
      */
     public function getIndentify($phone)
     {
@@ -122,11 +132,19 @@ class TokenModel
 
     public function set($key, $value)
     {
-        $this->_redis->set($key, $value, 60 * 5);
+        $expire = 60 * 5;
+        if(func_num_args() == 3){
+            $expire = func_get_arg(2);
+        }
+        return $this->_redis->set($key, $value, $expire);
     }
 
     public function get($key)
     {
         return $this->_redis->get($key);
+    }
+
+    public function keys($key){
+        return $this->_redis->keys($key);
     }
 }

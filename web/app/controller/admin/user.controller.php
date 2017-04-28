@@ -22,7 +22,7 @@ class UserController extends Controller{
         if($loginRes == false){
             return $this->returnJson(['code'=>CODE_NOT_FOUND,'msg'=>'用户名或密码错误']);
         }
-        $token = Box::getObject('token', 'model', 'public')->getToken($loginRes["group_id"],json_encode($loginRes));
+        $token = Box::getObject('token', 'model', 'public')->getToken($loginRes["role"],json_encode($loginRes));
         return $this->returnJson(['code'=>CODE_SUCCESS,'token'=>$token]);
     }
 
