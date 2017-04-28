@@ -14,22 +14,22 @@ class IndexController extends Controller{
 
     private function getMenu($data){
         $menu = [];
-        $item = ['first'=>'','second'=>'','third'=>[]];
+        $item = ['first'=>'','second'=>[]];
         $length = count($data);
         for($i = 0; $i<$length; $i++){
             if($data[$i]['code'] == "#" && $data[$i]['parent'] == ''){
                 array_push($menu,$item);
-                $item = ['first'=>'','second'=>[],'third'=>[]];
+                $item = ['first'=>'','second'=>[]];
                 $item['first'] = $data[$i];
             }
             else if($data[$i]['code'] == "#" && $data[$i]['parent'] == $item['first']['permission']){
-                $item['second'] = $data[$i];
+                array_push($item['second']['nav'] , $data[$i]);
             }
-            else if($data[$i]['code'] != '#' && $data[$i]['parent'] == $item['second']['permission']){
-                array_push($item['third'], $data[$i]);
+            else if($data[$i]['code'] != '#' && $data[$i]['parent'] == end($item['second'])['nav']['permission']){
+                array_push($item['second']['third'], $data[$i]);
             }
             else if($data[$i]['code'] != '#' && $data[$i]['parent'] == $item['first']['permission']){
-                array_push($item['second'], $data[$i]);
+                array_push($item['second']['nav'], $data[$i]);
             }
         }
         array_push($menu,$item);
