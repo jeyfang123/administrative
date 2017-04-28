@@ -88,6 +88,7 @@ class TokenModel
     public function getTokenStr($token)
     {
         $value = $this->_redis->get($token);
+        return $value;
         if ($value)
             try{
                 $this->_redis->expire($token, $this->_time_save);
@@ -96,7 +97,7 @@ class TokenModel
                 var_dump($e);
                 die();
             }
-        return $value;
+
     }
 
     /**
