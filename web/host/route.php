@@ -6,6 +6,7 @@
     include_once WEB_BASE . '/vendor/autoload.php';
     include_once WEB_BASE . '/config/app.php';
     include_once WEB_BASE . '/config/dtprec.php';
+    global $permissionConf;
     $permissionConf = include_once WEB_BASE . '/config/config.php';
 
     if(DEBUG){
@@ -61,20 +62,27 @@
             return $obj->$func($request, $response, $service);
         }
 
-        /** 权限验证 */
+        /** 开放URL验证 */
         $straightPass = straightPass($request);
         if($straightPass === true){
             return $obj->$func($request, $response, $service);
         }
         $permission = Box::getObject('permission', 'controller', 'public');
-        $checkLoginRes = json_decode($permission->checkLogin($request),true);
-        if($checkLoginRes['code'] === CODE_RELOGIN){
+        $checkLoginRes = json_decode($permission->checkLogin($request));
+        if($checkLoginRes->code === CODE_RELOGIN){
             return Box::getObject('user','controller',$product)->login();
             exit();
         }
-        if($checkLoginRes['code'] === CODE_USER_HAVELOGIN){
-            $permission->checkPermission($request,$checkLoginRes['user']);
-            return $obj->$func($request, $response, $service);
+        else if($checkLoginRes->code === CODE_USER_HAVELOGIN){
+            $request->user = $checkLoginRes->user;
+            $checkPerRes = $permission->checkPermission($request);
+            if($checkPerRes == false){
+                return Box::getObject('common','controller','public')->noPermission();
+                exit();
+            }
+            else{
+                return $obj->$func($request, $response, $service);
+            }
         }
     }
 

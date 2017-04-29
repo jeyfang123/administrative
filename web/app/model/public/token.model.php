@@ -9,10 +9,15 @@ class TokenModel
 {
     private $_time_save = 2 * 60 * 60;
     private $_redis = null;
-    public $RepeatIP ;
     function __construct()
     {
-        $this->_redis = new RedisClient ();
+        if($this->_redis == null){
+            $this->_redis = new RedisClient ();
+        }
+    }
+
+    public function ping(){
+        return $this->_redis->ping();
     }
 
     public function getUser($token)
@@ -33,7 +38,8 @@ class TokenModel
 
     public function getToken($prefix, $user)
     {
-        $token = time();
+//        $token = time();
+        $token = '111';
         $token = $prefix . '-' . md5($token . 'administrative');
         $res = $this->_redis->set($token, $user, $this->_time_save);
         if($res !== true){
@@ -42,25 +48,6 @@ class TokenModel
         }
         return $token;
     }
-
-    // 获取重复登录的ip
-    public function getRepeatLoginIP($prefix, $token, $userid)
-    {        
-        $userid = substr(md5($userid), 2, 6);
-        $keys = $this->_redis->keys( $prefix.'-'.$userid.'-*');
-        
-        if ( count($keys) < 1 )   
-            return '';
-        foreach ($keys as $k=> $v) {
-            if ($v != $token )
-            {
-                $info = json_decode($this->_redis->get($v), true);
-                $res = $this->_redis->del($v);
-            }
-        }
-        return isset($info['clientip']) ? $info['clientip'] : '';
-    }
-
 
     public function reSaveToken($token, $user = "")
     {
@@ -72,7 +59,7 @@ class TokenModel
 
     /**
      * 把$key作为键名的redis删掉
-     * @param $token
+     * @param $key
      * @return bool
      */
     public function redisDel($key)
@@ -88,16 +75,8 @@ class TokenModel
     public function getTokenStr($token)
     {
         $value = $this->_redis->get($token);
+        $this->_redis->expire($token, $this->_time_save);
         return $value;
-        if ($value)
-            try{
-                $this->_redis->expire($token, $this->_time_save);
-            }
-            catch(RedisException $e){
-                var_dump($e);
-                die();
-            }
-
     }
 
     /**

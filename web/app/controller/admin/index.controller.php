@@ -12,39 +12,9 @@ class IndexController extends Controller{
         parent::__construct();
     }
 
-    private function getMenu($data){
-        $menu = [];
-        $item = ['first'=>'','second'=>[]];
-        $length = count($data);
-        for($i = 0; $i<$length; $i++){
-            if($data[$i]['code'] == "#" && $data[$i]['parent'] == ''){
-                array_push($menu,$item);
-                $item = ['first'=>'','second'=>[]];
-                $item['first'] = $data[$i];
-            }
-            else if($data[$i]['code'] == "#" && $data[$i]['parent'] == $item['first']['permission']){
-                array_push($item['second']['nav'] , $data[$i]);
-            }
-            else if($data[$i]['code'] != '#' && $data[$i]['parent'] == end($item['second'])['nav']['permission']){
-                array_push($item['second']['third'], $data[$i]);
-            }
-            else if($data[$i]['code'] != '#' && $data[$i]['parent'] == $item['first']['permission']){
-                array_push($item['second']['nav'], $data[$i]);
-            }
-        }
-        array_push($menu,$item);
-        $menu = array_filter($menu);
-        return $menu;
-    }
-
     function render($req){
         $user = $req->user;
-        $permissionObj = Box::getObject('permission','controller','public');
-//        $permissionObj->refreshPermission();
-        $permission = json_decode($permissionObj->getPermission($req),'true');
-        $menu = $this->getMenu($permission['full']);
-        print_r($menu);
-        $this->_twig->assign('data',['user'=>$user,'menu'=>$permission['full']]);
+        $this->_twig->assign('data',['user'=>$user]);
         return $this->viewTpl ('index.html');
     }
 

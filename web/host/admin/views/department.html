@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title> - 团队管理</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="/favicon.ico"> <link href="/hadmin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/hadmin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <link href="/hadmin/css/animate.css" rel="stylesheet">
+    <link href="/hadmin/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>所有部门</h5>
+                        <div class="ibox-tools">
+                            <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#addDepartment">
+                                创建新部门
+                            </button>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row m-b-sm m-t-sm">
+                            <div class="col-md-1">
+                                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> Refresh</button>
+                            </div>
+                            <div class="col-md-11">
+                                <div class="input-group">
+                                    <input type="text" placeholder="请输入部门名称" class="input-sm form-control"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-list clearfix">
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <span class="label label-primary pull-right">NEW</span>
+                                    <h5>IT-01 - 设计部</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="team-members">
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a1.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a2.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a3.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a5.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a6.jpg">
+                                        </a>
+                                    </div>
+                                    <h4>部门简介</h4>
+                                    <p>
+                                        平面设计（graphic design），也称为视觉传达设计，是以“视觉”作为沟通和表现的方式，透过多种方式来创造和结合符号、图片和文字，借此作出用来传达想法或讯息的视觉表现。
+                                    </p>
+                                    <div>
+                                        <span>当前项目进度：</span>
+                                        <div class="stat-percent">48%</div>
+                                        <div class="progress progress-mini">
+                                            <div style="width: 48%;" class="progress-bar"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row  m-t-sm">
+                                        <div class="col-sm-4">
+                                            <div class="font-bold">项目</div>
+                                            12
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="font-bold">周期</div>
+                                            4个月
+                                        </div>
+                                        <div class="col-sm-4 text-right">
+                                            <div class="font-bold">预算</div>
+                                            &yen;200,913 <i class="fa fa-level-up text-navy"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>IT-04 - 市场部</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="team-members">
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a4.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a5.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a6.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a8.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a7.jpg">
+                                        </a>
+                                    </div>
+                                    <h4>部门简介</h4>
+                                    <p>
+                                        平面设计（graphic design），也称为视觉传达设计，是以“视觉”作为沟通和表现的方式，透过多种方式来创造和结合符号、图片和文字，借此作出用来传达想法或讯息的视觉表现。
+                                    </p>
+                                    <div>
+                                        <span>当前项目进度：</span>
+                                        <div class="stat-percent">32%</div>
+                                        <div class="progress progress-mini">
+                                            <div style="width: 32%;" class="progress-bar"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row  m-t-sm">
+                                        <div class="col-sm-4">
+                                            <div class="font-bold">项目</div>
+                                            24
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="font-bold">周期</div>
+                                            3个月
+                                        </div>
+                                        <div class="col-sm-4 text-right">
+                                            <div class="font-bold">预算</div>
+                                            &yen;190,325 <i class="fa fa-level-up text-navy"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>IT-07 - 财务部</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="team-members">
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a4.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a8.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a7.jpg">
+                                        </a>
+                                    </div>
+                                    <h4>部门简介</h4>
+                                    <p>
+                                        平面设计（graphic design），也称为视觉传达设计，是以“视觉”作为沟通和表现的方式，透过多种方式来创造和结合符号、图片和文字，借此作出用来传达想法或讯息的视觉表现。
+                                    </p>
+                                    <div>
+                                        <span>当前项目进度：</span>
+                                        <div class="stat-percent">73%</div>
+                                        <div class="progress progress-mini">
+                                            <div style="width: 73%;" class="progress-bar"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row  m-t-sm">
+                                        <div class="col-sm-4">
+                                            <div class="font-bold">项目</div>
+                                            11
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="font-bold">周期</div>
+                                            6个月
+                                        </div>
+                                        <div class="col-sm-4 text-right">
+                                            <div class="font-bold">预算</div>
+                                            &yen;560,105 <i class="fa fa-level-up text-navy"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>IT-02 - 开发部</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="team-members">
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a8.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a4.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a1.jpg">
+                                        </a>
+                                    </div>
+                                    <h4>部门简介</h4>
+                                    <p>
+                                        平面设计（graphic design），也称为视觉传达设计，是以“视觉”作为沟通和表现的方式，透过多种方式来创造和结合符号、图片和文字，借此作出用来传达想法或讯息的视觉表现。
+                                    </p>
+                                    <div>
+                                        <span>当前项目进度：</span>
+                                        <div class="stat-percent">61%</div>
+                                        <div class="progress progress-mini">
+                                            <div style="width: 61%;" class="progress-bar"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row  m-t-sm">
+                                        <div class="col-sm-4">
+                                            <div class="font-bold">项目</div>
+                                            43
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="font-bold">周期</div>
+                                            1个月
+                                        </div>
+                                        <div class="col-sm-4 text-right">
+                                            <div class="font-bold">预算</div>
+                                            &yen;705,913 <i class="fa fa-level-up text-navy"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <span class="label label-warning pull-right">截止</span>
+                                    <h5>IT-05 - 管理层</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="team-members">
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a1.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a2.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a6.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a3.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a4.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a7.jpg">
+                                        </a>
+                                    </div>
+                                    <h4>部门简介</h4>
+                                    <p>
+                                        平面设计（graphic design），也称为视觉传达设计，是以“视觉”作为沟通和表现的方式，透过多种方式来创造和结合符号、图片和文字，借此作出用来传达想法或讯息的视觉表现。
+                                    </p>
+                                    <div>
+                                        <span>当前项目进度：</span>
+                                        <div class="stat-percent">14%</div>
+                                        <div class="progress progress-mini">
+                                            <div style="width: 14%;" class="progress-bar"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row  m-t-sm">
+                                        <div class="col-sm-4">
+                                            <div class="font-bold">项目</div>
+                                            8
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="font-bold">周期</div>
+                                            7个月
+                                        </div>
+                                        <div class="col-sm-4 text-right">
+                                            <div class="font-bold">预算</div>
+                                            &yen;40,200 <i class="fa fa-level-up text-navy"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>IT-08 - 销售部</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="team-members">
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a1.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a8.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a3.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a7.jpg">
+                                        </a>
+                                    </div>
+                                    <h4>部门简介</h4>
+                                    <p>
+                                        平面设计（graphic design），也称为视觉传达设计，是以“视觉”作为沟通和表现的方式，透过多种方式来创造和结合符号、图片和文字，借此作出用来传达想法或讯息的视觉表现。
+                                    </p>
+                                    <div>
+                                        <span>当前项目进度：</span>
+                                        <div class="stat-percent">25%</div>
+                                        <div class="progress progress-mini">
+                                            <div style="width: 25%;" class="progress-bar"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row  m-t-sm">
+                                        <div class="col-sm-4">
+                                            <div class="font-bold">项目</div>
+                                            25
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="font-bold">周期</div>
+                                            4个月
+                                        </div>
+                                        <div class="col-sm-4 text-right">
+                                            <div class="font-bold">预算</div>
+                                            &yen;140,105 <i class="fa fa-level-up text-navy"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="ibox">
+                                <div class="ibox-title">
+                                    <h5>IT-08 - 销售部</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="team-members">
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a1.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a8.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a3.jpg">
+                                        </a>
+                                        <a href="#"><img alt="member" class="img-circle" src="img/a7.jpg">
+                                        </a>
+                                    </div>
+                                    <h4>部门简介</h4>
+                                    <p>
+                                        平面设计（graphic design），也称为视觉传达设计，是以“视觉”作为沟通和表现的方式，透过多种方式来创造和结合符号、图片和文字，借此作出用来传达想法或讯息的视觉表现。
+                                    </p>
+                                    <div>
+                                        <span>当前项目进度：</span>
+                                        <div class="stat-percent">25%</div>
+                                        <div class="progress progress-mini">
+                                            <div style="width: 25%;" class="progress-bar"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row  m-t-sm">
+                                        <div class="col-sm-4">
+                                            <div class="font-bold">项目</div>
+                                            25
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="font-bold">周期</div>
+                                            4个月
+                                        </div>
+                                        <div class="col-sm-4 text-right">
+                                            <div class="font-bold">预算</div>
+                                            &yen;140,105 <i class="fa fa-level-up text-navy"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="modal fade" id="addDepartment" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                    </button>
+                    <i class="fa fa-laptop modal-icon"></i>
+                    <h4 class="modal-title">添加新部门</h4>
+                    <small class="font-bold">注：部门如同角色，请慎重添加，并注明部门说明。</small>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form role="form">
+                                <div class="form-group">
+                                    <label>部门名称</label>
+                                    <input type="text" name="departmentName" placeholder="请输入部门名称" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>部门描述</label>
+                                    <textarea style="height: 200px;resize: none" rows="" name="departmentDesc" class="form-control"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 全局js -->
+    <script src="/hadmin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/hadmin/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+    <!-- 自定义js -->
+    <script src="/hadmin/js/content.js?v=1.0.0"></script>
+
+    <script>
+        $(document).ready(function(){
+
+            $('#loading-example-btn').click(function () {
+                btn = $(this);
+                simpleLoad(btn, true)
+
+                // Ajax example
+//                $.ajax().always(function () {
+//                    simpleLoad($(this), false)
+//                });
+
+                simpleLoad(btn, false)
+            });
+        });
+
+        function simpleLoad(btn, state) {
+            if (state) {
+                btn.children().addClass('fa-spin');
+                btn.contents().last().replaceWith(" Loading");
+            } else {
+                setTimeout(function () {
+                    btn.children().removeClass('fa-spin');
+                    btn.contents().last().replaceWith(" Refresh");
+                }, 2000);
+            }
+        }
+    </script>
+    
+    
+
+</body>
+
+</html>

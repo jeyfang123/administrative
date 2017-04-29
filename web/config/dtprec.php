@@ -24,9 +24,8 @@ define('DB_IP_PORT',    '5432');
 define('DB_IP_USERNAME', 'postgres');
 define('DB_IP_PASSWORD', 'postgres123654jey');
 
-define('REDIS_IP',     '112.74.168.39');
-define('REDIS_PORT',   '6379');
-define('REDIS_PASSWORD','redis123654jey');
+define('REDIS_IP',     '127.0.0.1');
+define('REDIS_PORT',   '10310');
 
 define('ADMIN_UPLOAD_PREFIX', '/upload/admin/');
 define('ADMIN_UPLOAD', WEB_ROOT . ADMIN_UPLOAD_PREFIX);

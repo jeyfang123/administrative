@@ -6,7 +6,12 @@
  * Time: 14:28
  */
 class DepartmentController extends Controller{
-    public function createDepart(){
 
+    public function render(){
+        return $this->viewTpl('department.html');
+    }
+
+    public function createDepart(){
+        return $this->viewTpl('create_depart.html');
     }
 }

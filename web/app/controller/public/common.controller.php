@@ -19,4 +19,8 @@ class Common extends Controller{
             return func_num_args();
         }
     }
+
+    public function noPermission(){
+        return $this->viewTpl ('noPermission.html');
+    }
 }

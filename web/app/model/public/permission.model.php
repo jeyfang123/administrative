@@ -15,7 +15,7 @@ class PermissionModel{
 
     public function getRolePermission($role){
 
-        $sql = "select permission,name,code,func,font,parent_id as parent from ".DB::TB_ROLE_PERMISSION." roles left join ".DB::TB_PERMISSION." permi 
+        $sql = "select permission,name,code,func,font,leaf,parent_id as parent from ".DB::TB_ROLE_PERMISSION." roles left join ".DB::TB_PERMISSION." permi 
                 on roles.permission = permi.\"id\" 
                 where roles.\"role\" = ? and \"enable\" = '1' ORDER BY sort_code asc";
         $res = $this->_db->GetAll($sql,[$role]);

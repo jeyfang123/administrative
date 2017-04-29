@@ -15,5 +15,11 @@ return [
     ],
     'product' => [
 
+    ],
+    //公共后台接口
+    'path' => [
+        '/admin/index'=>true,
+        '/admin/index/home'=>true,
+        '/admin/department'=>true,
     ]
 ];
