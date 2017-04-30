@@ -17,4 +17,14 @@ class UserModel{
         $sql = "select * from ".DB::TB_ROLE_USER." where username = ? and password = ? limit 1";
         return $this->_db->getRow($sql,[$username,$password]);
     }
+
+    /**
+     * 获取所有部门人员
+     * @return array|bool|null
+     */
+    function getDepartmentUser(){
+        $userSql = "select * from ".DB::TB_ROLE_USER." where enable = '1' ";
+        $res = $this->_db->GetAll($userSql);
+        return DB::returnModelRes($res)[0];
+    }
 }

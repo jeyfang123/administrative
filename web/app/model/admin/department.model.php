@@ -1,0 +1,67 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: jey
+ * Date: 2017/4/30
+ * Time: 19:27
+ */
+class DepartmentModel{
+    private $_db;
+    function __construct()
+    {
+        $this->_db = DB::getInstance();
+    }
+
+    /**
+     * 获取部门
+     * @return array|bool|null
+     */
+    public function getAllDepartment(){
+        $departSql = "select *,case when total_accept = 0 then 0 else round(finished/total_accept)*100 end as rate from ".DB::TB_ROLE." where enable = '1' and createuser is not null order by createtime asc";
+        $res = $this->_db->GetAll($departSql);
+        return DB::returnModelRes($res)[0];
+    }
+
+    /**
+     * 建立部门
+     * @param $name
+     * @param $desc
+     * @param $userId
+     * @param $auth
+     * @return bool|string
+     */
+    public function addDepartment($name,$desc,$userId,$auth){
+        $existSql = 'select count(*) from '.DB::TB_ROLE.' where rolename = ? ';
+        $existRes = $this->_db->GetOne($existSql,[$name]);
+        if($existRes > 0){
+            return 'exist';
+        }
+        $insertSql = 'insert into '.DB::TB_ROLE.'(rolename,role_desc,createtime,createuser) values (?,?,?,?)';
+        $this->_db->BeginTrans();
+        $insertRes = $this->_db->Execute($insertSql,[$name,$desc,date('Y-m-d H:i:s'),$userId]);
+        if(empty($auth) && $insertRes){
+            $this->_db->CommitTrans();
+            return true;
+        }
+        else if($insertRes == false){
+            $this->_db->RollbackTrans();
+            return false;
+        }
+        else if(!empty($auth) && $insertRes){
+            $placeholders = substr(str_repeat('(?,?),',count($auth)),0,-1);
+            $insertPerSql = "insert into ".DB::TB_ROLE_PERMISSION."(role,permission) values{$placeholders}";
+            $params = [];
+            foreach ($auth as $row){
+                $params[] = $userId;
+                $params[] = $row;
+            }
+            $insertPerRes = $this->_db->Execute($insertPerSql,$params);
+            if($insertPerRes == false){
+                $this->_db->RollbackTrans();
+                return false;
+            }
+            $this->_db->CommitTrans();
+            return true;
+        }
+    }
+}

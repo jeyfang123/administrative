@@ -89,4 +89,15 @@ class PermissionController extends Controller{
             }
         }
     }
+
+    public function getPermissionList(){
+        $res = Box::getObject('permission','model','public')->getPermissionList();
+        if($res === false){
+            return $this->returnJson(['code'=>CODE_ERROR]);
+        }
+        if(empty($res)){
+            return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>[]]);
+        }
+        return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>$res]);
+    }
 }

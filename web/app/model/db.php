@@ -6,6 +6,7 @@
         const TB_ROLE_USER = 'role_user';
         const TB_PERMISSION = 'ea_permission';
         const TB_ROLE_PERMISSION = 'role_permission';
+        const TB_ROLE = 'ea_role';
 
 	    private function __construct() {
 	    }
@@ -19,6 +20,18 @@
 	        }
 	        return self::$_instances[$database];
 	    }
+
+        public static function returnModelRes($res){
+            if($res === false){
+                return false;
+            }
+            else if(empty($res)){
+                return null;
+            }
+            else{
+                return func_get_args();
+            }
+        }
 
 	    public function __clone(){}
 	}

@@ -1,0 +1,23 @@
+.checkbox.i-checks.pull-left{
+    margin-top: -5px;
+}
+.checkbox.i-checks.pull-left label{
+    padding-left:0;
+    padding-right: 20px;
+}
+.return-msg{
+    display: block;
+    height: 25px;
+    line-height: 20px;
+}
+#animation_box{
+    background-color:transparent !important;
+    padding-top: 10px !important;
+}
+.animation-text-box-per{
+    margin-top: 0px !important;
+}
+.sk-spinner.sk-spinner-fading-circle{
+    width: 28px !important;
+    height: 20px !important;
+}

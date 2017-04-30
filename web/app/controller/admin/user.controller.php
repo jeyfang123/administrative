@@ -26,4 +26,6 @@ class UserController extends Controller{
         return $this->returnJson(['code'=>CODE_SUCCESS,'token'=>$token]);
     }
 
+
+
 }
