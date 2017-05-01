@@ -27,4 +27,23 @@ class UserModel{
         $res = $this->_db->GetAll($userSql);
         return DB::returnModelRes($res)[0];
     }
+
+    /**
+     * 添加部门人员
+     * @param $username
+     * @param $role
+     * @return string
+     */
+    function addRoleuser($role,$username){
+        $datetime= date('Y-m-d H:i:s');
+        $existSql = "select count(*) from ".DB::TB_ROLE_USER." where username = ? ";
+        $existRes = $this->_db->GetOne($existSql,[$username]);
+        if($existRes > 0){
+            return 'exist';
+        }
+        $insetSql = "insert into ".DB::TB_ROLE_USER."(role,username,password,nickname,createtime) 
+                     values(?,?,'e10adc3949ba59abbe56e057f20f883e',?,'{$datetime}')";
+        $res = $this->_db->Execute($insetSql,[$role,$username,$username]);
+        return $res;
+    }
 }

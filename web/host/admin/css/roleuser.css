@@ -1,0 +1,8 @@
+.new-role-user{
+    border: 1px solid #ddd;
+    border-top: none;
+    padding: 45px 40px 192px 8px;
+}
+.new-role-user .form-group{
+    margin-bottom: 40px;
+}

@@ -35,6 +35,17 @@ class DepartmentController extends Controller{
     }
 
     /**
+     * 搜索相关部门
+     * @param $req
+     * @return mixed
+     */
+    public function searchDepartment($req){
+        $departName = trim(Filtros::post_check($req->param('key')));
+        $department = Box::getObject('department','model','admin')->getAllDepartment(' and rolename like ? ',["%{$departName}%"]);
+        return DB::returnModelRes($department)[0];
+    }
+
+    /**
      * 创建部门
      * @param $req
      * @return string

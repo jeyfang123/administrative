@@ -16,10 +16,18 @@ class DepartmentModel{
      * 获取部门
      * @return array|bool|null
      */
-    public function getAllDepartment(){
-        $departSql = "select *,case when total_accept = 0 then 0 else round(finished/total_accept)*100 end as rate from ".DB::TB_ROLE." where enable = '1' and createuser is not null order by createtime asc";
-        $res = $this->_db->GetAll($departSql);
-        return DB::returnModelRes($res)[0];
+    public function getAllDepartment($map = ''){
+        if(func_num_args() >= 1){
+            $params = array_slice(func_get_args(),1);
+            $departSql = "select *,case when total_accept = 0 then 0 else round(finished/total_accept)*100 end as rate from ".DB::TB_ROLE." where enable = '1' and createuser is not null {$map} order by createtime asc";
+            $res = $this->_db->GetAll($departSql,$params);
+            return DB::returnModelRes($res)[0];
+        }
+        else{
+            $departSql = "select *,case when total_accept = 0 then 0 else round(finished/total_accept)*100 end as rate from ".DB::TB_ROLE." where enable = '1' and createuser is not null order by createtime asc";
+            $res = $this->_db->GetAll($departSql);
+            return DB::returnModelRes($res)[0];
+        }
     }
 
     /**

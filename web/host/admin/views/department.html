@@ -41,8 +41,8 @@
                             </div>
                             <div class="col-md-11">
                                 <div class="input-group">
-                                    <input type="text" placeholder="请输入部门名称" class="input-sm form-control"> <span class="input-group-btn">
-                                        <button type="button" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                                    <input type="text" placeholder="请输入部门名称" class="input-sm form-control key-department"> <span class="input-group-btn">
+                                        <button type="button" class="btn btn-sm btn-primary search-department"> 搜索</button> </span>
                                 </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                                 <div class="ibox-content">
                                     <div class="team-members">
                                         {% for user in item.user %}
-                                            <a href="#"><img alt="user.username" class="img-circle" src="img/a1.jpg"></a>
+                                            <a href="#"><img alt="{{ user.username }}" title="{{ user.username }}" class="img-circle" src="img/a1.jpg"></a>
                                         {% endfor %}
                                     </div>
                                     <h4>部门简介</h4>
@@ -190,6 +190,11 @@
                 simpleLoad(btn, true);
 
                 simpleLoad(btn, false);
+
+                setTimeout(function () {
+                    $('.project-list .ibox').show();
+                },1000);
+
             });
 
             $('.i-checks').iCheck({
@@ -270,6 +275,15 @@
                 },1500);
                 return false;
             }
+
+            $('button.search-department').click(function () {
+                var key = $.trim($('input.key-department').val());
+                if(key != ''){
+                    $ibox = $(".project-list .ibox .ibox-title h5:contains("+ key +")").parents('.ibox');
+                    $ibox.show().siblings().hide();
+                }
+            })
+            $('')
     });
 
     function simpleLoad(btn, state) {
@@ -280,7 +294,7 @@
             setTimeout(function () {
                 btn.children().removeClass('fa-spin');
                 btn.contents().last().replaceWith(" Refresh");
-            }, 2000);
+            }, 1000);
         }
     }
     </script>

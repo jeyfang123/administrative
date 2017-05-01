@@ -36,6 +36,7 @@ var
         'loginin':{'url':'/admin/user/doLogin'},    //登录
         'logout':{'url':'/admin/user/logout'},  //退出
         'addDepartment':{'url':'/admin/department/addDepartment'},  //添加部门（角色）
+        'addRoleuser':{'url':'/admin/user/addRoleuser'},    //添加部门人员
     };
     var handler = {};
     for(var name in urlMap){

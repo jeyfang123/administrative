@@ -21,5 +21,6 @@ return [
         '/admin/index'=>true,
         '/admin/index/home'=>true,
         '/admin/department'=>true,
+        '/admin/user/roleuser'=>true,
     ]
 ];
