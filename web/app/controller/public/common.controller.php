@@ -48,9 +48,9 @@ class CommonController extends Controller{
         }
         $fileName = md5($uploadFiles['avatar']['name'].strtotime('now')).'.'.$type;
 
-        $this->createDir($savePath);
+        $this->createDir(WEB_ROOT.'/'.$savePath);
 
-        $saveFile = move_uploaded_file($uploadFiles['avatar']['tmp_name'], $savePath.$fileName);
+        $saveFile = move_uploaded_file($uploadFiles['avatar']['tmp_name'], WEB_ROOT.'/'.$savePath.$fileName);
 
         if($saveFile !== true){
             $errorMsg = '保存文件失败';
