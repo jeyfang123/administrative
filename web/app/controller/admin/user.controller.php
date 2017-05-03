@@ -32,11 +32,33 @@ class UserController extends Controller{
      */
     function roleuser(){
         $department = Box::getObject('department','model','admin')->getAllDepartment();
+        $total = Box::getObject('user','model','admin')->getTotalRoleUser();
         if($department != true){
             $department = [];
         }
-        $this->_twig->assign('data',['department'=>$department]);
+        $this->_twig->assign('data',['department'=>$department,'userTotal'=>$total]);
         return $this->viewTpl ('roleuser.html');
+    }
+
+    /**
+     * 获取所有部门人员（搜索）
+     * @param $req
+     * @return string
+     */
+    function getRoleUser($req){
+        $keyword = Filtros::post_check($req->param('keywords',''));
+        $page = (int)$req->param('page',1);
+        $pageSize = (int)$req->param('pagesize',10);
+        $res = Box::getObject('user','model','admin')->getRoleUser($keyword,$page,$pageSize);
+        if($res === false){
+            return $this->returnJson(['code'=>CODE_ERROR]);
+        }
+        else if($res === null){
+            return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>[],'count'=>0]);
+        }
+        else {
+            return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>$res['data'],'count'=>$res['count']]);
+        }
     }
 
     /**
@@ -47,10 +69,11 @@ class UserController extends Controller{
     function addRoleuser($req){
         $username = trim(Filtros::post_check($req->param('username')));
         $role = $req->param('role');
-        if(empty($username) || strlen($role) != 36){
+        $avatar = $req->param('avatar');
+        if(empty($username) || strlen($role) != 36 || empty($avatar)){
             return $this->returnJson(['code'=>CODE_PARAMETER_ERROR,'msg'=>'信息不完整']);
         }
-        $res = Box::getObject('user','model','admin')->addRoleuser($role,$username);
+        $res = Box::getObject('user','model','admin')->addRoleuser($role,$username,$avatar);
         if($res === 'exist'){
             return $this->returnJson(['code'=>CODE_Already_Registered,'msg'=>'该账户已存在']);
         }

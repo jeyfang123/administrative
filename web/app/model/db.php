@@ -22,7 +22,7 @@
 	    }
 
         public static function returnModelRes($res){
-            if($res === false){
+            if($res === false || (is_array($res) && reset($res) === false)){
                 return false;
             }
             else if(empty($res)){

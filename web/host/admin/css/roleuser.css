@@ -1,8 +1,14 @@
 .new-role-user{
     border: 1px solid #ddd;
     border-top: none;
-    padding: 45px 40px 192px 8px;
+    padding: 45px 40px 0px 8px;
 }
 .new-role-user .form-group{
     margin-bottom: 40px;
+}
+#tab-2{
+    height: inherit;
+}
+#dropzone{
+    padding: 0 20px;
 }

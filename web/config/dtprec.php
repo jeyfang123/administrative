@@ -16,7 +16,6 @@ define('SQL_ERROR',-100);  //sql错误
 define('ADMINUSER',1);  //管理员编码
 define('CODE_RESUMIT',305); //重复提交
 
-//用户类型（对应token前缀）
 
 // 数据库地址
 define('DB_IP',         '112.74.168.39');
@@ -24,9 +23,15 @@ define('DB_IP_PORT',    '5432');
 define('DB_IP_USERNAME', 'postgres');
 define('DB_IP_PASSWORD', 'postgres123654jey');
 
+//define('DB_IP',         '127.0.0.1');
+//define('DB_IP_PORT',    '5432');
+//define('DB_IP_USERNAME', 'postgres');
+//define('DB_IP_PASSWORD', '123456');
+
 define('REDIS_IP',     '127.0.0.1');
 define('REDIS_PORT',   '10310');
 
 define('ADMIN_UPLOAD_PREFIX', '/upload/admin/');
 define('ADMIN_UPLOAD', WEB_ROOT . ADMIN_UPLOAD_PREFIX);
+define('ADMIN_AVATAR','/admin/img/avatar/');
 ?>

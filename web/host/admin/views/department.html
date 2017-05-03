@@ -115,6 +115,10 @@
                                     <input type="text" id="departmentName" name="departmentName" placeholder="请输入部门名称" class="form-control" required="" aria-required="true">
                                 </div>
                                 <div class="form-group">
+                                    <label>部门电话</label>
+                                    <input type="text" id="departmentTel" name="departmentTel" placeholder="请输入联系电话" class="form-control" required="" aria-required="true">
+                                </div>
+                                <div class="form-group">
                                     <label>部门描述</label>
                                     <textarea style="height: 200px;resize: none" rows="" id="departmentDesc" name="departmentDesc" class="form-control" required="" aria-required="true"></textarea>
                                 </div>
@@ -207,10 +211,12 @@
                     rules:{
                         departmentName:'required',
                         departmentDesc:'required',
+                        departmentTel:'required'
                     },
                     messages:{
                         departmentName:'必填',
                         departmentDesc:'必填',
+                        departmentTel:'必填'
                     }
                 });
             }
@@ -219,6 +225,7 @@
                 if(JqValidate().form()){
                     transfer(true);
                     var departName = $.trim($('#departmentName').val());
+                    var departmentTel = $.trim($('#departmentTel').val());
                     var departDesc = $('#departmentDesc').val();
                     var auth = [];
                     $('input[name=auth]:checked').each(function () {
@@ -226,6 +233,7 @@
                     });
                     Model.addDepartment({
                         'departName':departName,
+                        'departmentTel':departmentTel,
                         'departDesc':departDesc,
                         'auth':auth
                     },function (res) {
