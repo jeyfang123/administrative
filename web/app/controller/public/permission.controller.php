@@ -57,8 +57,9 @@ class PermissionController extends Controller{
         if(strlen($user->role) != 36){
             return [];
         }
-        $this->_tokenObj->redisDel(($user->role).'-path');
-        $this->_tokenObj->redisDel(($user->role).'-full');
+
+        $this->refreshPermission($user);
+
         $permissionPath = $this->_tokenObj->getUser(($user->role).'-path');
         $fullPer = $this->_tokenObj->getUser(($user->role).'-full');
 
@@ -81,7 +82,10 @@ class PermissionController extends Controller{
     /**
      * 刷新菜单（权限）
      */
-    public function refreshPermission(){
+    public function refreshPermission($user){
+        $this->_tokenObj->redisDel(($user->role).'-path');
+        $this->_tokenObj->redisDel(($user->role).'-full');
+        return;
         $keys = $this->_tokenObj->keys('keys ');
         foreach ($keys as $row){
             if(substr($row,-4) == 'full' || substr($row,-4) == 'path'){

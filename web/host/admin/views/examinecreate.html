@@ -46,19 +46,19 @@
                                 <div class="col-sm-8">
                                     <div class="form-group">
                                         <label>事项名称 *</label>
-                                        <input id="examinename" name="examinename" type="text" value="" class="form-control required">
+                                        <input id="examinename" name="examinename" type="text" value="测试事项" class="form-control required">
                                     </div>
                                     <div class="form-group">
                                         <label>描述 *</label>
-                                        <input id="examinecontent" name="examinecontent" type="text" value="" class="form-control required">
+                                        <input id="examinecontent" name="examinecontent" type="text" value="测试事项" class="form-control required">
                                     </div>
                                     <div class="form-group">
                                         <label>联系方式 *</label>
-                                        <input id="contact" name="contact" type="text" maxlength="11" value="" class="form-control required">
+                                        <input id="contact" name="contact" type="text" maxlength="11" value="15549297431" class="form-control required">
                                     </div>
                                     <div class="form-group">
                                         <label>监督电话 *</label>
-                                        <input id="supervise" name="supervise" type="text" maxlength="11" value="" class="form-control required">
+                                        <input id="supervise" name="supervise" type="text" maxlength="11" value="15549297431" class="form-control required">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -78,7 +78,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>行使依据 *</label>
-                                        <textarea id="exercise_basis" name="exercise_basis" class="form-control required"></textarea>
+                                        <textarea id="exercise_basis" name="exercise_basis" value="测试事项" class="form-control required"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label>类型 * (二者选其一)</label>
@@ -94,15 +94,15 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>受理条件 *</label>
-                                        <textarea id="acc_conditions" name="acc_conditions" type="text" class="form-control required"></textarea>
+                                        <textarea id="acc_conditions" name="acc_conditions" value="测试事项" type="text" class="form-control required"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label>收费情况 *</label>
-                                        <input id="fee" name="fee" type="text" maxlength="20" class="form-control required">
+                                        <input id="fee" name="fee" type="text" maxlength="20" value="测试事项" class="form-control required">
                                     </div>
                                     <div class="form-group">
                                         <label>承诺期限 *</label>
-                                        <input id="term" name="term" type="text" placeholder="*个工作日" maxlength="20" class="form-control required">
+                                        <input id="term" name="term" type="text" placeholder="*个工作日" value="1个工作日" maxlength="20" class="form-control required">
                                     </div>
                                 </div>
                             </div>
@@ -137,9 +137,9 @@
                         </fieldset>
                         <h1>完成</h1>
                         <fieldset>
-                            <h2>条款</h2>
+                            <h2>确认</h2>
                             <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
-                            <label for="acceptTerms">我同意注册条款</label>
+                            <label for="acceptTerms">确认上述信息已核对正确</label>
                         </fieldset>
                     </form>
                 </div>
@@ -199,6 +199,8 @@
 <!-- Jquery Validate -->
 <script src="/hadmin/js/plugins/validate/jquery.validate.min.js"></script>
 <script src="/hadmin/js/plugins/validate/messages_zh.min.js"></script>
+<!-- Sweet alert -->
+<script src="/hadmin/js/plugins/sweetalert/sweetalert.min.js"></script>
 <!--jquery-ui-->
 <script src="/hadmin/js/jquery-ui-1.10.4.min.js"></script>
 <!-- Chosen -->
@@ -258,6 +260,39 @@
             },
             onFinished: function (event, currentIndex) {
                 var form = $(this);
+                var basicInfo = form.serialize();
+                var liObj = $('.sortable-list.connectList.agile-list').children('li');
+                var nodeArr = [];
+                liObj.each(function (index,dom) {
+                    var node = {
+                        'nodeTitle':$(dom).find('span.node-title').text(),
+                        'nodeRole':$(dom).find('span.node-role').attr('data-id'),
+                        'nodeMaterial':$(dom).find('span.node-material').attr('data-id')
+                    }
+                    nodeArr.push(node);
+                });
+                Model.addProcess(
+                    basicInfo + "&" + $.param({'nodes':nodeArr}),
+                    function (res) {
+                    if(res.code == CODE_SUCCESS){
+                        swal({
+                            title: "Success",
+                            text: "添加成功",
+                            type: "success"
+                        });
+                    }
+                    else{
+                        swal({
+                            title: "添加失败",
+                            text: res.msg
+                        });
+                    }
+                },{},function () {
+                    swal({
+                        title: "添加失败",
+                        text: '服务器未响应'
+                    });
+                })
 
             }
         }).validate({
@@ -342,7 +377,7 @@
                         <div class="agile-detail">\
                         <a href="javascript:;" class="delete-node pull-right btn btn-xs btn-warning"><i class="fa fa-remove"></i></a>\
                         <label style="margin-left: 1.2em;">材料:</label>\
-                    <span class="node-material">'+ materialOriginal +'</span>\
+                    <span class="node-material" data-id="'+ material +'">'+ materialOriginal +'</span>\
                     </div>\
                     </li>';
                 $('.sortable-list.connectList.agile-list').append(liHtml);

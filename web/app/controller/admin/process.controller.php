@@ -15,4 +15,9 @@ class ProcessController extends Controller{
         $res = Box::getObject('process','model','admin')->getProType();
         return $this->returnJson($res);
     }
+
+    function addProcess($req){
+        $info = $req->param('');
+        return $this->returnJson(['code'=>CODE_SUCCESS]);
+    }
 }
