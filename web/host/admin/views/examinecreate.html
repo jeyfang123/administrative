@@ -54,11 +54,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label>联系方式 *</label>
-                                        <input id="contact" name="contact" type="text" value="" class="form-control required">
+                                        <input id="contact" name="contact" type="text" maxlength="11" value="" class="form-control required">
                                     </div>
                                     <div class="form-group">
                                         <label>监督电话 *</label>
-                                        <input id="supervise" name="supervise" type="text" value="" class="form-control required">
+                                        <input id="supervise" name="supervise" type="text" maxlength="11" value="" class="form-control required">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -98,11 +98,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label>收费情况 *</label>
-                                        <input id="fee" name="fee" type="text" class="form-control required">
+                                        <input id="fee" name="fee" type="text" maxlength="20" class="form-control required">
                                     </div>
                                     <div class="form-group">
                                         <label>承诺期限 *</label>
-                                        <input id="term" name="term" type="text" class="form-control required">
+                                        <input id="term" name="term" type="text" placeholder="*个工作日" maxlength="20" class="form-control required">
                                     </div>
                                 </div>
                             </div>
@@ -265,8 +265,16 @@
                 element.before(error);
             },
             rules: {
-                confirm: {
-
+                examinename:{
+                    minlength:2
+                },
+                contact: {
+                    maxlength:11,
+                    minlength:11,
+                },
+                supervise: {
+                    maxlength:11,
+                    minlength:11,
                 }
             }
         });
