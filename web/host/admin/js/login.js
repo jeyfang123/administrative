@@ -15,7 +15,6 @@ $(function() {
         if (username != '' && password != '') {
             Model.loginin({"username": username, "password": hex_md5(password)}, function (res) {
                 if (res.code === CODE_SUCCESS) {
-                    $.cookie('token', res.token,{ expires: 7 });
                     if ($("#checkbox-signup").prop("checked")) {
                         $.cookie("rmbUser", "true", { expires: 7 });
                         $.cookie("username", username, { expires: 7 });

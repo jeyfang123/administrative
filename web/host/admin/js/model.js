@@ -38,6 +38,8 @@ var
         'addDepartment':{'url':'/admin/department/addDepartment'},  //添加部门（角色）
         'addRoleuser':{'url':'/admin/user/addRoleuser'},    //添加部门人员
         'getRoleUser':{'url':'/admin/user/getRoleUser'},    //搜索部门人员
+        'getProType':{'url':'/admin/process/getProType'},    //事项分类
+        'getDepartment':{'url':'/admin/department/getDepartment'},  //获取所有部门
     };
     var handler = {};
     for(var name in urlMap){

@@ -7,6 +7,7 @@
         const TB_PERMISSION = 'ea_permission';
         const TB_ROLE_PERMISSION = 'role_permission';
         const TB_ROLE = 'ea_role';
+        const TB_TYPE = 'process_type';
 
 	    private function __construct() {
 	    }

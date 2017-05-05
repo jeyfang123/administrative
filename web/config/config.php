@@ -22,5 +22,7 @@ return [
         '/admin/index/home'=>true,
         '/admin/department'=>true,
         '/admin/user/roleuser'=>true,
+        '/admin/process/getProType'=>true,
+        '/admin/department/getDepartment'=>true,
     ]
 ];

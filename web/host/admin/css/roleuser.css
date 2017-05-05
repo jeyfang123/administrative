@@ -6,6 +6,9 @@
 .new-role-user .form-group{
     margin-bottom: 40px;
 }
+#tab-1{
+    height: inherit;
+}
 #tab-2{
     height: inherit;
 }

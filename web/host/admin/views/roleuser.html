@@ -292,6 +292,12 @@
             $("#search").click(function () {
                 initHtml(1,true);
             });
+            $("#keyword").keydown(function(event){
+                if (event.keyCode == 13) {
+                    $('#search').click();
+                    event.preventDefault();
+                }
+            });
 
             initHtml(1,true);
             function initHtml(page,ispagination) {
@@ -372,11 +378,6 @@
                     this.on("success", function(file,res) {
                         res = JSON.parse(res);
                         if(res['code'] == CODE_SUCCESS){
-                            swal({
-                                title: "Success",
-                                text: "上传成功",
-                                type: "success"
-                            });
                             $('.dz-progress').hide();
                             var path = res['file'];
                             $('.avatar-file').val(path);
@@ -441,6 +442,7 @@
                                 text: "添加成功",
                                 type: "success"
                             });
+                            $('.username').val('');
                         }
                         else{
                             swal({

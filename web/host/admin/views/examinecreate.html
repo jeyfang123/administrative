@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title> - 表单向导</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/hadmin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/hadmin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/hadmin/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/hadmin/css/plugins/steps/jquery.steps.css" rel="stylesheet">
+    <link href="/hadmin/css/animate.css" rel="stylesheet">
+    <link href="/hadmin/css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/css/examine.css">
+    <link href="/hadmin/css/plugins/chosen/chosen.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>创建新事项</h5>
+                </div>
+                <div class="ibox-content">
+                    <h2>
+                        审批事项设置
+                    </h2>
+                    <p>
+
+                    </p>
+
+                    <form id="form" action="form_wizard.html#" class="wizard-big">
+                        <h1>基本信息</h1>
+                        <fieldset>
+                            <h2>账户信息</h2>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <label>事项名称 *</label>
+                                        <input id="examinename" name="examinename" type="text" value="" class="form-control required">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>描述 *</label>
+                                        <input id="examinecontent" name="examinecontent" type="text" value="" class="form-control required">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>联系方式 *</label>
+                                        <input id="contact" name="contact" type="text" value="" class="form-control required">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>监督电话 *</label>
+                                        <input id="supervise" name="supervise" type="text" value="" class="form-control required">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="text-center">
+                                        <div style="margin-top: 20px">
+                                            <i class="fa fa-sign-in" style="font-size: 180px;color: #e5e5e5 "></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                        <h1>详细信息</h1>
+                        <fieldset>
+                            <h2>详细信息</h2>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>行使依据 *</label>
+                                        <textarea id="exercise_basis" name="exercise_basis" class="form-control required"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>类型 * (二者选其一)</label>
+                                        <select class="form-control m-b perType type-select" name="perType">
+                                            <option value="-1">个人...</option>
+                                        </select>
+                                        <select class="form-control m-b enterType type-select" name="enterType">
+                                            <option value="-1">法人...</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>受理条件 *</label>
+                                        <textarea id="acc_conditions" name="acc_conditions" type="text" class="form-control required"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>收费情况 *</label>
+                                        <input id="fee" name="fee" type="text" class="form-control required">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>承诺期限 *</label>
+                                        <input id="term" name="term" type="text" class="form-control required">
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <h1>事项流程</h1>
+                        <fieldset>
+                            <div class="input-group" style="height: 2.5em">
+                                <input type="text" placeholder="添加流程" style="height: initial;" class="input input-sm form-control exist-input">
+                                <span class="input-group-btn">
+                                        <button type="button"  data-toggle="modal" data-target="#nodemodal" class="btn btn-sm btn-white" style="line-height: 1.9;"> <i class="fa fa-plus"></i> 添加</button>
+                                </span>
+                            </div>
+
+                            <ul class="sortable-list connectList agile-list">
+                                <li class="warning-element node-content">
+                                    <div class="list-style-desc"></div>
+                                    <div class="col-sm-12">
+                                        <label>流程名称:</label>
+                                        <span class="node-title">教育局审核</span>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label>受理部门:</label>
+                                        <span class="node-role">教育局</span>
+                                    </div>
+                                    <div class="agile-detail">
+                                        <a href="javascript:;" class="delete-node pull-right btn btn-xs btn-warning"><i class="fa fa-remove"></i></a>
+                                        <label style="margin-left: 1.2em;">材料:</label>
+                                        <span class="node-material">身份证复印件,职称资格证书</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </fieldset>
+                        <h1>完成</h1>
+                        <fieldset>
+                            <h2>条款</h2>
+                            <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
+                            <label for="acceptTerms">我同意注册条款</label>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal inmodal" id="nodemodal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                </button>
+                <h5 class="modal-title">添加新流程</h5>
+            </div>
+            <div class="modal-body">
+                <form class="new-node-form">
+                    <div class="form-group">
+                        <label>名称</label>
+                        <input type="text" name="input_title" placeholder="节点名称" class="form-control input-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label>受理部门</label>
+
+                        <select name="input_role" class="chosen-select input-role" style="width:100%;" required="" aria-required="true">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>所需材料</label>
+                        <input type="text" name="input_material" class="form-control input-material" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary save-node">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- 全局js -->
+<script src="/hadmin/js/jquery.min.js?v=2.1.4"></script>
+<script src="/hadmin/js/bootstrap.min.js?v=3.3.6"></script>
+<!-- 自定义js -->
+<script src="/hadmin/js/content.js?v=1.0.0"></script>
+
+<script src="/public/js/public.js"></script>
+<script src="/admin/js/model.js"></script>
+
+<!-- Steps -->
+<script src="/hadmin/js/plugins/staps/jquery.steps.min.js"></script>
+<!-- Jquery Validate -->
+<script src="/hadmin/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="/hadmin/js/plugins/validate/messages_zh.min.js"></script>
+<!--jquery-ui-->
+<script src="/hadmin/js/jquery-ui-1.10.4.min.js"></script>
+<!-- Chosen -->
+<script src="/hadmin/js/plugins/chosen/chosen.jquery.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#wizard").steps();
+        $("#form").steps({
+            bodyTag: "fieldset",
+            onStepChanging: function (event, currentIndex, newIndex) {
+                // Always allow going backward even if the current step contains invalid fields!
+                if (currentIndex > newIndex) {
+                    return true;
+                }
+
+                // Forbid suppressing "Warning" step if the user is to young
+                if (newIndex === 3 && Number($("#age").val()) < 18) {
+                    return false;
+                }
+
+                var form = $(this);
+
+                // Clean up if user went backward before
+                if (currentIndex < newIndex) {
+                    // To remove error styles
+                    $(".body:eq(" + newIndex + ") label.error", form).remove();
+                    $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+                }
+
+                // Disable validation on fields that are disabled or hidden.
+                form.validate().settings.ignore = ":disabled,:hidden";
+
+                // Start validation; Prevent going forward if false
+                return form.valid();
+            },
+            onStepChanged: function (event, currentIndex, priorIndex) {
+                // Suppress (skip) "Warning" step if the user is old enough.
+                if (currentIndex === 2 && Number($("#age").val()) >= 18) {
+                    $(this).steps("next");
+                }
+
+                // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
+                if (currentIndex === 2 && priorIndex === 3) {
+                    $(this).steps("previous");
+                }
+            },
+            onFinishing: function (event, currentIndex) {
+                var form = $(this);
+
+                // Disable validation on fields that are disabled.
+                // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+                form.validate().settings.ignore = ":disabled";
+
+                // Start validation; Prevent form submission if false
+                return form.valid();
+            },
+            onFinished: function (event, currentIndex) {
+                var form = $(this);
+
+            }
+        }).validate({
+            errorPlacement: function (error, element) {
+                element.before(error);
+            },
+            rules: {
+                confirm: {
+
+                }
+            }
+        });
+        Model.getProType({},function (data) {
+            var perType = data.per;
+            var enterType = data.enter;
+            var perHtml = '';
+            var enterHtml = '';
+            for(var i=0;i<perType.length; i++){
+                perHtml += '<option value="'+ perType[i]['type_id'] +'" selected>'+ perType[i]['type_name'] +'</option>'
+            }
+            for(var i=0;i<enterType.length; i++){
+                enterHtml += '<option value="'+ enterType[i]['type_id'] +'" selected>'+ enterType[i]['type_name'] +'</option>'
+            }
+            $('.perType').append(perHtml).children().first().attr('selected','selected');
+            $('.enterType').append(enterHtml).children().first().attr('selected','selected');
+        });
+        $('.type-select').change(function () {
+            $(this).siblings('.type-select').prop('selectedIndex',0);
+        });
+
+        $(".sortable-list").sortable({
+            connectWith: ".connectList"
+        }).disableSelection();
+
+        $('.chosen-container.chosen-container-single').css('width',$('.chosen-select').css('width'));
+
+
+        function JqValidate() {
+            return $('form.new-node-form').validate({
+                rules:{
+                    input_title:'required',
+                    input_material:'required'
+                },
+                messages:{
+                    input_title:'必填',
+                    input_material:'必填'
+                }
+            });
+        }
+
+        $('#nodemodal').on('show.bs.modal', function () {
+            $('input.input-title').val($('.exist-input').val());
+        });
+
+        $('.save-node').click(function () {
+            if(JqValidate().form()){
+                var title = $('input.input-title').val();
+                var role = $('select.input-role').val();
+                var role_name = $('select.input-role').find('option:selected').text();
+                var materialOriginal = $('input.input-material').val();
+                var material =JSON.stringify(materialOriginal.split('，'));
+                var element = ['warning-element','info-element','success-element'];
+                var randomElement = parseInt(Math.random() * (3));
+                var liHtml = '<li class="'+ element[randomElement] +' node-content">\
+                        <div class="list-style-desc"></div>\
+                        <div class="col-sm-12">\
+                        <label>流程名称:</label>\
+                    <span class="node-title">'+ title +'</span>\
+                        </div>\
+                        <div class="col-sm-12">\
+                        <label>受理部门:</label>\
+                    <span class="node-role" data-id="'+ role +'">'+ role_name +'</span>\
+                        </div>\
+                        <div class="agile-detail">\
+                        <a href="javascript:;" class="delete-node pull-right btn btn-xs btn-warning"><i class="fa fa-remove"></i></a>\
+                        <label style="margin-left: 1.2em;">材料:</label>\
+                    <span class="node-material">'+ materialOriginal +'</span>\
+                    </div>\
+                    </li>';
+                $('.sortable-list.connectList.agile-list').append(liHtml);
+                $('#nodemodal').modal('hide');
+                $('input.input-title').val('');
+                $('input.input-material').val('');
+            }
+        });
+
+        $('.sortable-list.connectList.agile-list').on('click','a.delete-node',function () {
+            $(this).parents('li.node-content').remove();
+        })
+    });
+
+    Model.getDepartment({},function (res) {
+        var data = res.data;
+        var optionHtml = '';
+        for(var i=0;i<data.length;i++){
+            optionHtml += '<option value="'+ data[i]['role_id'] +'">'+ data[i]['rolename'] +'</option>';
+        }
+        $('.chosen-select.input-role').append(optionHtml).prop('selectedIndex',0);
+    },{async:false},{});
+
+    var config = {
+        '.chosen-select': {},
+        '.chosen-select-deselect': {
+            allow_single_deselect: true
+        },
+        '.chosen-select-no-single': {
+            disable_search_threshold: 10
+        },
+        '.chosen-select-no-results': {
+            no_results_text: 'Oops, nothing found!'
+        },
+        '.chosen-select-width': {
+            width: "95%"
+        }
+    };
+
+    for (var selector in config) {
+        $(selector).chosen(config[selector]);
+    }
+</script>
+</body>
+
+</html>

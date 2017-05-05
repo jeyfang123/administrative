@@ -1,0 +1,40 @@
+.wizard-big.wizard > .content {
+    min-height: 430px;
+}
+#exercise_basis{
+    height: 135px;
+}
+#acc_conditions{
+    height: 135px;
+}
+.perType,.enterType{
+    padding-top: 3px;
+    padding-bottom: 2px;
+}
+.enterType{
+    position: relative;
+    top: 25px;
+}
+.wizard > .content > .body ul {
+    list-style: none !important;
+    margin-top: 7px;
+}
+li.node-content{
+    position: relative;
+    padding-top:7px !important;
+}
+.list-style-desc{
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: #000000;
+    border-radius: 5px;
+    left: -16px;
+    top: 40px;
+}
+.delete-node{
+    position: relative;
+    bottom: 28px;
+    right: 10px;
+    border-radius: 2px;
+}

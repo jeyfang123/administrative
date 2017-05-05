@@ -42,7 +42,31 @@ class DepartmentController extends Controller{
     public function searchDepartment($req){
         $departName = trim(Filtros::post_check($req->param('key')));
         $department = Box::getObject('department','model','admin')->getAllDepartment(' and rolename like ? ',["%{$departName}%"]);
-        return DB::returnModelRes($department)[0];
+        if($department === false){
+            return $this->returnJson(['code'=>CODE_ERROR]);
+        }
+        else if($department === null){
+            return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>[]]);
+        }
+        else {
+            return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>$department]);
+        }
+    }
+
+    /**
+     * 获取所有部门
+     */
+    public function getDepartment(){
+        $department = Box::getObject('department','model','admin')->getAllDepartment();
+        if($department === false){
+            return $this->returnJson(['code'=>CODE_ERROR]);
+        }
+        else if($department === null){
+            return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>[]]);
+        }
+        else {
+            return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>$department]);
+        }
     }
 
     /**

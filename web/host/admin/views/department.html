@@ -55,7 +55,7 @@
                                 <div class="ibox-content">
                                     <div class="team-members">
                                         {% for user in item.user %}
-                                            <a href="#"><img alt="{{ user.username }}" title="{{ user.username }}" class="img-circle" src="img/a1.jpg"></a>
+                                            <a href="#"><img alt="{{ user.username }}" title="{{ user.username }}" class="img-circle" src="{% if user.avatar  %} {{ user.avatar }} {% else %} /admin/img/avatar/default.png {% endif %}"></a>
                                         {% endfor %}
                                     </div>
                                     <h4>部门简介</h4>
@@ -290,8 +290,13 @@
                     $ibox = $(".project-list .ibox .ibox-title h5:contains("+ key +")").parents('.ibox');
                     $ibox.show().siblings().hide();
                 }
-            })
-            $('')
+            });
+            $(".input-sm.form-control.key-department").keydown(function(event){
+                if (event.keyCode == 13) {
+                    $('button.search-department').click();
+                    event.preventDefault();
+                }
+            });
     });
 
     function simpleLoad(btn, state) {
