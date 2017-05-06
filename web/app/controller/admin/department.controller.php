@@ -8,7 +8,7 @@
 class DepartmentController extends Controller{
 
     public function render(){
-        $permissionList = Box::getObject('permission','model','public')->getPermissionList(" code != '#' ");
+        $permissionList = Box::getObject('permission','model','public')->getPermissionList("");
         if($permissionList != true){
             $permissionList = [];
         }

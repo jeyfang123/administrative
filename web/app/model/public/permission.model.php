@@ -33,8 +33,8 @@ class PermissionModel{
      * 获取权限列表
      * @return mixed
      */
-    public function getPermissionList($map){
-        $sql = "select * from ".DB::TB_PERMISSION." where enable = '1' and leaf != '1' and {$map} order by sort_code";
+    public function getPermissionList($map = ""){
+        $sql = "select * from ".DB::TB_PERMISSION." where enable = '1' {$map} order by sort_code";
         $res = $this->_db->GetALl($sql);
         return DB::returnModelRes($res)[0];
     }
