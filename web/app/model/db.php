@@ -8,6 +8,10 @@
         const TB_ROLE_PERMISSION = 'role_permission';
         const TB_ROLE = 'ea_role';
         const TB_TYPE = 'process_type';
+        const TB_PROCESS = 'ea_process';
+        const TB_PRO_DETAIL = 'process_detail';
+        const TB_PRO_NODE = 'process_node';
+        const TB_PRO_FLOW = 'process_flow';
 
 	    private function __construct() {
 	    }

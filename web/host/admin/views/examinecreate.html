@@ -130,7 +130,7 @@
                                         <label>受理部门:</label>
                                         <span class="node-role">教育局</span>
                                     </div>
-                                    <div class="agile-detail">
+                                    <div class="agile-detail" style="margin-bottom: 5px;">
                                         <a href="javascript:;" class="delete-node pull-right btn btn-xs btn-warning"><i class="fa fa-remove"></i></a>
                                         <label style="margin-left: 1.2em;">材料:</label>
                                         <span class="node-material">身份证复印件,职称资格证书</span>
@@ -174,7 +174,7 @@
                     </div>
                     <div class="form-group">
                         <label>所需材料</label>
-                        <input type="text" name="input_material" class="form-control input-material" required>
+                        <textarea  name="input_material" class="form-control input-material" required></textarea>
                     </div>
                 </form>
             </div>
@@ -215,14 +215,17 @@
         $("#form").steps({
             bodyTag: "fieldset",
             onStepChanging: function (event, currentIndex, newIndex) {
+
                 // Always allow going backward even if the current step contains invalid fields!
                 if (currentIndex > newIndex) {
                     return true;
                 }
 
-                // Forbid suppressing "Warning" step if the user is to young
-                if (newIndex === 3 && Number($("#age").val()) < 18) {
-                    return false;
+                if(newIndex === 2){
+                    $('.wizard-big.wizard > .content').addClass('step-two');
+                }
+                else{
+                    $('.wizard-big.wizard > .content').removeClass('step-two');
                 }
 
                 var form = $(this);
@@ -241,15 +244,7 @@
                 return form.valid();
             },
             onStepChanged: function (event, currentIndex, priorIndex) {
-                // Suppress (skip) "Warning" step if the user is old enough.
-                if (currentIndex === 2 && Number($("#age").val()) >= 18) {
-                    $(this).steps("next");
-                }
 
-                // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
-                if (currentIndex === 2 && priorIndex === 3) {
-                    $(this).steps("previous");
-                }
             },
             onFinishing: function (event, currentIndex) {
                 var form = $(this);
@@ -270,7 +265,7 @@
                     var node = {
                         'nodeTitle':$(dom).find('span.node-title').text(),
                         'nodeRole':$(dom).find('span.node-role').attr('data-id'),
-                        'nodeMaterial':$(dom).find('span.node-material').attr('data-id')
+                        'nodeMaterial':$(dom).find('span.node-material').data('material')
                     }
                     nodeArr.push(node);
                 });
@@ -363,7 +358,7 @@
                 var title = $('input.input-title').val();
                 var role = $('select.input-role').val();
                 var role_name = $('select.input-role').find('option:selected').text();
-                var materialOriginal = $('input.input-material').val();
+                var materialOriginal = $('textarea.input-material').val();
                 var material =JSON.stringify(materialOriginal.split('，'));
                 var element = ['warning-element','info-element','success-element'];
                 var randomElement = parseInt(Math.random() * (3));
@@ -380,13 +375,14 @@
                         <div class="agile-detail">\
                         <a href="javascript:;" class="delete-node pull-right btn btn-xs btn-warning"><i class="fa fa-remove"></i></a>\
                         <label style="margin-left: 1.2em;">材料:</label>\
-                    <span class="node-material" data-id="'+ material +'">'+ materialOriginal +'</span>\
+                    <span class="node-material">'+ materialOriginal +'</span>\
                     </div>\
                     </li>';
                 $('.sortable-list.connectList.agile-list').append(liHtml);
+                $('.sortable-list.connectList.agile-list li span.node-material:last').data('material',material);
                 $('#nodemodal').modal('hide');
                 $('input.input-title').val('');
-                $('input.input-material').val('');
+                $('textarea.input-material').val('');
             }
         });
 

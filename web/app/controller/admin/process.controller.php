@@ -16,6 +16,11 @@ class ProcessController extends Controller{
         return $this->returnJson($res);
     }
 
+    /**
+     * 添加事项
+     * @param $req
+     * @return array|string
+     */
     function addProcess($req){
         $processName = Filtros::post_check($req->param('examinename'));
         $examineContent = Filtros::post_check($req->param('examinecontent'));
@@ -39,6 +44,22 @@ class ProcessController extends Controller{
         else if($perType == '-1' && $enterType == '-1'){
             return $this->returnJson(['code'=>CODE_PARAMETER_ERROR,'msg'=>'未选择类型']);
         }
-
+        $process = [
+            'processName'=>$processName,
+            'examineContent'=>$examineContent,
+            'exerciseBasis'=>$exerciseBasis,
+            'accConditions'=>$accConditions,
+            'fee'=>$fee,
+            'term'=>$term,
+            'contact'=>$contact,
+            'supervise'=>$supervise,
+            'perType'=>$perType,
+            'enterType'=>$enterType
+        ];
+        $res = Box::getObject('process','model','admin')->addProcess($process,$nodes,$req->user->depart_user_id);
+        if($res == false){
+            return $this->returnJson(['code' => CODE_ERROR,'msg'=>'服务器错误，请稍后重试']);
+        }
+        return $this->returnJson(['code' => CODE_SUCCESS]);
     }
 }
