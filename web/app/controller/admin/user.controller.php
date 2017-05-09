@@ -23,7 +23,6 @@ class UserController extends Controller{
             return $this->returnJson(['code'=>CODE_NOT_FOUND,'msg'=>'用户名或密码错误']);
         }
         $token = Box::getObject('token', 'model', 'public')->getToken($loginRes["role"],json_encode($loginRes));
-        $_COOKIE['token'] = $token;
         return $this->returnJson(['code'=>CODE_SUCCESS,'token'=>$token]);
     }
 
