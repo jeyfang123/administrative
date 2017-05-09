@@ -62,23 +62,20 @@
             return $obj->$func($request, $response, $service);
         }
 
-        /** 开放URL验证 */
-        $straightPass = straightPass($request);
-        if($straightPass === true){
-            return $obj->$func($request, $response, $service);
-        }
         $permission = Box::getObject('permission', 'controller', 'public');
         $checkLoginRes = json_decode($permission->checkLogin($request));
         if($checkLoginRes->code === CODE_RELOGIN){
             return Box::getObject('user','controller',$product)->login();
-            exit();
+        }
+        else if(straightPass($request) === true){
+            /** 开放URL验证 */
+            return $obj->$func($request, $response, $service);
         }
         else if($checkLoginRes->code === CODE_USER_HAVELOGIN){
             $request->user = $checkLoginRes->user;
             $checkPerRes = $permission->checkPermission($request);
             if($checkPerRes == false){
                 return Box::getObject('common','controller','public')->noPermission();
-                exit();
             }
             else{
                 return $obj->$func($request, $response, $service);
