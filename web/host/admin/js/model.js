@@ -41,6 +41,7 @@ var
         'getProType':{'url':'/admin/process/getProType'},    //事项分类
         'getDepartment':{'url':'/admin/department/getDepartment'},  //获取所有部门
         'addProcess':{'url':'/admin/process/addProcess'},   //添加新事项
+        'getContent':{'url':'/admin/content/searchContent'},    //搜索内容
     };
     var handler = {};
     for(var name in urlMap){

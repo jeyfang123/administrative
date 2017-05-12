@@ -1,258 +1,686 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
+
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>智慧物业-人口数据采集上报平台</title>
-    <link href="/plugins/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css" rel="stylesheet">
-    <link href="/plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
-    <link href="/plugins/bower_components/custom-select/custom-select.css" rel="stylesheet" type="text/css" />
-    <link href="/plugins/bower_components/dropzone-master/dist/dropzone.css" rel="stylesheet" type="text/css" />
-    <link href="/plugins/bower_components/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
-    <link href="/plugins/bower_components/morrisjs/morris.css" rel="stylesheet"/>
-    <link href="/easier/css/animate.css" rel="stylesheet">
-    <link href="/easier/css/colors/blue.css" id="theme"  rel="stylesheet">
-    <link href="/easier/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="/easier/css/housestyle.css">
-    <link href="/plugins/bower_components/dropzone-master/dist/dropzone.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>北京市朝阳区行政服务中心</title>
+    <meta name="keywords" content="行政服务">
+    <meta name="description" content="朝阳">
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="/hadmin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/hadmin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/hadmin/css/animate.css" rel="stylesheet">
+    <link href="/hadmin/css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="/easier/css/index.css" rel="stylesheet">
+    <link href="/easier/css/icons/iconfont.css" rel="stylesheet" >
 </head>
-<body>
-<div class="preloader">
-    <div class="cssload-speeding-wheel"></div>
-</div>
-<div id="wrapper">
-    <nav class="navbar navbar-default navbar-static-top m-b-0">
-        <div class="navbar-header">
-            <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0);" data-toggle="collapse" data-target=".navbar-collapse">
-                <i class="ti-menu"></i>
-            </a>
-            <div class="top-left-part">
-                <a class="logo" href="../nav/data_collect.html">
-                    <b>
-                        <img src="/easier/img/chaoyang-logo.png" alt="home" />
-                    </b>
-                    <span class="hidden-xs">
-                        <img width="111px" src="/easier/img/chaoyang-text.png" alt="home" />
-                    </span>
-                </a>
+
+<body class="gray-bg">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-12">
+            <div class="col-sm-4">
+                <div class="">
+                    <img class="col-sm-8 pull-right" src="/easier/img/logo.png" alt="">
+                </div>
             </div>
-            <ul class="nav navbar-top-links navbar-left hidden-xs">
-                <li>
-                    <a href="javascript:void(0);" class="open-close hidden-xs waves-effect waves-light">
-                        <i class="icon-arrow-left-circle ti-menu"></i>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:void(0)"  class="waves-effect">
-                        朝阳区智慧物业-人口数据采集上报平台
-                    </a>
-                </li>
-            </ul>
-            <ul class="nav navbar-top-links navbar-right pull-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="javascript:void(0);">
-                        <img src="/plugins/images/users/varun.jpg" alt="user-img" width="36" class="img-circle">
-                        <b class="hidden-xs">{{ data.user.nickname }}</b>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user animated flipInY">
-                        <!--<li><a href="javascript:void(0);">
-                                <i class="ti-user"></i> 基础信息
+            <div class="col-sm-6">
+                <div class="input-group col-sm-7 search-area pull-right">
+                    <input type="text" placeholder="请输入服务项目名称" class="input-sm-7 form-control">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-sm btn-primary"> 搜索</button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="user-center-area">
+                    <a class="user-center-href" href="javascript:;"><i style="font-size: 20px;margin-right: 5px;" class="fa fa-user"></i>用户中心</a>
+                    <div class="user-info">
+                        <a href="javascript:;">注册</a> / <a href="javascript:;">登录</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content wrapper-nav">
+        <div class="row">
+            <div class="col-sm-12 banner">
+                <div class="navigation col-sm-8">
+                    <div class="banner-list">
+                        <div class="first-ban banner-list1-subbg1" style="top: -110px;background-image: url('/easier/img/person.png')">
+                            <div class="banner-list1-tit">个人办事</div>
+                        </div>
+                        <div class="second-ban banner-list1-subbg2" style="top: 0px;background-image: url('/easier/img/person.png')">
+                            <div class="banner-list1-tit">个人办事</div>
+                        </div>
+                    </div>
+                    <div class="banner-list">
+                        <div class="first-ban banner-list1-subbg1" style="top: -110px;background-image: url('/easier/img/enter.png')">
+                            <div class="banner-list1-tit">法人办事</div>
+                        </div>
+                        <div class="second-ban banner-list1-subbg2" style="top: 0px;background-image: url('/easier/img/enter.png')">
+                            <div class="banner-list1-tit">法人办事</div>
+                        </div>
+                    </div>
+                    <div class="banner-list narrow-banner">
+                        <div class="first-ban banner-list2-subbg1" style="top: -110px;background-image: url('/easier/img/examine.png')">
+                            <div class="banner-list2-tit" style="color: #f27576;">行政审批</div>
+                        </div>
+                        <div class="second-ban banner-list2-subbg2" style="top: 0px;background-image: url('/easier/img/examine.png')">
+                            <div class="banner-list2-tit" style="color: #1492FF;">行政审批</div>
+                        </div>
+                    </div>
+                    <div class="banner-list narrow-banner">
+                        <div class="first-ban banner-list2-subbg1" style="top: -110px;background-image: url('/easier/img/sun.png')">
+                            <div class="banner-list2-tit" style="color: #f27576;">阳光政务</div>
+                        </div>
+                        <div class="second-ban banner-list2-subbg2" style="top: 0px;background-image: url('/easier/img/sun.png')">
+                            <div class="banner-list2-tit" style="color: #1492FF;">阳光政务</div>
+                        </div>
+                    </div>
+                    <div class="banner-list narrow-banner">
+                        <div class="first-ban banner-list2-subbg1" style="top: -110px;background-image: url('/easier/img/political.png')">
+                            <div class="banner-list2-tit" style="color: #f27576;">今日关注</div>
+                        </div>
+                        <div class="second-ban banner-list2-subbg2" style="top: 0px;background-image: url('/easier/img/political.png')">
+                            <div class="banner-list2-tit" style="color: #1492FF;">今日关注</div>
+                        </div>
+                    </div>
+                    <div class="banner-list narrow-banner">
+                        <div class="first-ban banner-list2-subbg1" style="top: -110px;background-image: url('/easier/img/today.png')">
+                            <div class="banner-list2-tit" style="color: #f27576;">政策解读</div>
+                        </div>
+                        <div class="second-ban banner-list2-subbg2" style="top: 0px;background-image: url('/easier/img/today.png')">
+                            <div class="banner-list2-tit" style="color: #1492FF;">政策解读</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-sm-content">
+                <div class="col-sm-4" style="">
+                    <div class="body-left pull-right">
+                        <div class="body-left-tit">
+                            <div class="left-tit-sub pointer">今日关注</div>
+                            <div class="left-tit-sub" style="right: 2px;">政策解读</div>
+                        </div>
+                        <div class="body-left-con">
+                            <div class="left-sub">
+                                <div class="list-img-con">
+                                    <div class="list-img-nav">
+                                        <div class="img-nav-squ nav-squ-pointer"></div>
+                                        <div class="img-nav-squ"></div>
+                                        <div class="img-nav-squ"></div>
+                                        <div class="img-nav-squ"></div>
+                                    </div>
+                                    <div class="img-con-item">
+                                        <img src="/admin/img/content/2aaa2668dafe4706df843b07d3dd4efc.jpg" alt="">
+                                        <div class="img-con-tit">
+                                            <span>群众和企业到政府办事 “最多跑一...</span>
+                                        </div>
+                                        <div class="img-con-con">
+                                            <p>港澳通行证再次签注服务目前已在浙江政务服务网APP正式上线，需再次办理港澳通...</p>
+                                        </div>
+                                        <div class="img-con-time">
+                                            2017-02-15
+                                        </div>
+                                    </div>
+                                    <div class="img-con-item" style="display: none">
+                                        <img src="/admin/img/content/f186017443b82bca9a4efddd6c6a7847.jpg" alt="">
+                                        <div class="img-con-tit">
+                                            <span>2群众和企业到政府办事 “最多跑一...</span>
+                                        </div>
+                                        <div class="img-con-con">
+                                            <p>港澳通行证再次签注服务目前已在浙江政务服务网APP正式上线，需再次办理港澳通...</p>
+                                        </div>
+                                        <div class="img-con-time">
+                                            2017-02-15
+                                        </div>
+                                    </div>
+                                    <div class="img-con-item" style="display: none">
+                                        <img src="/admin/img/content/f186017443b82bca9a4efddd6c6a7847.jpg" alt="">
+                                        <div class="img-con-tit">
+                                            <span>3群众和企业到政府办事 “最多跑一...</span>
+                                        </div>
+                                        <div class="img-con-con">
+                                            <p>港澳通行证再次签注服务目前已在浙江政务服务网APP正式上线，需再次办理港澳通...</p>
+                                        </div>
+                                        <div class="img-con-time">
+                                            2017-02-15
+                                        </div>
+                                    </div>
+                                    <div class="img-con-item" style="display: none">
+                                        <img src="/admin/img/content/2aaa2668dafe4706df843b07d3dd4efc.jpg" alt="">
+                                        <div class="img-con-tit">
+                                            <span>4群众和企业到政府办事 “最多跑一...</span>
+                                        </div>
+                                        <div class="img-con-con">
+                                            <p>港澳通行证再次签注服务目前已在浙江政务服务网APP正式上线，需再次办理港澳通...</p>
+                                        </div>
+                                        <div class="img-con-time">
+                                            2017-02-15
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-con">
+                                    <div class="list-con-item">
+                                        <div class="list-con-item-title">
+                                            <span>省级公共数据共享开放清单 （第二批...</span>
+                                        </div>
+                                        <div class="list-con-item-time">2017-01-15</div>
+                                    </div>
+                                    <div class="list-con-item">
+                                        <div class="list-con-item-title">
+                                            <span>省级公共数据共享开放清单 （第二批...</span>
+                                        </div>
+                                        <div class="list-con-item-time">2017-01-15</div>
+                                    </div>
+                                    <div class="list-con-item">
+                                        <div class="list-con-item-title">
+                                            <span>省级公共数据共享开放清单 （第二批...</span>
+                                        </div>
+                                        <div class="list-con-item-time">2017-01-15</div>
+                                    </div>
+                                    <div class="list-con-item">
+                                        <div class="list-con-item-title">
+                                            <span>省级公共数据共享开放清单 （第二批...</span>
+                                        </div>
+                                        <div class="list-con-item-time">2017-01-15</div>
+                                    </div>
+                                    <div class="list-con-item">
+                                        <div class="list-con-item-title">
+                                            <span>省级公共数据共享开放清单 （第二批...</span>
+                                        </div>
+                                        <div class="list-con-item-time">2017-01-15</div>
+                                    </div>
+                                    <div class="list-con-item">
+                                        <div class="list-con-item-title">
+                                            <span>省级公共数据共享开放清单 （第二批...</span>
+                                        </div>
+                                        <div class="list-con-item-time">2017-01-15</div>
+                                    </div>
+                                    <div class="list-con-item">
+                                        <div class="list-con-item-title">
+                                            <span>省级公共数据共享开放清单 （第二批...</span>
+                                        </div>
+                                        <div class="list-con-item-time">2017-01-15</div>
+                                    </div>
+                                    <div class="list-con-item">
+                                        <div class="list-con-item-title">
+                                            <span>省级公共数据共享开放清单 （第二批...</span>
+                                        </div>
+                                        <div class="list-con-item-time">2017-01-15</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="left-sub" style="display: none">
+                                <div class="list-pol-item">
+                                    <div class="pol-item-subimg">
+                                        <img src="/easier/img/political1.jpg" style=" width:90px; height:90px; border:none;">
+                                    </div>
+                                    <div class="pol-item-subtit">
+                                        <a href="javascript:;" target="_blank" title="《浙江省行政调解办法》的政策解读" style=" ">《浙江省行政调解办法》的政策解读</a>
+                                    </div>
+                                    <div class="pol-item-subdate">
+                                        <span style=" float:right; font-size:12px; font-family:'宋体'; color:#999;">2017-01-04</span>
+                                    </div>
+                                </div>
+                                <div class="list-pol-item">
+                                    <div class="pol-item-subimg">
+                                        <img src="/easier/img/political4.jpg" style=" width:90px; height:90px; border:none;">
+                                    </div>
+                                    <div class="pol-item-subtit">
+                                        <a href="javascript:;" target="_blank" title="《浙江省行政调解办法》的政策解读" style=" ">《浙江省行政调解办法》的政策解读</a>
+                                    </div>
+                                    <div class="pol-item-subdate">
+                                        <span style=" float:right; font-size:12px; font-family:'宋体'; color:#999;">2017-01-04</span>
+                                    </div>
+                                </div>
+                                <div class="list-pol-item">
+                                    <div class="pol-item-subimg">
+                                        <img src="/easier/img/political2.jpg" style=" width:90px; height:90px; border:none;">
+                                    </div>
+                                    <div class="pol-item-subtit">
+                                        <a href="javascript:;" target="_blank" title="《浙江省行政调解办法》的政策解读" style=" ">《浙江省行政调解办法》的政策解读</a>
+                                    </div>
+                                    <div class="pol-item-subdate">
+                                        <span style=" float:right; font-size:12px; font-family:'宋体'; color:#999;">2017-01-04</span>
+                                    </div>
+                                </div>
+                                <div class="list-pol-item">
+                                    <div class="pol-item-subimg">
+                                        <img src="/easier/img/political4.jpg" style=" width:90px; height:90px; border:none;">
+                                    </div>
+                                    <div class="pol-item-subtit">
+                                        <a href="javascript:;" target="_blank" title="《浙江省行政调解办法》的政策解读" style=" ">《浙江省行政调解办法》的政策解读</a>
+                                    </div>
+                                    <div class="pol-item-subdate">
+                                        <span style=" float:right; font-size:12px; font-family:'宋体'; color:#999;">2017-01-04</span>
+                                    </div>
+                                </div>
+                                <div class="list-pol-item">
+                                    <div class="pol-item-subimg">
+                                        <img src="/easier/img/political3.jpg" style=" width:90px; height:90px; border:none;">
+                                    </div>
+                                    <div class="pol-item-subtit">
+                                        <a href="javascript:;" target="_blank" title="《浙江省行政调解办法》的政策解读" style=" ">《浙江省行政调解办法》的政策解读</a>
+                                    </div>
+                                    <div class="pol-item-subdate">
+                                        <span style=" float:right; font-size:12px; font-family:'宋体'; color:#999;">2017-01-04</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="body-right">
+                        <div class="right-heat">
+                            <span class="right-heat-tit">热点服务</span>
+                            <div class="right-heat-bottom"></div>
+                        </div>
+                        <div class="right-heat-list">
+                            <div class="heat-list-row">
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont icon-xingzhengbangong"></i>
+                                    <span>会计从业资格证审批</span>
+                                </div>
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont icon-xingzhengbangong"></i>
+                                    <span>会计从业资格证审批</span>
+                                </div>
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont icon-xingzhengbangong"></i>
+                                    <span>会计从业资格证审批</span>
+                                </div>
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont icon-xingzhengbangong"></i>
+                                    <span>会计从业资格证审批</span>
+                                </div>
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont icon-xingzhengbangong"></i>
+                                    <span>会计从业资格证审批</span>
+                                </div>
+                            </div>
+                            <div class="heat-list-row">
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont icon-xingzhengbangong"></i>
+                                    <span>会计从业资格证审批</span>
+                                </div>
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont icon-xingzhengbangong"></i>
+                                    <span>会计从业资格证审批</span>
+                                </div>
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont icon-xingzhengbangong"></i>
+                                    <span>会计从业资格证审批</span>
+                                </div>
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont icon-xingzhengbangong"></i>
+                                    <span>会计从业资格证审批</span>
+                                </div>
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont icon-xingzhengbangong"></i>
+                                    <span>会计从业资格证审批</span>
+                                </div>
+                            </div>
+                            <div class="heat-list-row">
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont icon-xingzhengbangong"></i>
+                                    <span>会计从业资格证审批</span>
+                                </div>
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont icon-xingzhengbangong"></i>
+                                    <span>会计从业资格证审批</span>
+                                </div>
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont icon-xingzhengbangong"></i>
+                                    <span>会计从业资格证审批</span>
+                                </div>
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont icon-xingzhengbangong"></i>
+                                    <span>会计从业资格证审批</span>
+                                </div>
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont icon-xingzhengbangong"></i>
+                                    <span>会计从业资格证审批</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="body-bottom">
+                        <div class="float-list-tit">
+                            <span>办件公示</span>
+                            <div class="float-tit-bottom"></div>
+                        </div>
+                        <div class="float-list-con">
+                            <div class="list-con-thead">
+                                <div style="width: 90px">受理部门</div>
+                                <div style="width: 80px">申报人</div>
+                                <div style="width: 284px">申报项目</div>
+                                <div style="width: 85px">申报时间</div>
+                                <div style="width: 85px">办结时间</div>
+                                <div style="width: 62px">状态</div>
+                            </div>
+                            <div class="list-con-tbody">
+                                <div class="list-con-tbody-sub">
+                                    <div class="tbody-row">
+                                        <div>市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                </div>
+                                <div class="list-con-tbody-sub">
+                                    <div class="tbody-row">
+                                        <div>2市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>2市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>2市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>2市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>2市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>2市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>2市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>2市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>2市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>2市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                    <div class="tbody-row">
+                                        <div>2市海洋渔业局</div>
+                                        <div>刘子胤</div>
+                                        <div>关于刘子胤（浙岭渔29957）申请渔业</div>
+                                        <div>2017-05-12</div>
+                                        <div></div>
+                                        <div>受理</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12" style="text-align: center;background-color: #E7E7E7;padding-top: 35px;padding-bottom: 50px;">
+                <div class="foot-main">
+                    <div class="foot-link">
+                        <a href="javascript:void(0)" style="line-height:20px;">把本站设为首页</a>
+                        <span style=" padding-left:12px; padding-right:12px;">|</span>
+                        <a href="javascript:void(0)">关于北京市朝阳区政务服务网</a>
+                        <span style=" padding-left:12px; padding-right:12px;">|</span>
+                        <a href="javascript:void(0)">本站申明</a>
+                        <span style=" padding-left:12px; padding-right:12px;">|</span>
+                        <a href="javascript:void(0)">新手指南</a>
+                        <span style=" padding-left:12px; padding-right:12px;">|</span>
+                        <a href="javascript:void(0)" target="_blank">联系我们</a>
+                    </div>
+                    <div class="foot-phone">
+                        <img src="/easier/img/phone.png">
+                    </div>
+                    <div class="foot-copyright">
+                        <span style=" padding-right:15px; font-size:13px; line-height:24px; color:#666;">主办单位：北京市人民政府办公厅</span>
+                        <span style=" padding-right:15px; font-size:13px; line-height:24px; color:#666;">备案：京ICP备123456789号-2</span>
+                        <span style=" padding-right:15px; font-size:13px; line-height:24px; color:#666;">
+		 		            <a href="javascript:void(0)" style="display:inline-block;text-decoration:none;line-height:24px;">
+                                <img src="/easier/img/batb.png" style="float:left;">
+                                <span style="font-size:13px;margin: 0px 0px 0px 5px;color:#666;">冀公网安备 12346579887465号</span>
                             </a>
-                        </li>
-                        <li role="separator" class="divider"></li>-->
-                        <li>
-                            <a class="exit" href="javascript:void(0);">
-                                <i class="fa fa-power-off"></i> 退出
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <div class="navbar-default sidebar" role="navigation">
-        <div class="sidebar-nav navbar-collapse slimscrollsidebar">
-            <ul class="nav" id="side-menu">
-                <!--{% for menu in data.menu %}
-                    <li class="menu">
-                        {% if(menu.url=='') %}
-                        <a href="#" class="waves-effect">
-                        {% endif %}
-                        {% if(menu.url!='') %}
-                        <a data-url="{{menu.url}}" href="index#{{menu.url}}" class="waves-effect">
-                        {% endif %}
-                            <i data-icon="{{ menu.iconcls }}" class="linea-icon linea-basic fa-fw"></i>
-                            <span class="hide-menu">{{ menu.name }}
-                            </span>
-                        </a>
-                        {% if(menu.son) %}
-                            <ul class="nav nav-second-level">
-                                {% for son in menu.son %}
-                                <li><a data-url="{{son.url}}" href="index#{{son.url}}">{{son.name}}</a></li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                    </li>
-                {% endfor %}-->
-                <li class="menu">
-                    <a data-url="#"  class="waves-effect">
-                        <div class="col-md-3" style="margin-right:-10px;">
-                            <i class="linea-icon linea-basic fa-fw" data-icon="a" style="float: left"></i>
-                        </div>
-                        <div class="col-md-9">
-                            <span class="hide-menu">信息总览</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="menu">
-                    <a data-url="inform/message" href="index#inform/message" class="waves-effect">
-                        <div class="col-md-3" style="margin-right:-10px;">
-                            <i class="fa fa-bell-o" data-icon="a"></i>
-                        </div>
-                        <div class="col-md-9">
-                            <span class="hide-menu">消息中心</span>
-                        </div>
-                    </a>
-                </li>
-                <li class="menu">
-                    <a href="javascript:void(0);" class="waves-effect">
-                        <div class="col-md-3" style="margin-right:-10px;">
-                            <i class="linea-icon linea-music fa-fw" data-icon="D"></i>
-                        </div>
-                        <div class="col-md-9">
-                            <span class="hide-menu">通知公告</span>
-                        </div>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a data-url="notice/add" href="index#notice/add">通知公告录入</a>
-                        </li>
-                        <li>
-                            <a data-url="notice/query" href="index#notice/query">通知公告查询</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu">
-                    <a href="#" class="waves-effect">
-                        <div class="col-md-3" style="margin-right:-10px;">
-                            <i data-icon="&#xe008;" class="linea-icon linea-basic fa-fw"></i>
-                        </div>
-                        <div class="col-md-9">
-                            <span class="hide-menu">信息录入</span>
-                        </div>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li><a data-url="inform/add" href="index#inform/add">实时录入</a></li>
-                        <li><a data-url="inform/addhouser" href="index#inform/addhouser">楼门长信息录入</a></li>
-                        <li><a data-url="inform/addcars" href="index#inform/addcars">车辆信息录入</a></li>
-                        <li><a data-url="inform/import" href="index#inform/import">批量导入</a></li>
-                        <!--<li><a data-url="inform/structrue" href="index#inform/structure">结构导入</a></li>-->
-                    </ul>
-                </li>
-                <li class="menu">
-                    <a href="#" class="waves-effect">
-                        <div class="col-md-3" style="margin-right:-10px;">
-                            <i data-icon=")" class="linea-icon linea-basic fa-fw"></i>
-                        </div>
-                        <div class="col-md-9">
-                            <span class="hide-menu">信息查询</span>
-                        </div>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li><a data-url="inform/condition" href="index#inform/condition">人口精确查询</a></li>
-                        <li><a data-url="inform/important" href="index#inform/important">重点人员查询</a></li>
-                    </ul>
-                </li>
-                <li class="menu">
-                    <a href="#" class="waves-effect">
-                        <div class="col-md-3" style="margin-right:-10px;">
-                            <i data-icon=")" class="linea-icon linea-basic fa-fw"></i>
-                        </div>
-                        <div class="col-md-9">
-                            <span class="hide-menu">重点房屋</span>
-                        </div>
-
-
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li><a data-url="inform/addkeyhouse" href="index#inform/addkeyhouse">重点房屋录入</a></li>
-                        <li><a data-url="inform/querykeyhouse" href="index#inform/querykeyhouse">重点房屋查询</a></li>
-                    </ul>
-                </li>
-                <li class="menu">
-                    <a data-url="eventlist" href="index#eventlist" class="waves-effect">
-                        <div class="col-md-3" style="margin-right:-10px;">
-                            <i data-icon="&#xe018;" class="linea-icon linea-basic"></i>
-                        </div>
-                        <div class="col-md-9">
-                            <span class="hide-menu">事件处理</span>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div id="page-wrapper" class="page-content">
-        <div class="container-fluid page-content-area" data-ajax-content="true">
-
-        </div>
-        <footer class="footer text-center"> 2016 &copy; 北京市朝阳区信息办 </footer>
-    </div>
-
-    <!-- 弹出层 -->
-    <div class="modal fade" id="ajax-lg" role="basic" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content"></div>
-        </div>
-    </div>
-    <!-- 弹出层 -->
-    <div class="modal fade" id="ajax-md" role="basic" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog">
-            <div class="modal-content"></div>
-        </div>
-    </div>
-    <!-- 弹出层 -->
-    <div class="modal fade" id="ajax-sm" role="basic" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content"></div>
+		 	            </span>
+                        <br>
+                        <span style=" font-size:13px; line-height:24px; color:#666;">中文域名：北京朝阳.政务</span>
+                        <span style=" font-size:13px; line-height:24px; color:#666;">建议使用1366*768分辨率/IE9.0或以上浏览器访问达到最佳效果</span>
+                        <div class="foot-political"><a href="javascript:void(0)" target="_blank"><img src="/easier/img/political-logo.png" width="50" height="62"></a></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <script src="/plugins/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="/plugins/bower_components/bootstrap-old/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/plugins/bower_components/cookie/jquery.cookie.min.js"></script>
-    <script src="/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
-    <script type="text/javascript" src="/plugins/bower_components/twbsPagination/jquery.twbsPagination.min.js"></script>
-    <script type="text/javascript" src="/plugins/bower_components/dropzone-master/dist/dropzone.js"></script>
-    <script type="text/javascript" src="/public/js/ace.js"></script>
-    <script type="text/javascript" src="/public/js/ace.ajax-content.js"></script>
-    <script src="/public/js/jquery.slimscroll.js"></script>
-    <script src="/public/js/waves.js"></script>
-    <script src="/public/js/custom.js"></script>
-    <script src="/plugins/bower_components/echarts/echarts.min.js"></script>
-    <script type="text/javascript" src="/public/js/public.js"></script>
-    <script type="text/javascript" src="/easier/js/model.js"></script>
-    <script src="/plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
-    <script type="text/javascript" src="/plugins/bower_components/dropzone-master/dist/dropzone.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('body').on('hidden.bs.modal', '.modal:not(.modal-cached)', function () {
-                $(this).find('.modal-content').html('');
-                $(this).removeData('bs.modal');
+    <!-- 全局js -->
+    <script src="/hadmin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/hadmin/js/bootstrap.min.js?v=3.3.6"></script>
+
+    <!-- 自定义js -->
+    <script src="/hadmin/js/content.js?v=1.0.0"></script>
+
+    <script src="/public/js/public.js"></script>
+    <script src="/easier/js/model.js"></script>
+
+    <script>
+        $(function () {
+            var imgInterNum = 0;
+            var intervalRes = 0;
+            var floatInterval = 0;
+            $('.banner-list').hover(function () {
+                $(this).children('.first-ban').animate({
+                    top:"0px"
+                },250);
+                $(this).children('.second-ban').animate({
+                    top:"110px"
+                },250);
+            },function () {
+                $(this).children('.first-ban').animate({
+                    top:"-110px"
+                },250)
+                $(this).children('.second-ban').animate({
+                    top:"0"
+                },250);
             });
-            $('ul.dropdown-menu li a.exit').click(function(){
-                Model.logout(null,function(result){
-                    window.location.href = '/easier/login';
-                },{},{});
-            });
-        });
 
-        window.UEDITOR_HOME_URL = "/plugins/bower_components/ueditor/";
+            $('.left-tit-sub').hover(function () {
+                $(this).addClass('pointer').siblings().removeClass('pointer');
+                var index = $(this).index();
+                $('.left-sub').eq(index).show(50).siblings().hide(50);
+            });
+
+            conInterval(0);
+            $('.img-nav-squ').click(function () {
+                var index = $(this).index();
+                $('.img-con-item').eq(index).show().siblings('.img-con-item').hide();
+                $('.img-nav-squ').eq(index).addClass('nav-squ-pointer').siblings().removeClass('nav-squ-pointer');
+                clearInterval(intervalRes);
+                conInterval(index+1);
+            });
+            $('.img-con-item').hover(function () {
+                clearInterval(intervalRes);
+            },function () {
+                var index = $(this).index();
+                conInterval(index);
+            });
+            function conInterval(index) {
+                intervalRes = setInterval(function () {
+                    imgInterNum = index;
+                    if(imgInterNum > 3){
+                        imgInterNum = 0;
+                        index = 0;
+                    }
+                    $('.img-con-item').eq(imgInterNum).show().siblings('.img-con-item').hide();
+                    $('.img-nav-squ').eq(imgInterNum).addClass('nav-squ-pointer').siblings().removeClass('nav-squ-pointer');
+                    imgInterNum++;
+                    index ++;
+                },1500);
+            }
+
+            floatInfo();
+            function floatInfo() {
+                floatInterval = setInterval(function () {
+                    var top = parseInt($('.list-con-tbody-sub').eq(0).css('margin-top'));
+                    var height = parseInt($('.list-con-tbody-sub').eq(0).css('height'));
+                    var newTop = (top-1)+'px';
+                    $('.list-con-tbody-sub').eq(0).css('margin-top',newTop);
+//                    $('.list-con-tbody-sub').eq(0).animate({
+//                        'margin-top':newTop
+//                    },"1");
+                    if(top-1 == -height){
+                        var newSub = $('.list-con-tbody .list-con-tbody-sub').eq(0).clone();
+                        newSub.css('margin-top','0px');
+                        $('.list-con-tbody').append(newSub);
+                        $('.list-con-tbody .list-con-tbody-sub').eq(0).remove();
+                    }
+                },35);
+            }
+            $('.list-con-tbody').on('mouseover mouseout','.tbody-row',function (event) {
+                if(event.type == 'mouseover'){
+                    clearInterval(floatInterval);
+                }
+                else{
+                    floatInfo();
+                }
+            })
+        })
     </script>
-</div>
+
+
 </body>
+
 </html>

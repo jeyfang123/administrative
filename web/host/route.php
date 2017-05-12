@@ -63,23 +63,29 @@
         }
 
         $permission = Box::getObject('permission', 'controller', 'public');
-        $checkLoginRes = json_decode($permission->checkLogin($request));
-        if($checkLoginRes->code === CODE_RELOGIN){
-            return Box::getObject('user','controller',$product)->login();
+        //后台验证
+        if($product === 'admin'){
+            $checkLoginRes = json_decode($permission->checkLogin($request));
+            if($checkLoginRes->code === CODE_RELOGIN){
+                return Box::getObject('user','controller',$product)->login();
+            }
+            else if($checkLoginRes->code === CODE_USER_HAVELOGIN){
+                $request->user = $checkLoginRes->user;
+                $checkPerRes = $permission->checkPermission($request);
+                if($checkPerRes == false){
+                    return Box::getObject('common','controller','public')->noPermission();
+                }
+                else{
+                    return $obj->$func($request, $response, $service);
+                }
+            }
         }
-        else if(straightPass($request) === true){
-            /** 开放URL验证 */
+        else if($product === 'public'){
             return $obj->$func($request, $response, $service);
         }
-        else if($checkLoginRes->code === CODE_USER_HAVELOGIN){
-            $request->user = $checkLoginRes->user;
-            $checkPerRes = $permission->checkPermission($request);
-            if($checkPerRes == false){
-                return Box::getObject('common','controller','public')->noPermission();
-            }
-            else{
-                return $obj->$func($request, $response, $service);
-            }
+        //前台验证
+        else{
+            return $obj->$func($request, $response, $service);
         }
     }
 

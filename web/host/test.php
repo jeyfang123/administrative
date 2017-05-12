@@ -41,3 +41,5 @@ die();
 $key = $redis->getToken('admin','test redis');
 echo $key;
 
+$dsn = "mysql:host={$host};dbname={$dbname}";
+$connect = new PDO($dsn,$user,$password);

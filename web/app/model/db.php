@@ -12,6 +12,7 @@
         const TB_PRO_DETAIL = 'process_detail';
         const TB_PRO_NODE = 'process_node';
         const TB_PRO_FLOW = 'process_flow';
+        const TB_CONTENT = 'ea_news';
 
 	    private function __construct() {
 	    }

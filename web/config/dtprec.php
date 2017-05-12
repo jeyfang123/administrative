@@ -29,4 +29,5 @@ define('REDIS_PORT',   '10310');
 define('ADMIN_UPLOAD_PREFIX', '/upload/admin/');
 define('ADMIN_UPLOAD', WEB_ROOT . ADMIN_UPLOAD_PREFIX);
 define('ADMIN_AVATAR','admin/img/avatar/');
+define('ADMIN_CONTENT','admin/img/content/');
 ?>

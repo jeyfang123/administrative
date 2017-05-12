@@ -13,14 +13,11 @@ class IndexController extends Controller{
     }
 
     function render(){
-        $res = Box::getObject('user','model','easier')->getUser('jeyfang','123456');
-        if($res == 1){
-            $this->_twig->assign('data','Hello Word');
-            return $this->viewTpl ('index.html');
-        }
-        else{
-            echo '未登录';
-        }
+        $attention = "";
 
+
+
+        $this->_twig->assign('data','Hello Word');
+        return $this->viewTpl ('index.html');
     }
 }

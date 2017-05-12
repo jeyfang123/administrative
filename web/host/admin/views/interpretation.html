@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title> - 文章列表</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link href="/hadmin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/hadmin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="/hadmin/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="/hadmin/css/animate.css" rel="stylesheet">
+    <link href="/hadmin/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content  animated fadeInRight blog">
+        <div class="row">
+            <div class="input-group" style="padding-right: 15px;padding-left: 15px;">
+                <input type="text" id="keyword" placeholder="查找文章" class="input form-control">
+                <span class="input-group-btn">
+                    <button type="button" id="search" class="btn btn btn-primary"> <i class="fa fa-search"></i> 搜索</button>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 content-body">
+            </div>
+            <div id="contentpage" class="js-pages" style="padding-right: 15px;">
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 全局js -->
+    <script src="/hadmin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/hadmin/js/bootstrap.min.js?v=3.3.6"></script>
+    <!--twbsPagination-->
+    <script type="text/javascript" src="/plugins/bower_components/twbsPagination/jquery.twbsPagination.min.js"></script>
+    <!-- Sweet alert -->
+    <script src="/hadmin/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <!-- 自定义js -->
+    <script src="/hadmin/js/content.js?v=1.0.0"></script>
+
+    <script src="/public/js/public.js"></script>
+    <script src="/admin/js/model.js"></script>
+
+    <script>
+        $(function () {
+            $("#search").click(function () {
+                initHtml(1,true);
+            });
+
+            $("#keyword").keydown(function(event){
+                if (event.keyCode == 13) {
+                    $('#search').click();
+                    event.preventDefault();
+                }
+            });
+
+            initHtml(1,true);
+            function initHtml(page,ispagination) {
+                var keywords = $("#keyword").val();
+                Model.getContent({
+                    type:"2",
+                    page:page,
+                    pagesize:15,
+                    keywords:keywords
+                },function (res) {
+                    if(res.code == CODE_SUCCESS){
+                        appendHtml(res,page,ispagination)
+                    }
+                    else{
+                        swal({
+                            title: "出错了！",
+                            text: '请重试'
+                        });
+                    }
+                })
+            }
+
+            function appendHtml(data,page,ispagination) {
+                var list = data.data;
+                var length = list.length;
+                var total = data.count;
+                var pagesize = 15;
+                var pageTotal =Math.ceil(total/pagesize);
+                var html = '';
+                for(var i=0;i<length;i++){
+                    html += '<div class="ibox">\
+                                <div class="ibox-content">\
+                                    <a href="/admin/content/detail?id='+ list[i]['id'] +'" class="btn-link">\
+                                        <h2>'+ list[i]['title'] +'</h2>\
+                                    </a>\
+                                    <div class="small m-b-xs">\
+                                        <strong>'+ list[i]['nickname'] +'</strong> <span class="text-muted"><i class="fa fa-clock-o"></i>'+ list[i]['publish_time'] +'</span>\
+                                    </div>\
+                                    <p>'+ list[i]['contents'] +'</p>\
+                                    <div class="row">\
+                                        <div class="col-md-6">\
+                                            <h5>标签：</h5>\
+                                            <button class="btn btn-primary btn-xs" type="button">'+ list[i]['grandson'] +'</button>\
+                                        </div>\
+                                        <div class="col-md-6">\
+                                            <div class="small text-right">\
+                                                <h5>状态：</h5>\
+                                                <i class="fa fa-eye"> </i> '+ list[i]['viewpoint'] +' 浏览\
+                                            </div>\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                            </div>';
+                }
+                $(".content-body").html(html);
+                console.log(pageTotal);
+                if(ispagination){
+                    $("#contentpage").html('<ul class="pagination"style="float:right"></ul>');
+                }
+                if(0!=pageTotal){
+                    $('#contentpage .pagination').twbsPagination({
+                        startPage:1,
+                        currentPage:page,
+                        totalPages: pageTotal,
+                        visiblePages: 7,
+                        first: '首页',
+                        prev: '前一页',
+                        next: '下一页',
+                        last: '尾页',
+                        lother: '共'+ pageTotal +'页',
+                        onPageClick: function (event, page) {
+                            initHtml(page,false);
+                        }
+                    });
+                }
+            }
+
+            var boxHtml = "                "
+        })
+    </script>
+
+    
+    
+
+</body>
+
+</html>

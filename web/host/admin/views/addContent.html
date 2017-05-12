@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title> - 富文本编辑器</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link href="/hadmin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/hadmin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/hadmin/css/animate.css" rel="stylesheet">
+    <link href="/hadmin/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="/hadmin/css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="/hadmin/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="/hadmin/css/style.css?v=4.1.0" rel="stylesheet">
+
+    <link rel="stylesheet" href="/admin/css/content.css">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content">
+        <form action="/admin/content/addContent?type=content" method="post" enctype="multipart/form-data">
+            <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>标题</label>
+                    <input type="text" maxlength="30" name="title" class="form-control title" style="height: 35px;" >
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>正文内容</h5>
+                    </div>
+                    <div class="ibox-content no-padding">
+                        <textarea class="summernote" name="contents"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <label style="display: block">类别</label>
+                <div class="radio" style="display: inline-block;">
+                    <label>
+                        <input type="radio" class="main-type" checked="" value="1" id="optionsRadios1" name="types">今日关注</label>
+                </div>
+                <div class="radio" style="display: inline-block;margin-left: 15px;">
+                    <label>
+                        <input type="radio" class="main-type" value="2" id="optionsRadios2" name="types">政策解读</label>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div id="file-pretty">
+                    <div class="form-group">
+                        <label class="font-noraml">封面</label>
+                        <input type="file" name="file" class="form-control cover">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 grandson">
+                <div class="form-group">
+                    <label style="display: block">子类别</label>
+                    <div class="radio">
+                        <label><input type="radio" id="inlineRadio1" value="财务资讯" name="grandson"> 财务资讯 </label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" id="inlineRadio2" value="权威发布" name="grandson"> 权威发布 </label>
+                    </div>
+                    <div class="radio">
+                        <label> <input type="radio" id="inlineRadio3" value="媒体聚焦" name="grandson"> 媒体聚焦 </label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" id="inlineRadio4" value="财务专题" name="grandson"> 财务专题 </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 grandson" style="display: none">
+                <div class="form-group">
+                    <label style="display: block">子类别</label>
+                    <div class="radio">
+                        <label><input type="radio" id="inlineRadio5" value="政府规章" name="grandson"> 政府规章 </label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" id="inlineRadio6" value="政府文件" name="grandson"> 政府文件 </label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" id="inlineRadio7" value="部门文件" name="grandson"> 部门文件 </label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" id="inlineRadio8" value="政策解读" name="grandson"> 政策解读 </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12" style="margin-bottom: 85px;margin-top: 15px;">
+                <button style="margin-right: 13.3em;" class="btn btn-primary pull-right submit" type="button"><i class="fa fa-check"></i>&nbsp;提交</button>
+            </div>
+        </div>
+        </form>
+    </div>
+
+    <!-- 全局js -->
+    <script src="/hadmin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/hadmin/js/bootstrap.min.js?v=3.3.6"></script>
+
+
+
+    <!-- 自定义js -->
+    <script src="/hadmin/js/content.js?v=1.0.0"></script>
+
+
+    <!-- SUMMERNOTE -->
+    <script src="/hadmin/js/plugins/summernote/summernote.min.js"></script>
+    <script src="/hadmin/js/plugins/summernote/summernote-zh-CN.js"></script>
+    <!-- Prettyfile -->
+    <script src="/hadmin/js/plugins/prettyfile/bootstrap-prettyfile.js"></script>
+    <!-- Sweet alert -->
+    <script src="/hadmin/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('.summernote').summernote({
+                lang: 'zh-CN',
+                height:500,
+                maxHeight:700,
+                onImageUpload: function(files,editor,$editable) {
+                    var formData = new FormData();
+                    formData.append('file',files[0]);
+                    $.ajax({
+                        url : '/public/common/imgUpload?type=content',//后台文件上传接口
+                        type : 'POST',
+                        data : formData,
+                        dataType:'json',
+                        processData : false,
+                        contentType : false,
+                        success : function(res) {
+                            editor.insertImage($editable,res.file);
+                        }
+                    });
+                }
+
+            });
+            $( '#file-pretty input.cover' ).prettyFile();
+
+            $('input:radio[name="types"]').change(function () {
+                var index = $('input:radio[name="types"]:checked').val();
+                $('.grandson').eq(index-1).show().siblings('.grandson').hide();
+            });
+            
+            $('button.submit').click(function () {
+                var title = $.trim($('input.title').val());
+                var types = $("input:radio[name='types']:checked").val();
+                var cover = $("input:file.cover").val();
+                var grandson = $('input:radio[name="grandson"]:checked').val();
+                if(title == ''){
+                    swal({
+                        title: "信息不完整",
+                        text: '未填写标题'
+                    });
+                }
+                else if(grandson == '' || grandson == undefined){
+                    swal({
+                        title: "信息不完整",
+                        text: '请选择子类别'
+                    });
+                }
+                else {
+                    $("form").submit();
+                }
+            })
+        });
+    </script>
+
+    
+    
+</body>
+
+</html>
