@@ -1,26 +1,3 @@
-.row.page-heading>.col-sm-12:first-child{
-    padding-top: 20px;
-    padding-bottom: 15px;
-}
-.search-area{
-    margin-top: 20px;
-}
-.search-area input,.search-area button{
-    height:38px;
-}
-.user-center-area{
-    height: 60px;
-    position: relative;
-    left: -10px;
-    top: -1px;
-}
-.user-center-href{
-    margin-top: 20px;
-    display: inline-block;
-}
-.user-info{
-    margin-top: 2px;
-}
 .wrapper-nav{
     padding:0;
 }
@@ -159,6 +136,9 @@
 .img-nav-squ.nav-squ-pointer{
     background-color: #0D98FF;
 }
+.img-con-item + .img-con-item{
+    display: none;
+}
 .img-con-item .img-con-tit{
     width: 266px;
     color: #0D98FF;
@@ -175,6 +155,11 @@
     font-family: "宋体";
     line-height: 14px;
     color: #0D98FF;
+}
+.img-con-con p{
+    height: 28px;
+    width: 100%;
+    overflow: hidden;
 }
 .img-con-item .img-con-time{
     text-align: right;
@@ -199,7 +184,7 @@
     white-space:nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-align: center;
+    text-align: left;
     font-size: 15px;
     line-height: 28px;
 }
@@ -425,40 +410,4 @@
 .list-con-tbody-sub .tbody-row div:nth-child(6){
     text-align: center;
     width: 62px;
-}
-.foot-link{
-    width: 1000px;
-    height: 20px;
-    position: relative;
-    left: 150px;
-    text-align: center;
-    color: #000;
-}
-.foot-link a{
-    color:#000000;
-    font-size: 15px;
-}
-.foot-phone{
-    width: 1000px;
-    height: 20px;
-    position: relative;
-    top: 30px;
-    left: 150px;
-    text-align: center;
-}
-.foot-copyright{
-    width: 1000px;
-    height: 105px;
-    padding-top: 6px;
-    position: relative;
-    top: 50px;
-    left: 160px;
-    text-align: center;
-}
-.foot-political{
-    width: 50px;
-    height: 62px;
-    position: absolute;
-    top: 0px;
-    right: 110px;
 }

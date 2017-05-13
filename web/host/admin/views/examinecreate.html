@@ -21,6 +21,8 @@
     <link href="/hadmin/css/plugins/chosen/chosen.css" rel="stylesheet">
     <!-- Sweet Alert -->
     <link href="/hadmin/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <!--dropzone-->
+    <link href="/plugins/bower_components/dropzone-master/dist/dropzone.css" rel="stylesheet" type="text/css" />
 
 
 </head>
@@ -138,11 +140,35 @@
                                 </li>
                             </ul>
                         </fieldset>
-                        <h1>完成</h1>
-                        <fieldset>
-                            <h2>确认</h2>
-                            <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
-                            <label for="acceptTerms">确认上述信息已核对正确</label>
+                        <h1>附件</h1>
+                        <fieldset class="last-fieldset">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>流程图</label>
+                                    <div id="dropzone-flow" class="dropzone dz-clickable col-sm-4">
+                                        <div class="dz-default dz-message" style="margin-top: 12%;">拖动文件至该处(或点击此处)上传图片</div>
+                                        <input type="hidden" name="file" class="avatar-file">
+                                    </div>
+                                    <input type="hidden" class="flow-img-url" name="flow_img">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>附件合集</label>
+                                    <div id="dropzone-appendix" class="dropzone dz-clickable col-sm-4">
+                                        <div class="dz-default dz-message" style="margin-top: 12%;">拖动文件至该处(或点击此处)上传附件</div>
+                                        <input type="hidden" name="file" class="avatar-file">
+                                    </div>
+                                    <input type="hidden" class="appendix-url" name="appendix">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="pull-right" style="position: relative;top: 140px;right: -70px;">
+                                    <h2 style="text-align: right">确认</h2>
+                                    <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
+                                    <label for="acceptTerms">确认上述信息已核对正确</label>
+                                </div>
+                            </div>
                         </fieldset>
                     </form>
                 </div>
@@ -194,6 +220,7 @@
 <!-- 自定义js -->
 <script src="/hadmin/js/content.js?v=1.0.0"></script>
 
+<script src="/plugins/bower_components/cookie/jquery.cookie.min.js"></script>
 <script src="/public/js/public.js"></script>
 <script src="/admin/js/model.js"></script>
 
@@ -208,6 +235,8 @@
 <script src="/hadmin/js/jquery-ui-1.10.4.min.js"></script>
 <!-- Chosen -->
 <script src="/hadmin/js/plugins/chosen/chosen.jquery.js"></script>
+<!-- DROPZONE -->
+<script src="/plugins/bower_components/dropzone-master/dist/dropzone.js"></script>
 <script>
 
     $(document).ready(function () {
@@ -311,6 +340,83 @@
                 }
             }
         });
+
+        Dropzone.autoDiscover = false;
+        $('#dropzone-flow').dropzone({
+            url: "/public/common/imgUpload?type=flow&token="+$.cookie('token'), //必须填写
+            method:"post",
+            paramName:"flow", //默认为file
+            maxFiles:1,//一次性上传的文件数量上限
+            maxFilesize: 2, //MB
+            acceptedFiles: ".jpg,.jpeg,.png", //上传的类型
+            addRemoveLinks:true,
+            dictMaxFilesExceeded: "您最多只能上传1个文件！",
+            dictResponseError: '文件上传失败!',
+            dictInvalidFileType: "你不能上传该类型文件,文件类型只能是.jpg,.jpeg,.png。",
+            dictFallbackMessage:"浏览器不受支持",
+            dictFileTooBig:"文件过大上传文件最大支持.",
+            dictRemoveFile:"删除文件",
+            parallelUploads:1,
+            autoProcessQueue:true,
+            init: function() {
+                this.on("success", function(file,res) {
+                    res = JSON.parse(res);
+                    if(res['code'] == CODE_SUCCESS){
+                        $('.dz-progress').hide();
+                        var path = res['file'];
+                        $('.flow-img-url').val(path);
+                    }
+                    else{
+                        swal({
+                            title: "上传失败",
+                            text: res['error']
+                        });
+                    }
+                });
+                this.on("removedfile",function(file){
+                    $('.dz-progress').show();
+                    $('.flow-img-url').val('');
+                });
+            }
+        });
+        $('#dropzone-appendix').dropzone({
+            url: "/public/common/fileUpload?type=appendix&token="+$.cookie('token'), //必须填写
+            method:"post",
+            paramName:"appendix", //默认为files
+            maxFiles:1,//一次性上传的文件数量上限
+            maxFilesize: 2, //MB
+            acceptedFiles: ".zip,.rar,.gzip", //上传的类型
+            addRemoveLinks:true,
+            dictMaxFilesExceeded: "您最多只能上传1个文件！",
+            dictResponseError: '文件上传失败!',
+            dictInvalidFileType: "你不能上传该类型文件,文件类型只能是.zip,.rar,.gzip。",
+            dictFallbackMessage:"浏览器不受支持",
+            dictFileTooBig:"文件过大上传文件最大支持.",
+            dictRemoveFile:"删除文件",
+            parallelUploads:1,
+            autoProcessQueue:true,
+            init: function() {
+                this.on("success", function(file,res) {
+                    res = JSON.parse(res);
+                    if(res['code'] == CODE_SUCCESS){
+                        $('.dz-progress').hide();
+                        var path = res['file'];
+                        $('.appendix-url').val(path);
+                    }
+                    else{
+                        swal({
+                            title: "上传失败",
+                            text: res['error']
+                        });
+                    }
+                });
+                this.on("removedfile",function(file){
+                    $('.dz-progress').show();
+                    $('.appendix-url').val('');
+                });
+            }
+        });
+
         Model.getProType({},function (data) {
             var perType = data.per;
             var enterType = data.enter;

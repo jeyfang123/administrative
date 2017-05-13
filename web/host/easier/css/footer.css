@@ -1,0 +1,36 @@
+.foot-link{
+    width: 1000px;
+    height: 20px;
+    position: relative;
+    left: 150px;
+    text-align: center;
+    color: #000;
+}
+.foot-link a{
+    color:#000000;
+    font-size: 15px;
+}
+.foot-phone{
+    width: 1000px;
+    height: 20px;
+    position: relative;
+    top: 30px;
+    left: 150px;
+    text-align: center;
+}
+.foot-copyright{
+    width: 1000px;
+    height: 105px;
+    padding-top: 6px;
+    position: relative;
+    top: 50px;
+    left: 160px;
+    text-align: center;
+}
+.foot-political{
+    width: 50px;
+    height: 62px;
+    position: absolute;
+    top: 0px;
+    right: 110px;
+}

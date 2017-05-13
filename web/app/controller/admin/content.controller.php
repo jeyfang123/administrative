@@ -53,6 +53,10 @@ class ContentController extends Controller{
         $cover = null;
         if(!empty($coverInput)){
             $cover = json_decode(Box::getObject('common','controller','public')->imgUpload($req),true);
+            if($cover['code'] == CODE_ERROR){
+                echo '上传让图片失败:'.$cover['error'];
+                exit();
+            }
             $cover = $cover['file'];
         }
 
@@ -64,7 +68,12 @@ class ContentController extends Controller{
             'cover'=>$cover
         ];
         $res = Box::getObject('content','model','admin')->addContent($content,$req->user->depart_user_id);
-        return $this->viewTpl('attention.html');
+        if($types == '1'){
+            return $this->viewTpl('attention.html');
+        }
+        else{
+            return $this->viewTpl('interpretation.html');
+        }
     }
 
 }

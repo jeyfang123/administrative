@@ -60,4 +60,34 @@ class ContentModel{
         }
         return true;
     }
+
+    /**
+     * 首页今日关注图片类
+     * @return mixed
+     */
+    function indexAttImg(){
+        $attImgSql = "select * from ".DB::TB_CONTENT." where cover is NOT NULL and type = '1' ORDER BY publish_time desc  LIMIT 4";
+        $attImgRes = $this->_db->GetAll($attImgSql);
+        return DB::returnModelRes($attImgRes)[0];
+    }
+
+    /**
+     * 首页今日关注非图片类
+     * @return mixed
+     */
+    function indexAtt(){
+        $attImgSql = "select * from ".DB::TB_CONTENT." where cover is NULL and type = '1' ORDER BY publish_time desc  LIMIT 8";
+        $attImgRes = $this->_db->GetAll($attImgSql);
+        return DB::returnModelRes($attImgRes)[0];
+    }
+
+    /**
+     * 首页政策解读
+     * @return mixed
+     */
+    function indexPoli(){
+        $poliSql = "select * from ".DB::TB_CONTENT." where type = '2' ORDER BY publish_time desc LIMIT 5";
+        $poliRes = $this->_db->GetAll($poliSql);
+        return DB::returnModelRes($poliRes)[0];
+    }
 }

@@ -32,7 +32,7 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <label>标题</label>
-                    <input type="text" maxlength="30" name="title" class="form-control title" style="height: 35px;" >
+                    <input type="text" maxlength="100" name="title" class="form-control title" style="height: 35px;" >
                 </div>
             </div>
             <div class="col-sm-12">
@@ -61,6 +61,7 @@
                     <div class="form-group">
                         <label class="font-noraml">封面</label>
                         <input type="file" name="file" class="form-control cover">
+                        <input type="hidden" name="cover">
                     </div>
                 </div>
             </div>
@@ -172,6 +173,7 @@
                     });
                 }
                 else {
+                    $('input[name="cover"]').val($('.input-append.input-group input:text').val());
                     $("form").submit();
                 }
             })

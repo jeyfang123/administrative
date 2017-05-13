@@ -42,10 +42,10 @@ class ProcessModel{
     }
 
     private function addProDetail($process,$proId){
-        $sql = "insert into ".DB::TB_PRO_DETAIL."(pop_id,per_type,enter_type,exercise_basis,acc_conditions,fee,term,contact,supervise_tel)
-                values(?,?,?,?,?,?,?,?,?)";
+        $sql = "insert into ".DB::TB_PRO_DETAIL."(pop_id,per_type,enter_type,exercise_basis,acc_conditions,fee,term,contact,supervise_tel,flow_img,appendix)
+                values(?,?,?,?,?,?,?,?,?,?,?)";
         $res = $this->_db->Execute($sql,[$proId,$process['perType'],$process['enterType'],$process['exerciseBasis'],$process['accConditions'],
-            $process['fee'],$process['term'],$process['contact'],$process['supervise']]);
+            $process['fee'],$process['term'],$process['contact'],$process['supervise'],$process['flowImg'],$process['appendix']]);
         if($res === false){
             return false;
         }
@@ -129,6 +129,20 @@ class ProcessModel{
             return false;
         }
         return true;
+    }
+
+    /**
+     * 热点服务项目
+     * @return mixed
+     */
+    public function getHeatPro(){
+        $sql = "select ea_process.pro_name,pro_id from ".DB::TB_PROCESS." LEFT JOIN ".DB::TB_PRO_DETAIL." on pop_id = pro_id ORDER BY heatpoint desc limit 15";
+        $res = $this->_db->GetAll($sql);
+        return DB::returnModelRes($res)[0];
+    }
+
+    public function getProInstance(){
+
     }
 
 }

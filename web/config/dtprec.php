@@ -30,4 +30,6 @@ define('ADMIN_UPLOAD_PREFIX', '/upload/admin/');
 define('ADMIN_UPLOAD', WEB_ROOT . ADMIN_UPLOAD_PREFIX);
 define('ADMIN_AVATAR','admin/img/avatar/');
 define('ADMIN_CONTENT','admin/img/content/');
+define('PROCESS_FlOW','admin/img/process/');
+define('PROCESS_APP','admin/files/');
 ?>

@@ -11,6 +11,20 @@ class CommonController extends Controller{
         return $this->viewTpl ('noPermission.html');
     }
 
+    static function entity2Html($arr,$index){
+        array_walk($arr,function (&$item) use($index){
+            $item[$index] = htmlspecialchars_decode($item[$index]);
+        });
+        return $arr;
+    }
+
+    static function entityStripHtml($arr,$index){
+        array_walk($arr,function (&$item) use($index){
+            $item[$index] = strip_tags(htmlspecialchars_decode($item[$index]));
+        });
+        return $arr;
+    }
+
     /**
      * 时间转换函数，将目标时间转换为汉字表达方式，比如几分钟前、几小时前等
      * @param $time
@@ -66,6 +80,10 @@ class CommonController extends Controller{
                 $savePath = ADMIN_CONTENT;
                 $indexName = 'file';
                 break;
+            case 'flow':
+                $savePath = PROCESS_FlOW;
+                $indexName = 'flow';
+                break;
             default:
                 $savePath = null;
                 break;
@@ -86,6 +104,54 @@ class CommonController extends Controller{
         }
         if(!getimagesize ($uploadFiles[$indexName]['tmp_name'])){
             $errorMsg = '请上传图片文件';
+            return $this->returnJson(['code'=>CODE_ERROR,'error'=>$errorMsg]);
+        }
+        $fileName = md5($uploadFiles[$indexName]['name'].strtotime('now')).'.'.$type;
+
+        $this->createDir(WEB_ROOT.DIRECTORY_SEPARATOR.$savePath);
+
+        $saveFile = move_uploaded_file($uploadFiles[$indexName]['tmp_name'], WEB_ROOT.DIRECTORY_SEPARATOR.$savePath.$fileName);
+
+        if($saveFile !== true){
+            $errorMsg = '保存文件失败';
+            return $this->returnJson(['code'=>CODE_ERROR,'error'=>$errorMsg]);
+        }
+        else{
+            return $this->returnJson(['code'=>CODE_SUCCESS,'file'=>DIRECTORY_SEPARATOR.$savePath.$fileName]);
+        }
+    }
+
+    /**
+     * 上传文件
+     * @param $req
+     * @return array
+     */
+    public function fileUpload($req){
+        $uploadFiles = $req->files();
+        $type = $req->param('type');
+        $indexName = '';
+        $errorMsg = '';
+        switch ($type){
+            case 'appendix':
+                $savePath = PROCESS_APP;
+                $indexName = 'appendix';
+                break;
+            default:
+                $savePath = null;
+                break;
+        }
+        if($uploadFiles[$indexName]['error'] > 0){
+            $errorMsg = '文件上传失败';
+            return $this->returnJson(['code'=>CODE_ERROR,'error'=>$errorMsg]);
+        }
+        $type = pathinfo($uploadFiles[$indexName]['name'],PATHINFO_EXTENSION);
+        $size = $uploadFiles[$indexName]['size'];
+        if($size > 1024*1024*2){
+            $errorMsg = '文件过大';
+            return $this->returnJson(['code'=>CODE_ERROR,'error'=>$errorMsg]);
+        }
+        if(!in_array($type ,['zip','rar','gzip'])){
+            $errorMsg = '文件类型不支持';
             return $this->returnJson(['code'=>CODE_ERROR,'error'=>$errorMsg]);
         }
         $fileName = md5($uploadFiles[$indexName]['name'].strtotime('now')).'.'.$type;

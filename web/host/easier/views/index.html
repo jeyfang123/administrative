@@ -16,11 +16,13 @@
     <link href="/hadmin/css/animate.css" rel="stylesheet">
     <link href="/hadmin/css/style.css?v=4.1.0" rel="stylesheet">
     <link href="/easier/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="/easier/css/header.css">
+    <link rel="stylesheet" href="/easier/css/footer.css">
     <link href="/easier/css/icons/iconfont.css" rel="stylesheet" >
 </head>
 
 <body class="gray-bg">
-    <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="row wrapper border-bottom white-bg page-heading" style="padding: 0 20px 20px">
         <div class="col-sm-12">
             <div class="col-sm-4">
                 <div class="">
@@ -50,7 +52,7 @@
         <div class="row">
             <div class="col-sm-12 banner">
                 <div class="navigation col-sm-8">
-                    <div class="banner-list">
+                    <div class="banner-list" data-id="person" onclick="">
                         <div class="first-ban banner-list1-subbg1" style="top: -110px;background-image: url('/easier/img/person.png')">
                             <div class="banner-list1-tit">个人办事</div>
                         </div>
@@ -58,7 +60,7 @@
                             <div class="banner-list1-tit">个人办事</div>
                         </div>
                     </div>
-                    <div class="banner-list">
+                    <div class="banner-list" data-id="enter" onclick="">
                         <div class="first-ban banner-list1-subbg1" style="top: -110px;background-image: url('/easier/img/enter.png')">
                             <div class="banner-list1-tit">法人办事</div>
                         </div>
@@ -66,7 +68,7 @@
                             <div class="banner-list1-tit">法人办事</div>
                         </div>
                     </div>
-                    <div class="banner-list narrow-banner">
+                    <div class="banner-list narrow-banner" data-id="all" onclick="">
                         <div class="first-ban banner-list2-subbg1" style="top: -110px;background-image: url('/easier/img/examine.png')">
                             <div class="banner-list2-tit" style="color: #f27576;">行政审批</div>
                         </div>
@@ -74,7 +76,7 @@
                             <div class="banner-list2-tit" style="color: #1492FF;">行政审批</div>
                         </div>
                     </div>
-                    <div class="banner-list narrow-banner">
+                    <div class="banner-list narrow-banner" data-id="sun" onclick="">
                         <div class="first-ban banner-list2-subbg1" style="top: -110px;background-image: url('/easier/img/sun.png')">
                             <div class="banner-list2-tit" style="color: #f27576;">阳光政务</div>
                         </div>
@@ -82,7 +84,7 @@
                             <div class="banner-list2-tit" style="color: #1492FF;">阳光政务</div>
                         </div>
                     </div>
-                    <div class="banner-list narrow-banner">
+                    <div class="banner-list narrow-banner" data-id="today" onclick="">
                         <div class="first-ban banner-list2-subbg1" style="top: -110px;background-image: url('/easier/img/political.png')">
                             <div class="banner-list2-tit" style="color: #f27576;">今日关注</div>
                         </div>
@@ -90,7 +92,7 @@
                             <div class="banner-list2-tit" style="color: #1492FF;">今日关注</div>
                         </div>
                     </div>
-                    <div class="banner-list narrow-banner">
+                    <div class="banner-list narrow-banner" data-id="political" onclick="">
                         <div class="first-ban banner-list2-subbg1" style="top: -110px;background-image: url('/easier/img/today.png')">
                             <div class="banner-list2-tit" style="color: #f27576;">政策解读</div>
                         </div>
@@ -116,162 +118,46 @@
                                         <div class="img-nav-squ"></div>
                                         <div class="img-nav-squ"></div>
                                     </div>
+                                    {% for row in data.imgAtt %}
                                     <div class="img-con-item">
-                                        <img src="/admin/img/content/2aaa2668dafe4706df843b07d3dd4efc.jpg" alt="">
+                                        <img src="{{ row.cover }}" alt="">
                                         <div class="img-con-tit">
-                                            <span>群众和企业到政府办事 “最多跑一...</span>
+                                            <span>{{ row.title }}</span>
                                         </div>
                                         <div class="img-con-con">
-                                            <p>港澳通行证再次签注服务目前已在浙江政务服务网APP正式上线，需再次办理港澳通...</p>
+                                            <p>{{ row.contents }}</p>
                                         </div>
                                         <div class="img-con-time">
-                                            2017-02-15
+                                            {{ row.publish_time }}
                                         </div>
                                     </div>
-                                    <div class="img-con-item" style="display: none">
-                                        <img src="/admin/img/content/f186017443b82bca9a4efddd6c6a7847.jpg" alt="">
-                                        <div class="img-con-tit">
-                                            <span>2群众和企业到政府办事 “最多跑一...</span>
-                                        </div>
-                                        <div class="img-con-con">
-                                            <p>港澳通行证再次签注服务目前已在浙江政务服务网APP正式上线，需再次办理港澳通...</p>
-                                        </div>
-                                        <div class="img-con-time">
-                                            2017-02-15
-                                        </div>
-                                    </div>
-                                    <div class="img-con-item" style="display: none">
-                                        <img src="/admin/img/content/f186017443b82bca9a4efddd6c6a7847.jpg" alt="">
-                                        <div class="img-con-tit">
-                                            <span>3群众和企业到政府办事 “最多跑一...</span>
-                                        </div>
-                                        <div class="img-con-con">
-                                            <p>港澳通行证再次签注服务目前已在浙江政务服务网APP正式上线，需再次办理港澳通...</p>
-                                        </div>
-                                        <div class="img-con-time">
-                                            2017-02-15
-                                        </div>
-                                    </div>
-                                    <div class="img-con-item" style="display: none">
-                                        <img src="/admin/img/content/2aaa2668dafe4706df843b07d3dd4efc.jpg" alt="">
-                                        <div class="img-con-tit">
-                                            <span>4群众和企业到政府办事 “最多跑一...</span>
-                                        </div>
-                                        <div class="img-con-con">
-                                            <p>港澳通行证再次签注服务目前已在浙江政务服务网APP正式上线，需再次办理港澳通...</p>
-                                        </div>
-                                        <div class="img-con-time">
-                                            2017-02-15
-                                        </div>
-                                    </div>
+                                    {% endfor %}
                                 </div>
                                 <div class="list-con">
+                                    {% for row in data.att %}
                                     <div class="list-con-item">
                                         <div class="list-con-item-title">
-                                            <span>省级公共数据共享开放清单 （第二批...</span>
+                                            <span>{{ row.title }}</span>
                                         </div>
-                                        <div class="list-con-item-time">2017-01-15</div>
+                                        <div class="list-con-item-time">{{ row.publish_time }}</div>
                                     </div>
-                                    <div class="list-con-item">
-                                        <div class="list-con-item-title">
-                                            <span>省级公共数据共享开放清单 （第二批...</span>
-                                        </div>
-                                        <div class="list-con-item-time">2017-01-15</div>
-                                    </div>
-                                    <div class="list-con-item">
-                                        <div class="list-con-item-title">
-                                            <span>省级公共数据共享开放清单 （第二批...</span>
-                                        </div>
-                                        <div class="list-con-item-time">2017-01-15</div>
-                                    </div>
-                                    <div class="list-con-item">
-                                        <div class="list-con-item-title">
-                                            <span>省级公共数据共享开放清单 （第二批...</span>
-                                        </div>
-                                        <div class="list-con-item-time">2017-01-15</div>
-                                    </div>
-                                    <div class="list-con-item">
-                                        <div class="list-con-item-title">
-                                            <span>省级公共数据共享开放清单 （第二批...</span>
-                                        </div>
-                                        <div class="list-con-item-time">2017-01-15</div>
-                                    </div>
-                                    <div class="list-con-item">
-                                        <div class="list-con-item-title">
-                                            <span>省级公共数据共享开放清单 （第二批...</span>
-                                        </div>
-                                        <div class="list-con-item-time">2017-01-15</div>
-                                    </div>
-                                    <div class="list-con-item">
-                                        <div class="list-con-item-title">
-                                            <span>省级公共数据共享开放清单 （第二批...</span>
-                                        </div>
-                                        <div class="list-con-item-time">2017-01-15</div>
-                                    </div>
-                                    <div class="list-con-item">
-                                        <div class="list-con-item-title">
-                                            <span>省级公共数据共享开放清单 （第二批...</span>
-                                        </div>
-                                        <div class="list-con-item-time">2017-01-15</div>
-                                    </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                             <div class="left-sub" style="display: none">
+                                {% for row in data.poli %}
                                 <div class="list-pol-item">
                                     <div class="pol-item-subimg">
-                                        <img src="/easier/img/political1.jpg" style=" width:90px; height:90px; border:none;">
+                                        <img src="/easier/img/political{{ loop.index }}.jpg" style=" width:90px; height:90px; border:none;">
                                     </div>
                                     <div class="pol-item-subtit">
-                                        <a href="javascript:;" target="_blank" title="《浙江省行政调解办法》的政策解读" style=" ">《浙江省行政调解办法》的政策解读</a>
+                                        <a href="javascript:;" target="_blank" title="{{ row.title }}" style=" ">{{ row.title }}</a>
                                     </div>
                                     <div class="pol-item-subdate">
-                                        <span style=" float:right; font-size:12px; font-family:'宋体'; color:#999;">2017-01-04</span>
+                                        <span style=" float:right; font-size:12px; font-family:'宋体'; color:#999;">{{ row.publish_time }}</span>
                                     </div>
                                 </div>
-                                <div class="list-pol-item">
-                                    <div class="pol-item-subimg">
-                                        <img src="/easier/img/political4.jpg" style=" width:90px; height:90px; border:none;">
-                                    </div>
-                                    <div class="pol-item-subtit">
-                                        <a href="javascript:;" target="_blank" title="《浙江省行政调解办法》的政策解读" style=" ">《浙江省行政调解办法》的政策解读</a>
-                                    </div>
-                                    <div class="pol-item-subdate">
-                                        <span style=" float:right; font-size:12px; font-family:'宋体'; color:#999;">2017-01-04</span>
-                                    </div>
-                                </div>
-                                <div class="list-pol-item">
-                                    <div class="pol-item-subimg">
-                                        <img src="/easier/img/political2.jpg" style=" width:90px; height:90px; border:none;">
-                                    </div>
-                                    <div class="pol-item-subtit">
-                                        <a href="javascript:;" target="_blank" title="《浙江省行政调解办法》的政策解读" style=" ">《浙江省行政调解办法》的政策解读</a>
-                                    </div>
-                                    <div class="pol-item-subdate">
-                                        <span style=" float:right; font-size:12px; font-family:'宋体'; color:#999;">2017-01-04</span>
-                                    </div>
-                                </div>
-                                <div class="list-pol-item">
-                                    <div class="pol-item-subimg">
-                                        <img src="/easier/img/political4.jpg" style=" width:90px; height:90px; border:none;">
-                                    </div>
-                                    <div class="pol-item-subtit">
-                                        <a href="javascript:;" target="_blank" title="《浙江省行政调解办法》的政策解读" style=" ">《浙江省行政调解办法》的政策解读</a>
-                                    </div>
-                                    <div class="pol-item-subdate">
-                                        <span style=" float:right; font-size:12px; font-family:'宋体'; color:#999;">2017-01-04</span>
-                                    </div>
-                                </div>
-                                <div class="list-pol-item">
-                                    <div class="pol-item-subimg">
-                                        <img src="/easier/img/political3.jpg" style=" width:90px; height:90px; border:none;">
-                                    </div>
-                                    <div class="pol-item-subtit">
-                                        <a href="javascript:;" target="_blank" title="《浙江省行政调解办法》的政策解读" style=" ">《浙江省行政调解办法》的政策解读</a>
-                                    </div>
-                                    <div class="pol-item-subdate">
-                                        <span style=" float:right; font-size:12px; font-family:'宋体'; color:#999;">2017-01-04</span>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -285,68 +171,68 @@
                         <div class="right-heat-list">
                             <div class="heat-list-row">
                                 <div class="heat-list-item">
-                                    <i class="icon iconfont icon-xingzhengbangong"></i>
-                                    <span>会计从业资格证审批</span>
+                                    <i class="icon iconfont {{ data.icon[0] }}"></i>
+                                    <span>{{ data.heat[0].pro_name }}</span>
                                 </div>
                                 <div class="heat-list-item">
-                                    <i class="icon iconfont icon-xingzhengbangong"></i>
-                                    <span>会计从业资格证审批</span>
+                                    <i class="icon iconfont {{ data.icon[1] }}"></i>
+                                    <span>{{ data.heat[1].pro_name }}</span>
                                 </div>
                                 <div class="heat-list-item">
-                                    <i class="icon iconfont icon-xingzhengbangong"></i>
-                                    <span>会计从业资格证审批</span>
+                                    <i class="icon iconfont {{ data.icon[2] }}"></i>
+                                    <span>{{ data.heat[2].pro_name }}</span>
                                 </div>
                                 <div class="heat-list-item">
-                                    <i class="icon iconfont icon-xingzhengbangong"></i>
-                                    <span>会计从业资格证审批</span>
+                                    <i class="icon iconfont {{ data.icon[3] }}"></i>
+                                    <span>{{ data.heat[3].pro_name }}</span>
                                 </div>
                                 <div class="heat-list-item">
-                                    <i class="icon iconfont icon-xingzhengbangong"></i>
-                                    <span>会计从业资格证审批</span>
-                                </div>
-                            </div>
-                            <div class="heat-list-row">
-                                <div class="heat-list-item">
-                                    <i class="icon iconfont icon-xingzhengbangong"></i>
-                                    <span>会计从业资格证审批</span>
-                                </div>
-                                <div class="heat-list-item">
-                                    <i class="icon iconfont icon-xingzhengbangong"></i>
-                                    <span>会计从业资格证审批</span>
-                                </div>
-                                <div class="heat-list-item">
-                                    <i class="icon iconfont icon-xingzhengbangong"></i>
-                                    <span>会计从业资格证审批</span>
-                                </div>
-                                <div class="heat-list-item">
-                                    <i class="icon iconfont icon-xingzhengbangong"></i>
-                                    <span>会计从业资格证审批</span>
-                                </div>
-                                <div class="heat-list-item">
-                                    <i class="icon iconfont icon-xingzhengbangong"></i>
-                                    <span>会计从业资格证审批</span>
+                                    <i class="icon iconfont {{ data.icon[4] }}"></i>
+                                    <span>{{ data.heat[4].pro_name }}</span>
                                 </div>
                             </div>
                             <div class="heat-list-row">
                                 <div class="heat-list-item">
-                                    <i class="icon iconfont icon-xingzhengbangong"></i>
-                                    <span>会计从业资格证审批</span>
+                                    <i class="icon iconfont {{ data.icon[5] }}"></i>
+                                    <span>{{ data.heat[5].pro_name }}</span>
                                 </div>
                                 <div class="heat-list-item">
-                                    <i class="icon iconfont icon-xingzhengbangong"></i>
-                                    <span>会计从业资格证审批</span>
+                                    <i class="icon iconfont {{ data.icon[6] }}"></i>
+                                    <span>{{ data.heat[6].pro_name }}</span>
                                 </div>
                                 <div class="heat-list-item">
-                                    <i class="icon iconfont icon-xingzhengbangong"></i>
-                                    <span>会计从业资格证审批</span>
+                                    <i class="icon iconfont {{ data.icon[7] }}"></i>
+                                    <span>{{ data.heat[7].pro_name }}</span>
                                 </div>
                                 <div class="heat-list-item">
-                                    <i class="icon iconfont icon-xingzhengbangong"></i>
-                                    <span>会计从业资格证审批</span>
+                                    <i class="icon iconfont {{ data.icon[8] }}"></i>
+                                    <span>{{ data.heat[8].pro_name }}</span>
                                 </div>
                                 <div class="heat-list-item">
-                                    <i class="icon iconfont icon-xingzhengbangong"></i>
-                                    <span>会计从业资格证审批</span>
+                                    <i class="icon iconfont {{ data.icon[9] }}"></i>
+                                    <span>{{ data.heat[9].pro_name }}</span>
+                                </div>
+                            </div>
+                            <div class="heat-list-row">
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont {{ data.icon[10] }}"></i>
+                                    <span>{{ data.heat[10].pro_name }}</span>
+                                </div>
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont {{ data.icon[11] }}"></i>
+                                    <span>{{ data.heat[11].pro_name }}</span>
+                                </div>
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont {{ data.icon[12] }}"></i>
+                                    <span>{{ data.heat[12].pro_name }}</span>
+                                </div>
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont {{ data.icon[13] }}"></i>
+                                    <span>{{ data.heat[13].pro_name }}</span>
+                                </div>
+                                <div class="heat-list-item">
+                                    <i class="icon iconfont {{ data.icon[14] }}"></i>
+                                    <span>{{ data.heat[14].pro_name }}</span>
                                 </div>
                             </div>
                         </div>
@@ -617,6 +503,18 @@
                 },250);
             });
 
+            $('.banner-list').click(function () {
+                var index = $(this).attr('data-id');
+                switch (index){
+                    case 'person':
+                        window.location.href = '/easier/process/index?type=person';
+                        break;
+                    default:
+                        return;
+                        break;
+                }
+            })
+
             $('.left-tit-sub').hover(function () {
                 $(this).addClass('pointer').siblings().removeClass('pointer');
                 var index = $(this).index();
@@ -648,7 +546,7 @@
                     $('.img-nav-squ').eq(imgInterNum).addClass('nav-squ-pointer').siblings().removeClass('nav-squ-pointer');
                     imgInterNum++;
                     index ++;
-                },1500);
+                },2500);
             }
 
             floatInfo();

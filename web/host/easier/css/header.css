@@ -1,0 +1,51 @@
+.page-heading{
+    padding: 0px 20px 0px 20px;
+}
+.row.page-heading>.col-sm-12:first-child{
+    padding-top: 20px;
+    padding-bottom: 15px;
+}
+.search-area{
+    margin-top: 20px;
+}
+.search-area input,.search-area button{
+    height:38px;
+}
+.user-center-area{
+    height: 60px;
+    position: relative;
+    left: -10px;
+    top: -1px;
+}
+.user-center-href{
+    margin-top: 20px;
+    display: inline-block;
+}
+.user-info{
+    margin-top: 2px;
+}
+.col-sm-12.nav-area{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    background-color: #1492FF;
+    color: #1492FF;
+    margin-top: 15px;
+}
+.nav-bar{
+    height:70px;
+    text-align: center;
+    margin: 0 auto;
+    width: 1005px;
+}
+.nav-bar .nav-item{
+    width: 143px;
+    height: 70px;
+    float: left;
+    font-size: 16px;
+    line-height: 70px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+}

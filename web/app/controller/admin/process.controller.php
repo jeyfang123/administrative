@@ -32,6 +32,8 @@ class ProcessController extends Controller{
         $accConditions = Filtros::post_check($req->param('acc_conditions'));
         $fee = Filtros::post_check($req->param('fee'));
         $term = Filtros::post_check($req->param('term'));
+        $flowImg = $req->param("flow_img");
+        $appendix = $req->param("appendix");
 
         $nodes = $req->param('nodes');
 
@@ -54,7 +56,9 @@ class ProcessController extends Controller{
             'contact'=>$contact,
             'supervise'=>$supervise,
             'perType'=>$perType,
-            'enterType'=>$enterType
+            'enterType'=>$enterType,
+            'flowImg'=>$flowImg,
+            'appendix'=>$appendix
         ];
         $res = Box::getObject('process','model','admin')->addProcess($process,$nodes,$req->user->depart_user_id);
         if($res == false){

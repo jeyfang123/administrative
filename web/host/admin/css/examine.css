@@ -41,3 +41,33 @@ li.node-content{
 textarea.input-material{
     resize: vertical;
 }
+.last-fieldset .form-group label{
+    display: inherit !important;
+    font-size: 16px;
+}
+.last-fieldset .col-sm-6{
+    position: relative;
+    top: 20px;
+}
+#dropzone-flow{
+    height: 50px;
+    width: 80%;
+}
+#dropzone-appendix{
+    height: 50px;
+    width: 80%;
+}
+.dz-preview.dz-processing.dz-image-preview.dz-success{
+    margin-top: 0;
+    margin-left: 50px;
+}
+.dz-preview.dz-file-preview.dz-processing.dz-success{
+    margin-top: 0;
+    margin-left: 50px;
+}
+.dz-details{
+    height: 66px;
+}
+.dz-details img{
+    display: none;
+}
