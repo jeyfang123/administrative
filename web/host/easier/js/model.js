@@ -29,10 +29,22 @@ function getToken(){
     var storage = window.localStorage;
     return storage.getItem('token');
 }
+function getUrlParams() {
+    var result = {};
+    var params = (window.location.href.split('?')[1] || '').split('&');
+    for(var param in params) {
+        if (params.hasOwnProperty(param)) {
+            paramParts = params[param].split('=');
+            result[paramParts[0]] = decodeURIComponent(paramParts[1] || "");
+        }
+    }
+    return result;
+}
 
 var Model = (function(){
     var urlMap = {
         'loginin':{'url':'/population/login/loginin'},
+        'getProcess':{'url':'/easier/process/searchProcess'},   //获取事项
     };
     var handler = {};
     for(var name in urlMap){

@@ -13,6 +13,8 @@
     <link rel="shortcut icon" href="/favicon.ico">
     <link href="/hadmin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="/hadmin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="/hadmin/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
     <link href="/hadmin/css/animate.css" rel="stylesheet">
     <link href="/hadmin/css/style.css?v=4.1.0" rel="stylesheet">
     <link href="/easier/css/process.css" rel="stylesheet">
@@ -80,75 +82,28 @@
                 </div>
             </div>
             <div class="col-sm-8">
+                <div class="input-group col-sm-4" style="margin-bottom: 7px;">
+                    <input type="text" id="keyword" placeholder="请输入关键字" class="input form-control">
+                    <span class="input-group-btn">
+                        <button type="button" id="search" class="btn search-btn"> <i class="fa fa-search"></i> 搜索</button>
+                    </span>
+                </div>
                 <div class="body-right">
                     <div class="right-heat">
                         <span class="right-heat-tit">热点服务</span>
                         <div class="right-heat-bottom"></div>
                     </div>
                     <div class="right-heat-list">
-                        <div class="process-list">
-                            <div class="li-circle"></div>
-                            <span class="process-title" >事业单位法人注销登记</span>
-                            <div class="process-heat">
-                                <img src="/easier/img/2.png" alt="">
-                            </div>
-                        </div>
-                        <div class="process-list">
-                            <div class="li-circle"></div>
-                            <span class="process-title" >事业单位法人注销登记</span>
-                            <div class="process-heat">
-                                <img src="/easier/img/2.png" alt="">
-                            </div>
-                        </div>
-                        <div class="process-list">
-                            <div class="li-circle"></div>
-                            <span class="process-title" >事业单位法人注销登记</span>
-                            <div class="process-heat">
-                                <img src="/easier/img/2.png" alt="">
-                            </div>
-                        </div>
-                        <div class="process-list">
-                            <div class="li-circle"></div>
-                            <span class="process-title" >事业单位法人注销登记</span>
-                            <div class="process-heat">
-                                <img src="/easier/img/2.png" alt="">
-                            </div>
-                        </div>
-                        <div class="process-list">
-                            <div class="li-circle"></div>
-                            <span class="process-title" >事业单位法人注销登记</span>
-                            <div class="process-heat">
-                                <img src="/easier/img/2.png" alt="">
-                            </div>
-                        </div>
-                        <div class="process-list">
-                            <div class="li-circle"></div>
-                            <span class="process-title" >事业单位法人注销登记</span>
-                            <div class="process-heat">
-                                <img src="/easier/img/2.png" alt="">
-                            </div>
-                        </div>
-                        <div class="process-list">
-                            <div class="li-circle"></div>
-                            <span class="process-title" >事业单位法人注销登记</span>
-                            <div class="process-heat">
-                                <img src="/easier/img/2.png" alt="">
-                            </div>
-                        </div>
-                        <div class="process-list">
-                            <div class="li-circle"></div>
-                            <span class="process-title" >事业单位法人注销登记</span>
-                            <div class="process-heat">
-                                <img src="/easier/img/2.png" alt="">
-                            </div>
-                        </div>
-                        <div class="process-list">
-                            <div class="li-circle"></div>
-                            <span class="process-title" >事业单位法人注销登记</span>
-                            <div class="process-heat">
-                                <img src="/easier/img/2.png" alt="">
-                            </div>
-                        </div>
+                        <!--<div class="process-list">-->
+                            <!--<div class="li-circle"></div>-->
+                            <!--<span class="process-title" >事业单位法人注销登记</span>-->
+                            <!--<div class="process-heat">-->
+                                <!--<img src="/easier/img/2.png" alt="">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                    <div id="processpage" class="js-pages">
+
                     </div>
                 </div>
             </div>
@@ -194,17 +149,148 @@
 
 <!-- 自定义js -->
 <script src="/hadmin/js/content.js?v=1.0.0"></script>
+<!--twbsPagination-->
+<script type="text/javascript" src="/plugins/bower_components/twbsPagination/jquery.twbsPagination.min.js"></script>
+<!-- Sweet alert -->
+<script src="/hadmin/js/plugins/sweetalert/sweetalert.min.js"></script>
 
 <script src="/public/js/public.js"></script>
 <script src="/easier/js/model.js"></script>
 <script>
     $(function () {
+        var pageType = getUrlParams()['type'];
+        if(pageType == 'person'){
+            $('.nav-item:eq('+ 1 +')').css('background-color','rgb(22, 118, 205)');
+        }
+        else if(pageType == 'enter'){
+            $('.nav-item:eq('+ 2 +')').css('background-color','rgb(22, 118, 205)');
+        }
+        else{
+            $('.nav-item:eq('+ 3 +')').css('background-color','rgb(22, 118, 205)');
+        }
+
+
         $('.left-tit-sub').hover(function () {
             $(this).addClass('pointer').siblings().removeClass('pointer');
             var index = $(this).index();
             $('.left-sub').eq(index).show(50).siblings().hide(50);
         });
 
+        $("#search").click(function () {
+            initHtml(1,true);
+        });
+        $("#keyword").keydown(function(event){
+            if (event.keyCode == 13) {
+                $('#search').click();
+                event.preventDefault();
+            }
+        });
+
+        $('.left-sub').on('click','.depart-item',function () {
+            if($(this).hasClass('pointer-depart')){
+                $('.pointer-depart').removeClass('pointer-depart');
+                initHtml(1,false);
+            }
+            else{
+                $('.pointer-depart').removeClass('pointer-depart');
+                $(this).addClass('pointer-depart');
+                initHtml(1,false);
+            }
+        });
+
+        initHtml(1,true);
+        function initHtml(page,ispagination) {
+            var title = $("#keyword").val();
+            var index = $('.pointer-depart').attr('data-id');
+            var type = "";
+            if(index == undefined){
+                type = '-1';
+                index = '';
+            }
+            else{
+                var location = $('.pointer-depart').parents(".left-sub").index();
+                if(location == 0){
+                    type = 'depart';
+                }
+                else if(location == 1){
+                    type = 'type';
+                }
+            }
+            Model.getProcess({
+                'pageType':getUrlParams()['type'],
+                'keyWords':title,
+                'page':page,
+                'pagesize':15,
+                'type':type,
+                'index':index
+            },function(data) {
+                if(data.code === CODE_SUCCESS){
+                    appendHtml(data,page,ispagination);
+                }else{
+                    swal({
+                        title: "出错了！",
+                        text: '请重试'
+                    });
+                }
+            });
+        }
+        
+        function calHeatImg(heat) {
+            if(heat>=0 && heat<5){
+                return 1;
+            }
+            else if(heat>=5 && heat < 10){
+                return 2;
+            }
+            else if(heat>=10 && heat < 15){
+                return 3;
+            }
+            else if(heat>=15 && heat < 20){
+                return 4;
+            }
+            else if(heat>=20){
+                return 5;
+            }
+        }
+
+        function appendHtml(data,page,ispagination) {
+            var list = data.data;
+            var length = list.length;
+            var total = data.count;
+            var pagesize = 10;
+            var pageTotal =Math.ceil(total/pagesize);
+            var html = '';
+            for(var i=0;i<length;i++){
+                var img = calHeatImg(list[i]['heatpoint'])+'.png';
+                html += '<div class="process-list" data-id="'+ list[i]['pro_id'] +'">\
+                    <div class="li-circle"></div>\
+                        <span class="process-title" >'+ list[i]['pro_name'] +'</span>\
+                    <div class="process-heat">\
+                        <img src="/easier/img/'+ img +'" alt="">\
+                    </div>\
+                </div>';
+            }
+            $(".right-heat-list").html(html);
+            if(ispagination){
+                $("#processpage").html('<ul class="pagination"style="float:right"></ul>');
+            }
+            if(0!=pageTotal){
+                $('#processpage .pagination').twbsPagination({
+                    startPage:1,
+                    currentPage:page,
+                    totalPages: pageTotal,
+                    visiblePages: 7,
+                    first: '首页',
+                    prev: '前一页',
+                    next: '下一页',
+                    last: '尾页',
+                    lother: '共'+ pageTotal +'页',
+                    onPageClick: function (event, page) {
+                        initHtml(page,false);
+                    }
+                });
+            }
+        }
 
     })
 </script>

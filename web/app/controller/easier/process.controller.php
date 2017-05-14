@@ -28,21 +28,53 @@ class ProcessController extends Controller{
         $type = $req->param('type');
         $index = $req->param('index');
         $keyWords = $req->param('keyWords','');
+        $pageType = $req->param('pageType');
 
         $page = $req->param('page',1);
-        $pageSize = $req-param('pageSize',10);
+        $pageSize = $req->param('pageSize',10);
         $map = " pro_name like ? ";
         $processObj = Box::getObject('process','model','easier');
         if($type == '-1'){
-            $res = $processObj->searchProcess($page,$pageSize,$map,"%{$keyWords}%");
+            if($pageType == 'person'){
+                $map .= " and types = ? ";
+                $res = $processObj->searchProcess($page,$pageSize,$map,"%{$keyWords}%",1);
+            }
+            else if($pageType == 'enter'){
+                $map .= " and types = ? ";
+                $res = $processObj->searchProcess($page,$pageSize,$map,"%{$keyWords}%",2);
+            }
+            else{
+                $res = $processObj->searchProcess($page,$pageSize,$map,"%{$keyWords}%");
+            }
+
         }
         else if($type == 'depart'){
             $map .= " and pro_id in (select DISTINCT(pro_id) from process_node where role = ?) ";
-            $res = $processObj->searchProcess($page,$pageSize,$map,"%{$keyWords}%",$index);
+            if($pageType == 'person'){
+                $map .= " and types = ? ";
+                $res = $processObj->searchProcess($page,$pageSize,$map,"%{$keyWords}%",$index,1);
+            }
+            else if($pageType == 'enter'){
+                $map .= " and types = ? ";
+                $res = $processObj->searchProcess($page,$pageSize,$map,"%{$keyWords}%",$index,2);
+            }
+            else{
+                $res = $processObj->searchProcess($page,$pageSize,$map,"%{$keyWords}%",$index);
+            }
         }
         else if($type == 'type'){
             $map .= " and pro_type = ? ";
-            $res = $processObj->searchProcess($page,$pageSize,$map,"%{$keyWords}%",$index);
+            if($pageType == 'person'){
+                $map .= " and types = ? ";
+                $res = $processObj->searchProcess($page,$pageSize,$map,"%{$keyWords}%",$index,1);
+            }
+            else if($pageType == 'enter'){
+                $map .= " and types = ? ";
+                $res = $processObj->searchProcess($page,$pageSize,$map,"%{$keyWords}%",$index,2);
+            }
+            else{
+                $res = $processObj->searchProcess($page,$pageSize,$map,"%{$keyWords}%",$index);
+            }
         }
         if($res == false){
             return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'查询失败']);

@@ -37,6 +37,12 @@
     height: 430px;
     overflow-y: auto;
 }
+.search-btn{
+    color: #ffffff !important;
+    background-color: #1492ff;
+    border-color: #1492ff;
+    padding: 4px 5px;
+}
 .body-right {
     width: 686px;
     /*height: 720px;*/
