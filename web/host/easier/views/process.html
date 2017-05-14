@@ -46,10 +46,10 @@
         </div>
         <div class="col-sm-12 nav-area">
             <div class="nav-bar">
-                <div class="nav-item"><span>首页</span></div>
-                <div class="nav-item"><span>个人办事</span></div>
-                <div class="nav-item"><span>法人办事</span></div>
-                <div class="nav-item"><span>行政审批</span></div>
+                <div class="nav-item"><span><a href="/easier/index">首页</a></span></div>
+                <div class="nav-item"><span><a href="/easier/process/index?type=person">个人办事</a></span></div>
+                <div class="nav-item"><span><a href="/easier/process/index?type=enter">法人办事</a></span></div>
+                <div class="nav-item"><span><a href="/easier/process/index?type=exam">行政审批</a></span></div>
                 <div class="nav-item"><span>阳光政务</span></div>
                 <div class="nav-item"><span>今日关注</span></div>
                 <div class="nav-item"><span>政策解读</span></div>
@@ -67,50 +67,14 @@
                     </div>
                     <div class="body-left-con">
                         <div class="left-sub">
-                            <div class="depart-item pointer-depart">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
+                            {% for item in data.department %}
+                            <div class="depart-item" data-id="{{ item.role_id }}">{{ item.rolename }}</div>
+                            {% endfor %}
                         </div>
                         <div class="left-sub" style="display: none">
-                            <div class="depart-item">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
-                            <div class="depart-item">省发展改革</div>
-                            <div class="depart-item">省发展改革委</div>
+                            {% for item in data.proType %}
+                            <div class="depart-item" data-id="{{ item.type_id }}">{{ item.type_name }}</div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -224,4 +188,25 @@
     </div>
 </div>
 </body>
+<!-- 全局js -->
+<script src="/hadmin/js/jquery.min.js?v=2.1.4"></script>
+<script src="/hadmin/js/bootstrap.min.js?v=3.3.6"></script>
+
+<!-- 自定义js -->
+<script src="/hadmin/js/content.js?v=1.0.0"></script>
+
+<script src="/public/js/public.js"></script>
+<script src="/easier/js/model.js"></script>
+<script>
+    $(function () {
+        $('.left-tit-sub').hover(function () {
+            $(this).addClass('pointer').siblings().removeClass('pointer');
+            var index = $(this).index();
+            $('.left-sub').eq(index).show(50).siblings().hide(50);
+        });
+
+
+    })
+</script>
+
 </html>

@@ -33,6 +33,10 @@
     position: absolute;
     width: 292px;
 }
+.body-left-con .left-sub:nth-child(2){
+    height: 430px;
+    overflow-y: auto;
+}
 .body-right {
     width: 686px;
     /*height: 720px;*/
