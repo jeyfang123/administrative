@@ -1,0 +1,51 @@
+.col-sm-12.col-sm-content{
+    margin-bottom: 30px;
+    margin-top: 25px;
+}
+.body-content.col-sm-9{
+    margin-left: 13%;
+    padding-top: 20px;
+}
+.detail-title{
+    font-size: 16pt;
+    color: #4088C7;
+}
+.detail-content{
+    margin-top: 12px;
+    height: 208px;
+}
+.detail-content div div{
+    padding-left: 15px;
+    font-size: 14px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border: 1px solid #c9deef;
+}
+.detail-content div div{
+    border-bottom: none;
+}
+.detail-content div div{
+    border-right: none;
+}
+.detail-content div:last-child div{
+    border-bottom: 1px solid #c9deef;
+}
+.detail-content div div:last-child{
+    border-right: 1px solid #c9deef;
+}
+.detail-content .labels{
+    background-color: rgb(233, 242, 249)
+}
+.detail-operate{
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+.detail-operate img{
+    cursor: pointer;
+}
+.detail-more{
+    padding-bottom: 14px;
+}
+.detail-more .tab-content{
+    min-height: 310px;
+}

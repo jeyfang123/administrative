@@ -38,8 +38,7 @@ class TokenModel
 
     public function getToken($prefix, $user)
     {
-//        $token = time();
-        $token = '111';
+        $token = time();
         $token = $prefix . '-' . md5($token . 'administrative');
         $res = $this->_redis->set($token, $user, $this->_time_save);
         if($res !== true){

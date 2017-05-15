@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>北京市朝阳区行政服务中心</title>
+    <meta name="keywords" content="行政服务">
+    <meta name="description" content="朝阳">
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="/hadmin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/hadmin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="/hadmin/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="/hadmin/css/animate.css" rel="stylesheet">
+    <link href="/hadmin/css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="stylesheet" href="/easier/css/header.css">
+    <link rel="stylesheet" href="/easier/css/footer.css">
+    <link rel="stylesheet" href="/easier/css/detail.css">
+</head>
+<body class="gray-bg">
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-12">
+        <div class="col-sm-4">
+            <div class="">
+                <img class="col-sm-8 pull-right" src="/easier/img/logo.png" alt="">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group col-sm-7 search-area pull-right">
+                <input type="text" placeholder="请输入服务项目名称" class="input-sm-7 form-control">
+                <span class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-primary"> 搜索</button>
+                        </span>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="user-center-area">
+                <a class="user-center-href" href="javascript:;"><i style="font-size: 20px;margin-right: 5px;" class="fa fa-user"></i>用户中心</a>
+                <div class="user-info">
+                    <!--<a href="javascript:;">注册</a> / <a href="javascript:;">登录</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 nav-area">
+        <div class="nav-bar">
+            <div class="nav-item"><span><a href="/easier/index">首页</a></span></div>
+            <div class="nav-item"><span><a href="/easier/process/index?type=person">个人办事</a></span></div>
+            <div class="nav-item"><span><a href="/easier/process/index?type=enter">法人办事</a></span></div>
+            <div class="nav-item"><span><a href="/easier/process/index?type=exam">行政审批</a></span></div>
+            <div class="nav-item"><span>阳光政务</span></div>
+            <div class="nav-item"><span>今日关注</span></div>
+            <div class="nav-item"><span>政策解读</span></div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12 location-page" style="left: 177px;top: 18px;">
+    <span style="color: #407bad;font-size: 14px;font-family: '微软雅黑';"><i class="fa fa-home" style="margin-right: 5px;"></i>当前位置：事项详细</span><span class="location-page-span"></span>
+</div>
+<div class="wrapper wrapper-content wrapper-nav">
+    <div class="row">
+        <div class="col-sm-12 col-sm-content ">
+            <div class="body-content col-sm-9 white-bg">
+                <div class="detail-title text-center">{{ data.detail.pro_name }}</div>
+                <div class="detail-content">
+                    <div>
+                        <div class="col-sm-3 labels">事项类型</div>
+                        <div class="col-sm-4">{{ data.detail.type_name }}</div>
+                        <div class="col-sm-2 labels">法定期限</div>
+                        <div class="col-sm-3">{{ data.detail.term }}</div>
+                    </div>
+                    <div>
+                        <div class="col-sm-3 labels">办事对象</div>
+                        <div class="col-sm-4">{% if data.detail.types == 1 %}个人{% else %}法人{% endif %}</div>
+                        <div class="col-sm-2 labels">承诺期限</div>
+                        <div class="col-sm-3">{{ data.detail.term }}</div>
+                    </div>
+                    <div>
+                        <div class="col-sm-3 labels">咨询电话</div>
+                        <div class="col-sm-4">{{ data.detail.contact }}</div>
+                        <div class="col-sm-2 labels">监督投诉电话</div>
+                        <div class="col-sm-3">{{ data.detail.supervise_tel }}</div>
+                    </div>
+                    <div>
+                        <div class="col-sm-3 labels">办理地点、时间</div>
+                        <div class="col-sm-4">行政审批中心大厅</div>
+                        <div class="col-sm-2 labels">附件</div>
+                        <div class="col-sm-3">{% if data.detail.appendix != '' %}<a href="/easier/process/download?url={{ data.detail.appendix }}"><i class="fa fa-file-zip-o"></i> appendix.zip </a>{% else %} 无 {% endif %}</div>
+                    </div>
+                    <div>
+                        <div class="col-sm-3 labels">办事者到办事现场次数</div>
+                        <div class="col-sm-9">1次 (提交申报材料)</div>
+                    </div>
+                </div>
+                <div class="detail-operate">
+                    <img class="apply-exam" src="/easier/img/apply.gif" alt="">
+                    <img class="apply-concat" style="margin-left: 15px;" src="/easier/img/refer.gif" alt="">
+                </div>
+                <div class="detail-more">
+                    <div class="tabs-container">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 受理条件 </a>
+                            </li>
+                            <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false"> 办理材料 </a>
+                            </li>
+                            <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false"> 办理流程 </a>
+                            </li>
+                            <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false"> 收费情况 </a>
+                            </li>
+                            <li class=""><a data-toggle="tab" href="#tab-5" aria-expanded="false"> 法定依据 </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-1" class="tab-pane active">
+                                <div class="panel-body">
+                                    <strong>受理条件</strong>
+                                    <p>{% autoescape false %}
+                                        {{ data.detail.acc_conditions }}
+                                        {% endautoescape %}</p>
+                                </div>
+                            </div>
+                            <div id="tab-2" class="tab-pane">
+                                <div class="panel-body">
+                                    <strong>办理材料</strong>
+                                    {% for item in data.flow %}
+                                    {% for row in item.material %}
+                                        <p>{{row}}</p>
+                                    {% endfor %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div id="tab-3" class="tab-pane">
+                                <div class="panel-body">
+                                    <strong>办理流程</strong>
+                                    {% for item in data.flow %}
+                                    <p>{{ loop.index }}:{{ item.title }}</p>
+                                    {% endfor %}
+                                    {% if data.detail.flow_img != '' %}
+                                    <div style="text-align: center;"><img src="{{ data.detail.flow_img }}" alt=""></div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div id="tab-4" class="tab-pane">
+                                <div class="panel-body">
+                                    <strong>收费情况</strong>
+                                    <p>{{ data.detail.fee }}</p>
+                                </div>
+                            </div>
+                            <div id="tab-5" class="tab-pane">
+                                <div class="panel-body">
+                                    <strong>法定依据</strong>
+                                    <p>{% autoescape false %}
+                                        {{ data.detail.exercise_basis }}
+                                        {% endautoescape %}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--footer-->
+        <div class="col-sm-12" style="text-align: center;background-color: #E7E7E7;padding-top: 35px;padding-bottom: 50px;">
+            <div class="foot-main">
+                <div class="foot-link">
+                    <a href="javascript:void(0)" style="line-height:20px;">把本站设为首页</a>
+                    <span style=" padding-left:12px; padding-right:12px;">|</span>
+                    <a href="javascript:void(0)">关于北京市朝阳区政务服务网</a>
+                    <span style=" padding-left:12px; padding-right:12px;">|</span>
+                    <a href="javascript:void(0)">本站申明</a>
+                    <span style=" padding-left:12px; padding-right:12px;">|</span>
+                    <a href="javascript:void(0)">新手指南</a>
+                    <span style=" padding-left:12px; padding-right:12px;">|</span>
+                    <a href="javascript:void(0)" target="_blank">联系我们</a>
+                </div>
+                <div class="foot-phone">
+                    <img src="/easier/img/phone.png">
+                </div>
+                <div class="foot-copyright">
+                    <span style=" padding-right:15px; font-size:13px; line-height:24px; color:#666;">主办单位：北京市人民政府办公厅</span>
+                    <span style=" padding-right:15px; font-size:13px; line-height:24px; color:#666;">备案：京ICP备123456789号-2</span>
+                    <span style=" padding-right:15px; font-size:13px; line-height:24px; color:#666;">
+		 		            <a href="javascript:void(0)" style="display:inline-block;text-decoration:none;line-height:24px;">
+                                <img src="/easier/img/batb.png" style="float:left;">
+                                <span style="font-size:13px;margin: 0px 0px 0px 5px;color:#666;">冀公网安备 12346579887465号</span>
+                            </a>
+		 	            </span>
+                    <br>
+                    <span style=" font-size:13px; line-height:24px; color:#666;">中文域名：北京朝阳.政务</span>
+                    <span style=" font-size:13px; line-height:24px; color:#666;">建议使用1366*768分辨率/IE9.0或以上浏览器访问达到最佳效果</span>
+                    <div class="foot-political"><a href="javascript:void(0)" target="_blank"><img src="/easier/img/political-logo.png" width="50" height="62"></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!-- 全局js -->
+<script src="/hadmin/js/jquery.min.js?v=2.1.4"></script>
+<script src="/hadmin/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/plugins/bower_components/cookie/jquery.cookie.min.js"></script>
+<!-- 自定义js -->
+<script src="/hadmin/js/content.js?v=1.0.0"></script>
+<!-- Sweet alert -->
+<script src="/hadmin/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+<script src="/public/js/public.js"></script>
+<script src="/easier/js/model.js"></script>
+<script src="/easier/js/user.js"></script>
+<script>
+    $(function () {
+        $('.detail-operate .apply-exam').click(function () {
+            Model.apply({
+                'access':$.cookie('access')
+            },function (res) {
+                if(res.code == CODE_RELOGIN){
+                    var storage = window.localStorage;
+                    storage.setItem('from',window.location.href);
+                    window.location.href = '/easier/views/login.html';
+                }
+                else if(res.code == CODE_NOT_VALUED){
+                    var storage = window.localStorage;
+                    storage.setItem('from',window.location.href);
+                    window.location.href = '/easier/views/login.html';
+                }
+                else{
+
+                }
+            },{},{});
+        })
+
+
+
+    })
+</script>
+
+</html>

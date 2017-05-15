@@ -41,7 +41,7 @@
                 <div class="user-center-area">
                     <a class="user-center-href" href="javascript:;"><i style="font-size: 20px;margin-right: 5px;" class="fa fa-user"></i>用户中心</a>
                     <div class="user-info">
-                        <a href="javascript:;">注册</a> / <a href="javascript:;">登录</a>
+                        <!--<a href="javascript:;">注册</a> / <a href="javascript:;">登录</a>-->
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
                             <div class="banner-list1-tit">法人办事</div>
                         </div>
                     </div>
-                    <div class="banner-list narrow-banner" data-id="all" onclick="">
+                    <div class="banner-list narrow-banner" data-id="exam" onclick="">
                         <div class="first-ban banner-list2-subbg1" style="top: -110px;background-image: url('/easier/img/examine.png')">
                             <div class="banner-list2-tit" style="color: #f27576;">行政审批</div>
                         </div>
@@ -475,12 +475,13 @@
     <!-- 全局js -->
     <script src="/hadmin/js/jquery.min.js?v=2.1.4"></script>
     <script src="/hadmin/js/bootstrap.min.js?v=3.3.6"></script>
-
+    <script src="/plugins/bower_components/cookie/jquery.cookie.min.js"></script>
     <!-- 自定义js -->
     <script src="/hadmin/js/content.js?v=1.0.0"></script>
 
     <script src="/public/js/public.js"></script>
     <script src="/easier/js/model.js"></script>
+    <script src="/easier/js/user.js"></script>
 
     <script>
         $(function () {
@@ -508,6 +509,12 @@
                 switch (index){
                     case 'person':
                         window.location.href = '/easier/process/index?type=person';
+                        break;
+                    case 'enter':
+                        window.location.href = '/easier/process/index?type=enter';
+                        break;
+                    case 'exam':
+                        window.location.href = '/easier/process/index?type=exam';
                         break;
                     default:
                         return;

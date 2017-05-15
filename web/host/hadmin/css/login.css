@@ -2,7 +2,7 @@ html{height: 100%;}
 body.signin {
     background: #18c8f6;
     height: auto;
-    background:url("../img/login-background.jpg") no-repeat center fixed;
+    background:url("/easier/img/login.png") no-repeat center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -12,7 +12,9 @@ body.signin {
 
 .signinpanel {
     width: 320px;
-    margin: 10% auto 0 auto;
+    margin-top: 7%;
+    margin-left: 63%;
+    margin-bottom: 0;
 }
 
 .signinpanel .logopanel {
@@ -90,4 +92,9 @@ body.signin {
         margin:0 20px;
         width:auto;
     }
+}
+.error-msg{
+    color: #cc5965;
+    margin-left: 5px;
+    display: none;
 }

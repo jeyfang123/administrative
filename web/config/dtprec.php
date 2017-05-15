@@ -15,6 +15,7 @@ define('CODE_PERMISSION_DEND',401);//没有权限
 define('SQL_ERROR',-100);  //sql错误
 define('ADMINUSER',1);  //管理员编码
 define('CODE_RESUMIT',305); //重复提交
+define('CODE_NOT_VALUED',407);  //未认证
 
 
 // 数据库地址

@@ -85,4 +85,59 @@ class ProcessController extends Controller{
         return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>$res['data'],'count'=>$res['count']]);
 
     }
+
+    /**
+     * 事项详情
+     * @param $req
+     * @return string
+     */
+    function proDetail($req){
+        $proId = $req->param('proId');
+        $res = Box::getObject('process','model','easier')->proDetail($proId);
+        if($res == false){
+            echo '服务器错误';
+            exit();
+        }
+        $res['detail']['acc_conditions'] = htmlspecialchars_decode($res['detail']['acc_conditions']);
+        $res['detail']['exercise_basis'] = htmlspecialchars_decode($res['detail']['exercise_basis']);
+        array_walk($res['flow'],function(&$item){
+            $item['material'] = json_decode($item['material'],true);
+        });
+        $this->_twig->assign('data',['detail'=>$res['detail'],'flow'=>$res['flow']]);
+        return $this->viewTpl('prodetail.html');
+    }
+
+    /**
+     * 下载附件
+     * @param $req
+     */
+    function download($req){
+        $url = $req->param('url');
+        $url = WEB_ROOT.$url;
+        if(file_exists($url)){
+            $extension = pathinfo($url,PATHINFO_EXTENSION);
+            header("Content-Type: application/force-download");
+            header("Content-Disposition: attachment; filename=附件.{$extension}");
+            readfile($url);
+        }
+        else{
+            echo 'no file';
+        }
+    }
+
+    /**
+     * 发起申请
+     * @param $req
+     * @return string
+     */
+    function apply($req){
+        $access = $req->param('access');
+        if(empty($access)){
+            return $this->returnJson(['code'=>CODE_RELOGIN]);
+        }
+        $user = Box::getObject('token','model','public')->getUser($access);
+        if($user == false){
+            return $this->returnJson(['code'=>CODE_RELOGIN]);
+        }
+    }
 }

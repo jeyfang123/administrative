@@ -54,6 +54,9 @@
         $obj = Box::getObject($request->controller, 'controller', $product);
         $func = $request->func;
         if($obj == null || !method_exists($obj,$func)){
+            echo $obj;
+            echo $func;
+            die();
             header('Location:/404.html');
             exit();
         }

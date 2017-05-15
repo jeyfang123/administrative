@@ -5,6 +5,8 @@ var CODE_Already_Registered =  212;
 var CODE_NotAdmin =  213;
 var CODE_PARAMETER_ERROR = 400;
 var CODE_USER_HAVELOGIN = 205;
+var CODE_NOT_FOUND = 405;
+var CODE_NOT_VALUED = 407;
 
 var scrollFixed = function(el) {
     if (!el) return;

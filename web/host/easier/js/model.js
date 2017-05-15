@@ -43,8 +43,11 @@ function getUrlParams() {
 
 var Model = (function(){
     var urlMap = {
-        'loginin':{'url':'/population/login/loginin'},
+        'login':{'url':'/easier/user/login'},
+        'register':{'url':'/easier/user/register'},
+        'checkUser':{'url':'/easier/user/checkUser'},
         'getProcess':{'url':'/easier/process/searchProcess'},   //获取事项
+        'apply':{'url':'/easier/process/apply'},    //申请审批
     };
     var handler = {};
     for(var name in urlMap){
@@ -55,10 +58,10 @@ var Model = (function(){
                     var token = getToken();
                     var opts = inopts || {};
                     return Request[reqtype](url, param, function(res){
-                        if(res.code === CODE_RELOGIN){
-                            window.location.href = "/population/login";
-                            return;                            
-                        }
+                        // if(res.code === CODE_RELOGIN){
+                        //     window.location.href = "/easier/views/login.html";
+                        //     return;
+                        // }
                         // if(res.code === CODE_USER_HAVELOGIN){
                         //     window.location.href = "/house/login.html";
                         //     return;                            
