@@ -1,12 +1,25 @@
 .col-sm-content{
     margin-left: 12%;
-    height: 600px;
 }
 .body-content{
-    height: 643px;
+    padding-bottom: 20px;
 }
 .valued-title{
     font-size: 18px;
     margin-top: 30px;
     margin-bottom: 10px;
+}
+.verify-code-img{
+    position: absolute;
+    right: -197px;
+    top: -13px;
+}
+.getcode{
+    position: absolute;
+    right: -156px;
+    top: -2px;
+}
+.prevent-msg{
+    position: absolute;
+    right: -154px;
 }

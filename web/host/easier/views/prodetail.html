@@ -97,7 +97,7 @@
                     </div>
                 </div>
                 <div class="detail-operate">
-                    <img class="apply-exam" src="/easier/img/apply.gif" alt="">
+                    <img class="apply-exam" data-id="{{ data.detail.pro_id }}" src="/easier/img/apply.gif" alt="">
                     <img class="apply-concat" style="margin-left: 15px;" src="/easier/img/refer.gif" alt="">
                 </div>
                 <div class="detail-more">
@@ -214,8 +214,12 @@
 <script>
     $(function () {
         $('.detail-operate .apply-exam').click(function () {
+            var proName = $('.detail-title').text();
+            var proId = $(this).attr('data-id');
             Model.apply({
-                'access':$.cookie('access')
+                'access':$.cookie('access'),
+                'proName':proName,
+                'proId':proId
             },function (res) {
                 if(res.code == CODE_RELOGIN){
                     var storage = window.localStorage;
@@ -225,10 +229,20 @@
                 else if(res.code == CODE_NOT_VALUED){
                     var storage = window.localStorage;
                     storage.setItem('from',window.location.href);
-                    window.location.href = '/easier/views/login.html';
+                    window.location.href = '/easier/views/valued.html';
+                }
+                else if(res.code == CODE_ERROR){
+                    swal({
+                        title: "错误！",
+                        text: res.msg
+                    })
                 }
                 else{
-
+                    swal({
+                        title: "Success！",
+                        text: '申请成功，编号：'+res.proId+'。请前往中心上交资料',
+                        type:'success'
+                    });
                 }
             },{},{});
         })

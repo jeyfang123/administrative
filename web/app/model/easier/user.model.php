@@ -23,7 +23,40 @@ class UserModel{
     }
 
     public function addUser($username,$password){
-        $sql = "insert into ".DB::TB_USER."(username,pwd) values(?,?)";
-        return $this->_db->Execute($sql,[$username,$password]);
+        $time = date('Y-m-d H:i:s');
+        $sql = "insert into ".DB::TB_USER."(username,pwd,createtime) values(?,?,?)";
+        return $this->_db->Execute($sql,[$username,$password,$time]);
+    }
+
+    public function perValue($phone,$compellation,$id,$user){
+        $userId = $user['id'];
+        $time = date('Y-m-d H:i:s');
+        $checkSql = "select valued from ".DB::TB_USER." where id = ?";
+        $check = $this->_db->GetOne($checkSql,[$userId]);
+        if($check != '0'){
+            return 'exist';
+        }
+        else{
+            $sql = "update ".DB::TB_USER." 
+            set phone = ? ,compellation = ?,citizenid = ?,valued = ?,valuedtime = ? where id = ?";
+            $res = $this->_db->Execute($sql,[$phone,$compellation,$id,1,$time,$userId]);
+            return $res;
+        }
+    }
+
+    public function enterValue($phone,$artificial,$enterprise,$creditcode,$user){
+        $userId = $user['id'];
+        $time = date('Y-m-d H:i:s');
+        $checkSql = "select valued from ".DB::TB_USER." where id = ?";
+        $check = $this->_db->GetOne($checkSql,[$userId]);
+        if($check != '0'){
+            return 'exist';
+        }
+        else{
+            $sql = "update ".DB::TB_USER." 
+            set phone = ? ,artificial = ?,enterprise = ?,creditcode = ?,valued = ?,valuedtime = ? where id = ?";
+            $res = $this->_db->Execute($sql,[$phone,$artificial,$enterprise,$creditcode,2,$time,$userId]);
+            return $res;
+        }
     }
 }

@@ -46,6 +46,10 @@ var Model = (function(){
         'login':{'url':'/easier/user/login'},
         'register':{'url':'/easier/user/register'},
         'checkUser':{'url':'/easier/user/checkUser'},
+        'checkVerifyCode':{'url':'/easier/user/checkVerifyCode'},   //  验证图片验证码
+        'sendCode':{'url':'/easier/user/sendCode'}, //发送短信验证码
+        'perValue':{'url':'/easier/user/perValue'}, //个人认证
+        'enterValue':{'url':'/easier/user/enterValue'}, //企业认证
         'getProcess':{'url':'/easier/process/searchProcess'},   //获取事项
         'apply':{'url':'/easier/process/apply'},    //申请审批
     };

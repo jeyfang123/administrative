@@ -132,12 +132,29 @@ class ProcessController extends Controller{
      */
     function apply($req){
         $access = $req->param('access');
+        $proId = $req->param('proId');
+        $proName = $req->param('proName');
         if(empty($access)){
             return $this->returnJson(['code'=>CODE_RELOGIN]);
         }
         $user = Box::getObject('token','model','public')->getUser($access);
         if($user == false){
             return $this->returnJson(['code'=>CODE_RELOGIN]);
+        }
+        else if($user['valued'] == 0){
+            return $this->returnJson(['code'=>CODE_NOT_VALUED]);
+        }
+        else{
+            $res = Box::getObject('process','model','easier')->apply($proId,$proName,$user['id']);
+            if($res == false){
+                return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'服务器出错了']);
+            }
+            else if($res == 'exist'){
+                return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'您已申请过该事项，请勿重复申请']);
+            }
+            else{
+                return $this->returnJson(['code'=>CODE_SUCCESS,'proId'=>$res]);
+            }
         }
     }
 }

@@ -78,7 +78,7 @@ class DepartmentController extends Controller{
         $user = $req->user;
         $departName = trim(Filtros::post_check($req->param('departName')));
         $departDesc = Filtros::post_check($req->param('departDesc'));
-        $auth = Filtros::post_check($req->param('auth'));
+        $auth = $req->param('auth');
         if(empty($departName) || empty($departDesc)){
             return $this->returnJson(['code'=>CODE_PARAMETER_ERROR,'msg'=>'部门信息不完整']);
         }

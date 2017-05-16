@@ -7,6 +7,7 @@
  */
 class ProcessModel{
     private $_db;
+    private $adminRole = ['c6b813da-2ef4-439d-a8b1-9ae019352ff1','664e38e7-3a58-4bf2-9b6a-60614f105bb7','c6a919ac-0191-46f2-b938-84a387596ec8'];
     function __construct()
     {
         $this->_db = DB::getInstance();
@@ -141,8 +142,93 @@ class ProcessModel{
         return DB::returnModelRes($res)[0];
     }
 
-    public function getProInstance(){
+    /**
+     * 获取待发起事项
+     * @param $keywords
+     * @param $page
+     * @param $pageSize
+     * @return array|bool|null
+     */
+    public function getProUnInstance($keywords,$page,$pageSize){
+        $map = '';
+        if(!empty($keywords)){
+            $map = "and pro_name like '%$keywords%' ";
+        }
+        $offset = ($page - 1)* $pageSize;
+        $sql = "select * from process_instance ins left JOIN(
+                    select rolename,flow.pro_id from (
+                        select * from (select * ,row_number() over (PARTITION by pro_id ORDER BY flow_id asc ) as row_index from process_flow) innerflow where row_index =1) flow 
+                    left JOIN process_node node on flow.last_nodeid = node.node_id
+                LEFT JOIN ea_role on node.role = role_id) roles on ins.pro_id = roles.pro_id 
+                where 1=1 and {$map} ORDER BY create_time desc offset {$offset} limit {$pageSize}";
+        $count = "select count(*) from process_instance ins left JOIN(
+                    select rolename,flow.pro_id from (
+                        select * from (select * ,row_number() over (PARTITION by pro_id ORDER BY flow_id asc ) as row_index from process_flow) innerflow where row_index =1) flow 
+                    left JOIN process_node node on flow.last_nodeid = node.node_id
+                LEFT JOIN ea_role on node.role = role_id) roles on ins.pro_id = roles.pro_id 
+                where 1=1 and {$map}";
+        $res = $this->_db->GetAll($sql);
+        $total = $this->_db->GetOne($count);
+        return DB::returnModelRes(['data'=>$res,'count'=>$total]);
+    }
 
+    /**
+     * 审核中事项
+     * @param $map
+     * @param $page
+     * @param $pageSize
+     * @return array|bool|null
+     */
+    private function proInstanceIng($map,$page,$pageSize){
+        $offset = ($page - 1)* $pageSize;
+        $sql = "select * from process_instance ins 
+                  LEFT JOIN instance_log log on ins.log_id = log.log_id
+                  LEFT JOIN ea_role roles on roles.role_id = verify_role
+                where status = '1' {$map} ORDER BY ins.create_time desc offset {$offset} limit {$pageSize}";
+        $count = "select count(*) from process_instance ins 
+                    LEFT JOIN instance_log log on ins.log_id = log.log_id
+                  where status = '1' {$map}";
+        $res = $this->_db->GetAll($sql);
+        $total = $this->_db->GetOne($count);
+        return DB::returnModelRes(['data'=>$res,'count'=>$total]);
+    }
+
+
+    /**
+     * @param $map
+     * @param $page
+     * @param $pageSize
+     * @return array|bool|null
+     */
+    private function proInstanceEd($map,$page,$pageSize){
+        $offset = ($page - 1)* $pageSize;
+        $sql = "select * from process_instance ins 
+                  LEFT JOIN instance_log log on ins.log_id = log.log_id
+                  LEFT JOIN ea_role roles on roles.role_id = verify_role
+                where end_time is not null 1=1 and {$map} ORDER BY create_time desc offset {$offset} limit {$pageSize}";
+        $count = "select count(*) from process_instance ins 
+                  LEFT JOIN instance_log log on ins.log_id = log.log_id
+                where end_time is not null 1=1 and {$map}";
+        $res = $this->_db->GetAll($sql);
+        $total = $this->_db->GetOne($count);
+        return DB::returnModelRes(['data'=>$res,'count'=>$total]);
+
+    }
+
+    public function getProInstanceIng($role,$keywords,$page,$pageSize){
+        $map = " and pro_name = pro_name like '%{$keywords}%' ";
+        if(!in_array($role,$this->adminRole)){
+            $map .= " and  verify_role =  '{$role}' ";
+        }
+        return $this->proInstanceIng($map,$page,$pageSize);
+    }
+
+    public function getProInstanceEd($role,$keywords,$page,$pageSize){
+        $map = " and pro_name = pro_name like '%{$keywords}%' ";
+        if(!in_array($role,$this->adminRole)){
+            $map .= " and  verify_role =  '{$role}' ";
+        }
+        return $this->proInstanceEd($map,$page,$pageSize);
     }
 
 }

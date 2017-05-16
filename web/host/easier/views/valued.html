@@ -12,6 +12,8 @@
     <link href="/hadmin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
     <link href="/hadmin/css/animate.css" rel="stylesheet">
     <link href="/hadmin/css/style.css" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="/hadmin/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
     <link rel="stylesheet" href="/easier/css/header.css">
     <link rel="stylesheet" href="/easier/css/footer.css">
     <link rel="stylesheet" href="/easier/css/valued.css">
@@ -57,27 +59,29 @@
                         <div class="tab-content">
                             <div id="tab-1" class="tab-pane active">
                                 <div class="panel-body">
-                                    <form class="form-horizontal">
+                                    <form class="form-horizontal form-per">
                                         <div class="form-group">
                                             <label class="col-sm-2 col-md-offset-2 control-label">手机号</label>
-
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control">
+                                                <input type="text" maxlength="11" name="phone" class="phone form-control required">
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
                                         <div class="form-group">
                                             <label class="col-sm-2 col-md-offset-2 control-label">图片验证码</label>
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control">
+                                                <input type="text" maxlength="4" name="verify" class="verify form-control required">
+                                                <img class="verify-code-img" src="/easier/user/verifyCode" alt="">
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 col-md-offset-2 control-label">验证码</label>
+                                            <label class="col-sm-2 col-md-offset-2 control-label">短信验证码</label>
 
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control" name="password">
+                                                <input type="text" maxlength="4" name="code" class="code form-control required" name="password">
+                                                <button class="btn getcode">获取短信验证码</button>
+                                                <div class="sms-info"></div>
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
@@ -85,7 +89,7 @@
                                             <label class="col-sm-2 col-md-offset-2 control-label">个人姓名</label>
 
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control">
+                                                <input type="text" maxlength="15" name="compellation" class="compellation form-control required">
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
@@ -93,36 +97,42 @@
                                             <label class="col-sm-2 col-md-offset-2 control-label">身份证号码</label>
 
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control">
+                                                <input type="text" maxlength="18" name="id" class="id form-control required">
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
+                                        <div class="col-sm-5 col-md-offset-4">
+                                            <button class="btn btn-success btn-block per-value">认证</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
                             <div id="tab-2" class="tab-pane">
                                 <div class="panel-body">
-                                    <form class="form-horizontal">
+                                    <form class="form-horizontal form-enter">
                                         <div class="form-group">
                                             <label class="col-sm-2 col-md-offset-2 control-label">手机号</label>
 
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control">
+                                                <input type="text" maxlength="11" name="phone" class="phone form-control required">
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
                                         <div class="form-group">
                                             <label class="col-sm-2 col-md-offset-2 control-label">图片验证码</label>
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control">
+                                                <input type="text" maxlength="4" name="verify" class="verify form-control required">
+                                                <img class="verify-code-img" src="/easier/user/verifyCode" alt="">
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 col-md-offset-2 control-label">验证码</label>
+                                            <label class="col-sm-2 col-md-offset-2 control-label">短信验证码</label>
 
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control" name="password">
+                                                <input type="text" maxlength="4" name="code" class="code form-control required" name="password">
+                                                <button class="btn getcode">获取短信验证码</button>
+                                                <div class="sms-info"></div>
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
@@ -130,7 +140,7 @@
                                             <label class="col-sm-2 col-md-offset-2 control-label">个人姓名</label>
 
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control">
+                                                <input type="text" maxlength="10" name="artificial" class="artificial form-control required">
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
@@ -138,7 +148,7 @@
                                             <label class="col-sm-2 col-md-offset-2 control-label">企业全称</label>
 
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control">
+                                                <input type="text" maxlength="50" name="enterprise" class="enterprise form-control required">
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
@@ -146,10 +156,13 @@
                                             <label class="col-sm-2 col-md-offset-2 control-label">统一社会信用代码</label>
 
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control">
+                                                <input type="text" maxlength="18" name="creditcode" class="creditcode form-control required">
                                             </div>
                                         </div>
                                         <div class="hr-line-dashed"></div>
+                                        <div class="col-sm-5 col-md-offset-4">
+                                            <button class="btn btn-success btn-block enter-value">认证</button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -208,85 +221,214 @@
 <script>
     $(function () {
         var storage = window.localStorage;
-        console.log(storage.getItem('from'));
+        var perInter = '';
+        var enterInter = '';
 
-        function JqValidateLogin() {
-            return $('.login-form').validate({
+        function JqValidatePer() {
+            return $('.form-per').validate({
                 rules:{
-                    username:{
+                    phone:{
+                        required: true,
+                        minlength: 11,
+                        maxlength:11,
+                    },
+                    verify:{
+                        required: true,
+                        minlength: 4,
+                        maxlength:4
+                    },
+                    code:{
+                        required: true,
+                        minlength: 4,
+                        maxlength:4
+                    },
+                    compellation:{
                         required: true,
                         minlength: 2
                     },
-                    password:{
+                    id:{
                         required: true,
-                        minlength: 5
+                        minlength: 18,
+                        maxlength:18
                     },
                 },
                 messages:{
-                    username:{
-                        required:  "请输入您的用户名",
-                        minlength: "用户名必须两个字符以上"
+                    phone:{
+                        required:  "请输入您的手机号",
+                        minlength: "请输入正确的手机号",
+                        maxlength: "请输入正确的手机号"
                     },
-                    password:{
-                        required: "请输入密码",
-                        minlength: "密码长度过短"
+                    verify:{
+                        required: "请输入验证码",
+                        minlength: "请输入正确的验证码",
+                        maxlength: "请输入正确的验证码"
                     },
+                    code:{
+                        required: "请输入验证码",
+                        minlength: "请输入正确的验证码",
+                        maxlength: "请输入正确的验证码"
+                    },
+                    compellation:{
+                        required: "请输入姓名",
+                        minlength: "请输入正确的姓名",
+                    },
+                    id:{
+                        required: "请输入身份证号",
+                        minlength: "请输入正确的身份证号",
+                    }
                 }
             });
         }
-        function JqValidateReg() {
-            return $('.register-form').validate({
+        function JqValidateEnter() {
+            return $('.form-enter').validate({
                 rules:{
-                    username:{
+                    phone:{
+                        required: true,
+                        minlength: 11,
+                        maxlength:11,
+                    },
+                    verify:{
+                        required: true,
+                        minlength: 4,
+                        maxlength:4
+                    },
+                    code:{
+                        required: true,
+                        minlength: 4,
+                        maxlength:4
+                    },
+                    artificial:{
                         required: true,
                         minlength: 2
                     },
-                    password:{
+                    enterprise:{
                         required: true,
-                        minlength: 5
+                        minlength: 2
                     },
-                    confirm: {
+                    creditcode:{
                         required: true,
-                        minlength: 5,
-                        equalTo: "#password"
+                        minlength: 18,
+                        maxlength:18
                     },
                 },
                 messages:{
-                    username:{
-                        required:  "请输入您的用户名",
-                        minlength: "用户名必须两个字符以上"
+                    phone:{
+                        required:  "请输入您的手机号",
+                        minlength: "手机号错误",
+                        maxlength: "手机号错误"
                     },
-                    password:{
-                        required: "请输入密码",
-                        minlength: "密码长度过短"
+                    verify:{
+                        required: "请输入验证码",
+                        minlength: "验证码错误",
+                        maxlength: "验证码错误"
                     },
-                    confirm: {
-                        required:"请再次输入密码",
-                        minlength: "密码必须5个字符以上",
-                        equalTo: "两次输入的密码不一致"
+                    code:{
+                        required: "请输入验证码",
+                        minlength: "验证码错误",
+                        maxlength: "验证码错误"
                     },
+                    artificial:{
+                        required: "请输入姓名",
+                        minlength: "请输入姓名",
+                    },
+                    enterprise:{
+                        required: "请输入公司全称",
+                        minlength: "请输入正确的公司名称",
+                    },
+                    creditcode:{
+                        required: "请输入统一社会信用代码",
+                        minlength: "输入错误",
+                        maxlength: "输入错误"
+                    }
                 }
             });
         }
-
-        $('button.login-btn').click(function (event) {
+        
+        $('.getcode').click(function (event) {
+            event.preventDefault();
             var form = $(this).parents('form');
-            form.find('.error-msg').hide();
-            var username = $.trim(form.find('.uname').val());
-            var password = hex_md5($.trim(form.find('.pword').val()));
-            if(JqValidateLogin().form()){
-                event.preventDefault();
-                Model.login({
-                    'username':username,
-                    'password':password
+            var verify = form.find('.verify').val();
+            var phone = form.find('.phone').val();
+            if(verify == ''){
+                swal({
+                    title: "警告！",
+                    text: '请填写图片验证码'
+                });
+            }
+            else if(phone == ''){
+                swal({
+                    title: "错误！",
+                    text: '手机号码填写错误'
+                });
+            }
+            else{
+                Model.checkVerifyCode({
+                    'verify':verify
                 },function (res) {
-                    if(res.code == CODE_NOT_FOUND){
-                        form.find('.error-msg').css('display','inline-block').text('用户名或密码错误');
+                    if(res.code != CODE_SUCCESS){
+                        swal({
+                            title: "错误！",
+                            text: '图片验证码填写错误'
+                        });
                     }
                     else{
-                        $.cookie('access',res.access,{path:'/easier'});
+                        sendCode(phone,form);
+                    }
+                })
+            }
+        })
+
+        function sendCode(phone,form) {
+            Model.sendCode({
+                'phone':phone
+            },function (res) {
+                if(res.code != CODE_SUCCESS){
+                    swal({
+                        title: "错误！",
+                        text: res.msg
+                    });
+                }
+                else{
+                    swal({
+                        title: "Success",
+                        text: '发送成功',
+                        type:'success'
+                    });
+                    preventSend(form);
+                }
+            },{},{});
+        }
+
+        $('button.per-value').click(function (event) {
+            var form = $(this).parents('form');
+            form.find('.error-msg').hide();
+            var phone = $.trim(form.find('.phone').val());
+            var code = ($.trim(form.find('.code').val()));
+            var compellation = ($.trim(form.find('.compellation').val()));
+            var id = ($.trim(form.find('.id').val()));
+            if(JqValidatePer().form()){
+                event.preventDefault();
+                Model.perValue({
+                    'access':$.cookie('access'),
+                    'phone':phone,
+                    'code':code,
+                    'compellation':compellation,
+                    'id':id
+                },function (res) {
+                    if(res.code != CODE_SUCCESS){
+                        swal({
+                            title: "错误！",
+                            text: res.msg
+                        })
+                    }
+                    else{
+                        swal({
+                            title: "Success！",
+                            text: '认证成功',
+                            type:'success'
+                        });
                         var from = storage.getItem('from');
-                        if(from != ''){
+                        if(from != null){
                             storage.removeItem('from');
                             window.location.href = from;
                         }
@@ -298,27 +440,68 @@
             }
         });
 
-        $('button.register-btn').click(function (event) {
+        $('button.enter-value').click(function (event) {
             var form = $(this).parents('form');
             form.find('.error-msg').hide();
-            var username = $.trim(form.find('.uname').val());
-            var password = hex_md5($.trim(form.find('.pword').val()));
-            if(JqValidateReg().form()){
+            var phone = $.trim(form.find('.phone').val());
+            var code = ($.trim(form.find('.code').val()));
+            var artificial = ($.trim(form.find('.artificial').val()));
+            var enterprise = ($.trim(form.find('.enterprise').val()));
+            var creditcode = ($.trim(form.find('.creditcode').val()));
+            if(JqValidateEnter().form()){
                 event.preventDefault();
-                Model.register({
-                    'username':username,
-                    'password':password
+                Model.enterValue({
+                    'access':$.cookie('access'),
+                    'phone':phone,
+                    'code':code,
+                    'artificial':artificial,
+                    'enterprise':enterprise,
+                    'creditcode':creditcode,
                 },function (res) {
                     if(res.code != CODE_SUCCESS){
-                        form.find('.error-msg').css('display','inline-block').text(res.msg);
+                        swal({
+                            title: "错误！",
+                            text: res.msg
+                        })
                     }
                     else{
-                        $.cookie('access',res.access,{path:'/easier'});
-                        window.location.href = '/easier/views/valued.html'
+                        swal({
+                            title: "Success！",
+                            text: '认证成功',
+                            type:'success'
+                        });
+                        var from = storage.getItem('from');
+                        if(from != null){
+                            storage.removeItem('from');
+                            window.location.href = from;
+                        }
+                        else{
+                            window.location.href = '/easier/index';
+                        }
                     }
                 })
             }
         });
+
+        function preventSend(form) {
+            form.find('.getcode').attr('disabled','true');
+            var label = '<label class="prevent-msg">还有<span class="remain-sec">60</span>秒可重新获取</label>';
+            form.find('.sms-info').html(label);
+            var sec = 60;
+            perInter = setInterval(function () {
+                sec = sec - 1;
+                if(sec == 0){
+                    form.find('.getcode').removeAttr('disabled');
+                    form.find('.prevent-msg').remove();
+                    clearInterval(perInter);
+                }
+                else{
+                    form.find('.remain-sec').text(sec);
+                }
+            },1000)
+        }
+
+        
     })
 </script>
 

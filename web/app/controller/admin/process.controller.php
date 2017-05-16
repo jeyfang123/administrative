@@ -66,4 +66,19 @@ class ProcessController extends Controller{
         }
         return $this->returnJson(['code' => CODE_SUCCESS]);
     }
+
+    function proList($req){
+        $user = $req->user;
+        $page = $req->param('page',1);
+        $pageSize = $req->param('pageSize',15);
+        $type = $req->param('type');
+        $keyWords = $req->param('keywords');
+        $adminRole = ['c6b813da-2ef4-439d-a8b1-9ae019352ff1','664e38e7-3a58-4bf2-9b6a-60614f105bb7','c6a919ac-0191-46f2-b938-84a387596ec8'];
+        if(in_array($user->role,$adminRole)){
+
+        }
+        else{
+
+        }
+    }
 }

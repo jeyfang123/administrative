@@ -82,4 +82,22 @@ where \"role\" = '7588a16a-d216-43e7-a97f-bbd2b46e6c30')";
         $flow = $this->_db->GetAll($flowSql,[$proId]);
         return DB::returnModelRes(['detail'=>$detail,'flow'=>$flow])[0];
     }
+
+    /**
+     * 发起申请
+     * @param $proId
+     * @param $proName
+     * @param $userId
+     * @return mixed
+     */
+    function apply($proId,$proName,$userId){
+        $existSql = "select count(*) from ".DB::TB_INSTANCE." where pro_id = ? and create_userid = ? and status = ? ";
+        $existRes = $this->_db->GetOne($existSql,[$proId,$userId,0]);
+        if($existRes > 0){
+            return 'exist';
+        }
+        $time = date("Y-m-d H:i:s");
+        $sql = " insert into ".DB::TB_INSTANCE."(pro_id,pro_name,create_userid,create_time,status) values(?,?,?,?,0) returning pro_ins_id";
+        return $this->_db->GetOne($sql,[$proId,$proName,$userId,$time]);
+    }
 }

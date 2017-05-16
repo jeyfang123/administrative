@@ -19,12 +19,12 @@ class DepartmentModel{
     public function getAllDepartment($map = ''){
         if(func_num_args() >= 1){
             $params = array_slice(func_get_args(),1);
-            $departSql = "select *,case when total_accept = 0 then 0 else round(finished/total_accept)*100 end as rate from ".DB::TB_ROLE." where enable = '1' and createuser is not null {$map} order by createtime asc";
+            $departSql = "select *,case when total_accept = 0 then 0 else round(finished/total_accept)*100 end as rate from ".DB::TB_ROLE." where enable = '1' and createuser is not null {$map} order by createtime desc";
             $res = $this->_db->GetAll($departSql,$params);
             return DB::returnModelRes($res)[0];
         }
         else{
-            $departSql = "select *,case when total_accept = 0 then 0 else round(finished/total_accept)*100 end as rate from ".DB::TB_ROLE." where enable = '1' and createuser is not null order by createtime asc";
+            $departSql = "select *,case when total_accept = 0 then 0 else round(finished/total_accept)*100 end as rate from ".DB::TB_ROLE." where enable = '1' and createuser is not null order by createtime desc";
             $res = $this->_db->GetAll($departSql);
             return DB::returnModelRes($res)[0];
         }
@@ -44,9 +44,9 @@ class DepartmentModel{
         if($existRes > 0){
             return 'exist';
         }
-        $insertSql = 'insert into '.DB::TB_ROLE.'(rolename,role_desc,createtime,createuser) values (?,?,?,?)';
+        $insertSql = 'insert into '.DB::TB_ROLE.'(rolename,role_desc,createtime,createuser,enable) values (?,?,?,?) returning role_id';
         $this->_db->BeginTrans();
-        $insertRes = $this->_db->Execute($insertSql,[$name,$desc,date('Y-m-d H:i:s'),$userId]);
+        $insertRes = $this->_db->GetOne($insertSql,[$name,$desc,date('Y-m-d H:i:s'),$userId,1]);
         if(empty($auth) && $insertRes){
             $this->_db->CommitTrans();
             return true;
@@ -60,7 +60,7 @@ class DepartmentModel{
             $insertPerSql = "insert into ".DB::TB_ROLE_PERMISSION."(role,permission) values{$placeholders}";
             $params = [];
             foreach ($auth as $row){
-                $params[] = $userId;
+                $params[] = $insertRes;
                 $params[] = $row;
             }
             $insertPerRes = $this->_db->Execute($insertPerSql,$params);

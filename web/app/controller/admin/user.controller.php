@@ -26,6 +26,13 @@ class UserController extends Controller{
         return $this->returnJson(['code'=>CODE_SUCCESS,'token'=>$token]);
     }
 
+    function logout($req){
+        $token = $req->param('token');
+        Box::getObject('token','model','public')->redisDel($token);
+        $_COOKIE['token'] = null;
+        return $this->viewTpl('login.html');
+    }
+
     /**
      * 部门人员
      * @return mixed

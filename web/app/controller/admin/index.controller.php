@@ -14,7 +14,8 @@ class IndexController extends Controller{
 
     function render($req){
         $user = $req->user;
-        $this->_twig->assign('data',['user'=>$user]);
+        $token = $req->param('token');
+        $this->_twig->assign('data',['user'=>$user,'token'=>$token]);
         return $this->viewTpl ('index.html');
     }
 

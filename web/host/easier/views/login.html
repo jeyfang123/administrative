@@ -209,7 +209,7 @@
                     else{
                         $.cookie('access',res.access,{path:'/easier'});
                         var from = storage.getItem('from');
-                        if(from != ''){
+                        if(from != null){
                             storage.removeItem('from');
                             window.location.href = from;
                         }
