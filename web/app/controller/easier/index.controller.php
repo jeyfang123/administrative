@@ -28,4 +28,13 @@ class IndexController extends Controller{
         $this->_twig->assign('data',['imgAtt'=>$imgAtt,'att'=>$att,'poli'=>$poli,'heat'=>$heat,'icon'=>$heatIcon]);
         return $this->viewTpl ('index.html');
     }
+
+    /**
+     * 流动信息
+     * @return string
+     */
+    function indexGetFlowProcess(){
+        $res = Box::getObject('process','model','easier')->indexGetFlowProcess();
+        return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>$res]);
+    }
 }

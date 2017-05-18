@@ -100,4 +100,20 @@ where \"role\" = '7588a16a-d216-43e7-a97f-bbd2b46e6c30')";
         $sql = " insert into ".DB::TB_INSTANCE."(pro_id,pro_name,create_userid,create_time,status) values(?,?,?,?,0) returning pro_ins_id";
         return $this->_db->GetOne($sql,[$proId,$proName,$userId,$time]);
     }
+
+    /**
+     * 流动信息
+     * @return mixed
+     */
+    function indexGetFlowProcess(){
+        $sql = "select ins.*, case when ins.status = '1' then '受理' when ins.status = '2' then '办结' 
+                      when ins.status = '3' then '拒结' end as stadesc,
+                  roles.rolename,COALESCE(compellation,artificial) as username from process_instance ins
+                LEFT JOIN ea_user on ins.create_userid = id
+                LEFT JOIN instance_log log on log.log_id = ins.log_id
+                LEFT JOIN ea_role roles on log.verify_role = roles.role_id
+                where status != '0' ORDER BY create_time desc limit 15 ";
+        $res = $this->_db->GetAll($sql);
+        return $res;
+    }
 }

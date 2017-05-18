@@ -42,6 +42,13 @@ var
         'getDepartment':{'url':'/admin/department/getDepartment'},  //获取所有部门
         'addProcess':{'url':'/admin/process/addProcess'},   //添加新事项
         'getContent':{'url':'/admin/content/searchContent'},    //搜索内容
+        'getProUnInstance':{'url':'/admin/process/getProUnInstance'},   //获取待处理事项
+        'getMaterial':{'url':'/admin/process/getMaterial'},     //获取材料
+        'acceptPro':{'url':'/admin/process/acceptPro'},     //受理
+        'pending':{'url':'/admin/process/pending'},     //获取个人待审批事项
+        'getProInfo':{'url':'/admin/process/getProInfo'},   //获取实例详情信息
+        'denyPro':{'url':'/admin/process/denyPro'},     //拒绝申请
+        'agreePro':{'url':'/admin/process/agreePro'},   //同意申请
     };
     var handler = {};
     for(var name in urlMap){
@@ -53,8 +60,17 @@ var
                     var opts = inopts || {};
                     return Request[reqtype](url, param, function(res){
                         if(res.code === CODE_RELOGIN){
-                            window.location.href = "/admin/user/login";
+                            swal({
+                                title: "出错了！",
+                                text: '登录已过期，请重新登录'
+                            });
                             return;
+                        }
+                        else if(res.code === CODE_PERMISSION_DEND){
+                            swal({
+                                title: "出错了！",
+                                text: '抱歉，您没有权限操作'
+                            });
                         }
                         success(res);
                     }, function(res){

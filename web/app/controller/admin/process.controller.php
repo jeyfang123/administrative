@@ -81,4 +81,161 @@ class ProcessController extends Controller{
 
         }
     }
+
+    /**
+     * 获取待受理事项
+     * @param $req
+     * @return string
+     */
+    function getProUnInstance($req){
+        $access = $req->param('access');
+        $insId = $req->param('insId','');
+        $page= $req->param('page',1);
+        $pageSize = $req->param('pageSize',15);
+        $res = Box::getObject('process','model','admin')->getProUnInstance($insId,$page,$pageSize);
+        if($res === false){
+            return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'服务器出错了']);
+        }
+        else if($res === null){
+            return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>[],'count'=>0]);
+        }
+        else{
+            return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>$res['data'],'count'=>$res['count']]);
+        }
+    }
+
+    /**
+     * 获取事项材料
+     * @param $req
+     * @return string
+     */
+    function getMaterial($req){
+        $proId = $req->param('proId');
+        $res = Box::getObject('process','model','admin')->getMaterial($proId);
+        if($res){
+            $material = [];
+            foreach ($res as $row){
+                $row = json_decode($row['material'],true);
+                $material = array_merge($material,$row);
+            }
+            $material = array_unique($material);
+            $index = array_search('无',$material);
+            if($index !== false){
+                array_splice($material,$index,1);
+            }
+            return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>$material]);
+        }
+        return $this->returnJson(['code'=>CODE_NOT_FOUND]);
+    }
+
+    /**
+     * 受理事项
+     * @param $req
+     * @return string
+     */
+    function acceptPro($req){
+        $token = $req->param('token');
+        $insId = $req->param('insId');
+        $material = $req->param('material');
+        $obj =  Box::getObject('process','model','admin');
+        $checkRes = $obj->checkAccept($insId);
+        if($checkRes !== '0'){
+            return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'该事项已被他人受理']);
+        }
+        //受理事项，并写入审批记录，返回审批角色，审批用户
+        $res = $obj->acceptPro($insId,$material);
+        if($res === 'noUser'){
+            return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'受理失败，请联系管理员']);
+        }
+        else if($res === false){
+            return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'服务器错误']);
+        }
+        else{
+            return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>$res]);
+        }
+    }
+
+    private function planUserToPro($role,$user,$insInfo){
+        $obj =  Box::getObject('process','model','admin');
+        $res = $obj->planUserToPro($role,$user,$insInfo);
+    }
+
+    /**
+     * 获取个人待审批事件
+     * @param $req
+     * @return string
+     */
+    function pending($req){
+        $token = $req->param('token');
+        $insId = $req->param('insId','');
+        $userId = $req->user->depart_user_id;
+        $res = Box::getObject('process','model','admin')->getOwnPending($userId,$insId);
+        if($res === false){
+            return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'服务器错误']);
+        }
+        return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>$res]);
+    }
+
+    /**
+     * 获取事项详情
+     * @param $req
+     * @return string
+     */
+    function getProInfo($req){
+        $insId = $req->param("insId");
+        $proId = $req->param("proId");
+        $role = $req->user->role;
+        $obj = Box::getObject('process','model','admin');
+        //用户信息
+        $userAndProInfo = $obj->getProUser($insId);
+        $userAndProInfo['acc_conditions'] = htmlspecialchars_decode($userAndProInfo['acc_conditions']);
+        $userAndProInfo['exercise_basis'] = htmlspecialchars_decode($userAndProInfo['exercise_basis']);
+        $material = json_decode($obj->getCurNodeMaterial($proId,$role),true);
+//        var_dump($userAndProInfo);
+//        var_dump($material);
+
+        if($userAndProInfo == false || $material == false){
+            return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'服务器错误']);
+        }
+        return $this->returnJson(['code'=>CODE_SUCCESS,'pro'=>$userAndProInfo,'material'=>$material]);
+    }
+
+    /**
+     * 审核拒绝
+     * @param $req
+     * @return string
+     */
+    function denyPro($req){
+        $insId = $req->param('insId');
+        $denyMsg = $req->param('denyMsg');
+        $logId = $req->param('logId');
+        $user = $req->user;
+        $res = Box::getObject('process','model','admin')->denyPro($denyMsg,$logId,$insId);
+        if($res == false){
+            return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'服务器错误']);
+        }
+        return $this->returnJson(['code'=>CODE_SUCCESS]);
+    }
+
+    /**
+     * 同意申请
+     * @param $req
+     * @return string
+     */
+    function agreePro($req){
+        $insId = $req->param('insId');
+        $logId = $req->param('logId');
+        $proId = $req->param('proId');
+        $user = $req->user;
+        $res = Box::getObject('process','model','admin')->agreePro($proId,$user->role,$logId,$insId);
+        if($res == false){
+            return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'服务器错误']);
+        }
+        else if($res === 'noUser'){
+            return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'请求失败']);
+        }
+        else{
+            return $this->returnJson(['code'=>CODE_SUCCESS]);
+        }
+    }
 }

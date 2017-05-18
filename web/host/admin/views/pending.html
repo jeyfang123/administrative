@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title> - 待审批事项</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+
+    <link href="/hadmin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/hadmin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <link href="/hadmin/css/animate.css" rel="stylesheet">
+    <link href="/hadmin/css/style.css?v=4.1.0" rel="stylesheet">
+    <!-- Sweet Alert -->
+    <link href="/hadmin/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/css/accpetPro.css">
+    <link rel="stylesheet" href="/admin/css/pending.css">
+
+</head>
+
+<body class="gray-bg" style="min-width: 768px;overflow-x: auto">
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>所有待审批事项</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row m-b-sm m-t-sm">
+                        <div class="col-md-1">
+                            <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> Refresh</button>
+                        </div>
+                        <div class="col-md-11">
+                            <div class="input-group">
+                                <input type="text" placeholder="请输入事项ID" class="input-sm form-control proId"> <span class="input-group-btn">
+                                    <button type="button" class="btn btn-sm btn-primary search-insId"> 搜索</button> </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper wrapper-content">
+                        <div class="row">
+                            <div class="col-sm-12" style="border: 1px solid #ddd;padding: 8px 0;height: 500px;min-width: 768px">
+                                <div class="animated fadeInRightBig">
+                                    <div class="pro-header">
+                                        <div class="pro-header-sub col-sm-1">编号</div>
+                                        <div class="pro-header-sub col-sm-3">事项名称</div>
+                                        <div class="pro-header-sub col-sm-2">申请用户</div>
+                                        <div class="pro-header-sub col-sm-2">发起时间</div>
+                                        <div class="pro-header-sub col-sm-2">用户类别</div>
+                                        <div class="pro-header-sub col-sm-2">操作</div>
+                                    </div>
+                                    <div class="pro-body">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="materialmodal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" style="width: 70%;">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                </button>
+                <i class="fa fa-laptop modal-icon"></i>
+                <h4 class="modal-title">详情</h4>
+                <small class="font-bold">注：请确保用户资质是否合格。</small>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="tabs-container">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 基本信息 </a>
+                                </li>
+                                <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false"> 受理条件 </a>
+                                </li>
+                                <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false"> 办理材料 </a>
+                                </li>
+                                <li class=""><a data-toggle="tab" href="#tab-4" aria-expanded="false"> 法定依据 </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="tab-1" class="tab-pane active">
+                                    <div class="panel-body">
+                                        <strong>基本信息</strong>
+                                        <div class="col-sm-12" style="padding: 0;margin-top: 10px;">
+                                            <div class="detail-content">
+                                                <div>
+                                                    <div class="col-sm-2 labels">申请人</div>
+                                                    <div class="col-sm-3 reply-user"></div>
+                                                    <div class="col-sm-2 labels">申请项目</div>
+                                                    <div class="col-sm-5 reply-pro" title=""></div>
+                                                </div>
+                                                <div>
+                                                    <div class="col-sm-2 labels">用户类型</div>
+                                                    <div class="col-sm-3 reply-user-type"></div>
+                                                    <div class="col-sm-2 labels">申请时间</div>
+                                                    <div class="col-sm-5 reply-time"></div>
+                                                    <input type="hidden" class="hidden-pro-id">
+                                                    <input type="hidden" class="hidden-ins-id">
+                                                    <input type="hidden" class="hidden-log-id">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab-2" class="tab-pane">
+                                    <div class="panel-body">
+                                        <strong>受理条件</strong>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div id="tab-3" class="tab-pane">
+                                    <div class="panel-body">
+                                        <strong>办理材料</strong>
+                                        <p></p>
+                                    </div>
+                                </div>
+                                <div id="tab-4" class="tab-pane">
+                                    <div class="panel-body">
+                                        <strong>法定依据</strong>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="deny-msg-area col-sm-12 form-group has-error">
+                            <input type="text" class="deny-msg form-control" placeholder="请填写拒绝审原因">
+                        </div>
+                        <div id="animation_box" class="row animated">
+                            <div class="col-sm-12 animation-text-box-per animation-text-box">
+                                <p><span class="animation_select badge return-msg" data-animation="fadeInUp"></span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-success btn-agree" >通过</button>
+                <button type="button" class="btn btn-danger btn-deny" >拒绝</button>
+                <div class="spiner-submitting btn btn-primary" style="display: none">
+                    <div class="sk-spinner sk-spinner-fading-circle">
+                        <div class="sk-circle1 sk-circle"></div>
+                        <div class="sk-circle2 sk-circle"></div>
+                        <div class="sk-circle3 sk-circle"></div>
+                        <div class="sk-circle4 sk-circle"></div>
+                        <div class="sk-circle5 sk-circle"></div>
+                        <div class="sk-circle6 sk-circle"></div>
+                        <div class="sk-circle7 sk-circle"></div>
+                        <div class="sk-circle8 sk-circle"></div>
+                        <div class="sk-circle9 sk-circle"></div>
+                        <div class="sk-circle10 sk-circle"></div>
+                        <div class="sk-circle11 sk-circle"></div>
+                        <div class="sk-circle12 sk-circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 全局js -->
+<script src="/hadmin/js/jquery.min.js?v=2.1.4"></script>
+<script src="/hadmin/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="/plugins/bower_components/cookie/jquery.cookie.min.js"></script>
+<!-- 自定义js -->
+<script src="/hadmin/js/content.js?v=1.0.0"></script>
+<!--twbsPagination-->
+<script type="text/javascript" src="/plugins/bower_components/twbsPagination/jquery.twbsPagination.min.js"></script>
+<!-- Sweet alert -->
+<script src="/hadmin/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+<script src="/public/js/public.js"></script>
+<script src="/admin/js/model.js"></script>
+
+
+
+</body>
+<script>
+    $(function () {
+        $('#loading-example-btn').click(function () {
+            btn = $(this);
+            $(".proId").val('');
+            simpleLoad(btn, true);
+
+            simpleLoad(btn, false);
+
+            setTimeout(function () {
+                initHtml(1,true);
+            },1000);
+
+        });
+        function simpleLoad(btn, state) {
+            if (state) {
+                btn.children().addClass('fa-spin');
+                btn.contents().last().replaceWith(" Loading");
+            } else {
+                setTimeout(function () {
+                    btn.children().removeClass('fa-spin');
+                    btn.contents().last().replaceWith(" Refresh");
+                }, 1000);
+            }
+        }
+
+        $(".search-insId").click(function () {
+            initHtml(1,true);
+        });
+        $(".proId").keydown(function(event){
+            if (event.keyCode == 13) {
+                $('.search-insId').click();
+                event.preventDefault();
+            }
+        });
+        initHtml();
+        function initHtml() {
+            var insId = $(".proId").val();
+            Model.pending({
+                'insId':insId,
+                'token':$.cookie('token')
+            },function(data) {
+                if(data.code === CODE_SUCCESS){
+                    appendHtml(data);
+                }else{
+                    swal({
+                        title: "出错了！",
+                        text: data.msg
+                    });
+                }
+            },{},{});
+        }
+        function appendHtml(data) {
+            var list = data.data;
+            var length = list.length;
+            var html = '';
+            for(var i=0;i<length;i++){
+                html += '<div class="pro-body-row">\
+                    <div class="pro-content-sub col-sm-1">'+ list[i]['pro_ins_id'] +'</div>\
+                    <div class="pro-content-sub col-sm-3 ins-item-title" title="'+ list[i]['pro_name'] +'">'+ list[i]['pro_name'] +'</div>\
+                    <div class="pro-content-sub col-sm-2">'+ list[i]['username'] +'</div>\
+                    <div class="pro-content-sub col-sm-2">'+ list[i]['create_time'] +'</div>\
+                    <div class="pro-content-sub col-sm-2">'+ list[i]['usertype'] +'</div>\
+                    <div class="pro-content-sub col-sm-2"><button data-content-id="'+ list[i]['pro_ins_id'] +'" data-id="'+ list[i]['pro_id'] +'" data-toggle="modal" data-target="#materialmodal" class="btn btn-success btn-operate">详情</button></div>\
+                    </div>';
+            }
+            $(".pro-body").html(html);
+        }
+    });
+
+    function transfer(type,button) {
+        if(type){
+            $(button).css('display','none');
+            $('.spiner-submitting').css('display','');
+        }
+        else{
+            $(button).css('display','');
+            $('.spiner-submitting').css('display','none');
+        }
+    }
+
+    function animationMsg(type,msg) {
+        if(type == CODE_SUCCESS){
+            $('.animation_select').addClass('badge-success').text(msg);
+        }
+        else{
+            $('.animation_select').addClass('badge-warning').text(msg);
+        }
+
+        $('#animation_box').removeAttr('class').attr('class', '');
+        var animation = $(this).attr("data-animation");
+        $('#animation_box').addClass('animated');
+        $('#animation_box').addClass(animation);
+
+        setTimeout(function () {
+            $('#animation_box').removeAttr('class').attr('class', '');
+            $('#animation_box').addClass('animated');
+            $('#animation_box').addClass('fadeOut');
+        },1500);
+        return false;
+    }
+
+    $('#materialmodal').on('show.bs.modal', function (e) {
+        var btn = $(e.relatedTarget);
+        var proId = $(btn).attr('data-id');
+        var insId = $(btn).attr('data-content-id');
+        getProInfo(proId,insId);
+    });
+
+    function getProInfo(proId,insId) {
+        Model.getProInfo({
+            'proId':proId,
+            'insId':insId
+        },function (res) {
+            if(res.code == CODE_SUCCESS){
+                $('.reply-user').text(res.pro.compellation ? res.pro.compellation : res.pro.artificial);
+                $('.reply-pro').text(res.pro.pro_name).prop('title',res.pro.pro_name);
+                $('.reply-user-type').text(res.pro.valued == '1' ? '个人' : '企业');
+                $('.reply-time').text(res.pro.create_time);
+                $('#tab-2').find('p').html(res.pro.acc_conditions);
+                $('#tab-4').find('p').html(res.pro.exercise_basis);
+                $('.hidden-pro-id').val(res.pro.pro_id);
+                $('.hidden-ins-id').val(res.pro.pro_ins_id);
+                $('.hidden-log-id').val(res.pro.log_id);
+                var material = res.material;
+                var length = material.length;
+                var row = '';
+                for(var i=0; i<length;i++){
+                    row += material[i]+'<br>';
+                }
+                $('#tab-3').find('p').html(row);
+            }
+        })
+    }
+    
+    $('.btn-deny').click(function () {
+        var denyMsg = $.trim($('.deny-msg').val());
+        var proId = $('.hidden-pro-id').val();
+        var insId = $('.hidden-ins-id').val();
+        var logId = $('.hidden-log-id').val();
+        if(denyMsg == ''){
+            $('.deny-msg-area').show();
+            return;
+        }
+        else{
+            Model.denyPro({
+                'token':$.cookie('token'),
+                'insId':insId,
+                'denyMsg':denyMsg,
+                'logId':logId
+            },function (res) {
+                transfer(false,'.btn-deny');
+                if(res.code == CODE_SUCCESS){
+                    animationMsg(CODE_SUCCESS,'已拒绝');
+                    setTimeout(function () {
+                        $('.deny-msg').val('');
+                        $('.deny-msg-area').hide();
+                        $('#materialmodal').modal('hide');
+                    },2000);
+                    $('#loading-example-btn').click();
+                }
+                else{
+                    animationMsg(CODE_ERROR,res.msg);
+                }
+            },{},{});
+        }
+    });
+
+    $('.btn-agree').click(function () {
+        var proId = $('.hidden-pro-id').val();
+        var insId = $('.hidden-ins-id').val();
+        var logId = $('.hidden-log-id').val();
+        Model.agreePro({
+            'token':$.cookie('token'),
+            'insId':insId,
+            'proId':proId,
+            'logId':logId
+        },function (res) {
+            transfer(false,'.btn-agree');
+            if(res.code == CODE_SUCCESS){
+                animationMsg(CODE_SUCCESS,'审核成功');
+                setTimeout(function () {
+                    $('#materialmodal').modal('hide');
+                },2000);
+                $('#loading-example-btn').click();
+            }
+            else{
+                animationMsg(CODE_ERROR,res.msg);
+            }
+        },{},{});
+    });
+
+
+</script>
+
+</html>

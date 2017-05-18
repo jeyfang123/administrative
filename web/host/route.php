@@ -67,12 +67,17 @@
         if($product === 'admin'){
             $checkLoginRes = json_decode($permission->checkLogin($request));
             if($checkLoginRes->code === CODE_RELOGIN){
-                return Box::getObject('user','controller',$product)->login();
+                $requestURL = \Klein\Request::createFromGlobals()->pathname();
+                if($requestURL == '/admin/index'){
+                    return Box::getObject('user','controller',$product)->login();
+                }
+                return json_encode(['code'=>CODE_RELOGIN,'msg'=>'登陆已过期，请重新登录']);
             }
             else if($checkLoginRes->code === CODE_USER_HAVELOGIN){
                 $request->user = $checkLoginRes->user;
                 $checkPerRes = $permission->checkPermission($request);
                 if($checkPerRes == false){
+                    return json_encode(['code'=>CODE_PERMISSION_DEND]);
                     return Box::getObject('common','controller','public')->noPermission();
                 }
                 else{

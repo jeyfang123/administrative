@@ -28,5 +28,11 @@ return [
         '/admin/content/searchContent'=>true,
         '/admin/content/detail'=>true,
         '/admin/content/interpretation'=>true,
+        '/admin/process/getProUnInstance'=>true,
+        '/admin/process/getMaterial'=>true,
+        '/admin/process/pending'=>true,
+        '/admin/process/getProInfo'=>true,
+        '/admin/process/agreePro'=>true,
+        '/admin/process/denyPro'=>true,
     ]
 ];

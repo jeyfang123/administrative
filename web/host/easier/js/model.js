@@ -46,6 +46,7 @@ var Model = (function(){
         'login':{'url':'/easier/user/login'},
         'register':{'url':'/easier/user/register'},
         'checkUser':{'url':'/easier/user/checkUser'},
+        'indexGetFlowProcess':{'url':'/easier/index/indexGetFlowProcess'},  //流动信息
         'checkVerifyCode':{'url':'/easier/user/checkVerifyCode'},   //  验证图片验证码
         'sendCode':{'url':'/easier/user/sendCode'}, //发送短信验证码
         'perValue':{'url':'/easier/user/perValue'}, //个人认证

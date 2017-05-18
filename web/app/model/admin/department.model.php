@@ -72,4 +72,10 @@ class DepartmentModel{
             return true;
         }
     }
+
+    function getDepartmentUsers($role){
+        $sql = 'select * from role_user where role = ? and enable = \'1\' ';
+        $users = $this->_db->GetAll($sql,[$role]);
+        return DB::returnModelRes($users)[0];
+    }
 }
