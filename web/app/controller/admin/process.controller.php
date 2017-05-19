@@ -32,13 +32,14 @@ class ProcessController extends Controller{
         $accConditions = Filtros::post_check($req->param('acc_conditions'));
         $fee = Filtros::post_check($req->param('fee'));
         $term = Filtros::post_check($req->param('term'));
-        $flowImg = $req->param("flow_img");
-        $appendix = $req->param("appendix");
+        $flowImg = $req->param("flow_img",null);
+        $appendix = $req->param("appendix",null);
 
         $nodes = $req->param('nodes');
 
+
         if (!preg_match('/^(1[3578]\d{9})|(010\d{8})$/u', $contact)) {
-            return ['code' => CODE_PARAMETER_ERROR, 'msg' => '联系方式错误'];
+            return $this->returnJson(['code' => CODE_PARAMETER_ERROR, 'msg' => '联系方式错误']);
         }
         else if(!preg_match('/^(1[3578]\d{9})|(010\d{8})$/u', $supervise)){
             return $this->returnJson(['code'=>CODE_PARAMETER_ERROR,'msg'=>'监督电话填写错误']);
@@ -151,6 +152,16 @@ class ProcessController extends Controller{
             return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'服务器错误']);
         }
         else{
+            $info = $obj->getProUser($insId);
+            $time = date('H:i:s');
+            $messageObj = Box::getObject('message','controller','public');
+            $toUser = $res['user'];
+            $content = [
+                'proName'=>$info['pro_name'],
+                'fromUser'=>($info['compellation'] ? $info['compellation'] : $info['artificial']),
+                'time'=>$time
+            ];
+            $messageObj->systemToWorker($toUser,$content);
             return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>$res]);
         }
     }
@@ -210,10 +221,12 @@ class ProcessController extends Controller{
         $denyMsg = $req->param('denyMsg');
         $logId = $req->param('logId');
         $user = $req->user;
-        $res = Box::getObject('process','model','admin')->denyPro($denyMsg,$logId,$insId);
+        $obj = Box::getObject('process','model','admin');
+        $res = $obj->denyPro($denyMsg,$logId,$insId);
         if($res == false){
             return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'服务器错误']);
         }
+        $obj->updateRoleFinished($user->role);
         return $this->returnJson(['code'=>CODE_SUCCESS]);
     }
 
@@ -227,7 +240,8 @@ class ProcessController extends Controller{
         $logId = $req->param('logId');
         $proId = $req->param('proId');
         $user = $req->user;
-        $res = Box::getObject('process','model','admin')->agreePro($proId,$user->role,$logId,$insId);
+        $obj = Box::getObject('process','model','admin');
+        $res = $obj->agreePro($proId,$user->role,$logId,$insId);
         if($res == false){
             return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'服务器错误']);
         }
@@ -235,7 +249,28 @@ class ProcessController extends Controller{
             return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'请求失败']);
         }
         else{
+            $obj->updateRoleFinished($user->role);
             return $this->returnJson(['code'=>CODE_SUCCESS]);
         }
+    }
+
+    /**
+     * 获取进行中事项
+     * @param $req
+     * @return string
+     */
+    function getProInstanceIng($req){
+        $res = Box::getObject('process','model','admin')->getProInstanceIng('','',1,100);
+        return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>$res['data']]);
+    }
+
+    /**
+     * 获取结束事项
+     * @param $req
+     * @return string
+     */
+    function getProInstanceEd($req){
+        $res = Box::getObject('process','model','admin')->getProInstanceEd('','',1,100);
+        return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>$res['data']]);
     }
 }

@@ -114,6 +114,10 @@ class UserController extends Controller{
         }
         $phone = $req->param('phone');
         $code = $req->param('code');
+        $checkPhone = Box::getObject('user','model','easier')->checkPhoneUnique($phone);
+        if($checkPhone != 0){
+            return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'该手机号已被注册']);
+        }
         $compellation = $req->param('compellation');
         $id = strtoupper($req->param('id'));
         if($code != $_SESSION['code']){
@@ -142,6 +146,10 @@ class UserController extends Controller{
             return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'登录过期，请重新登录']);
         }
         $phone = $req->param('phone');
+        $checkPhone = Box::getObject('user','model','easier')->checkPhoneUnique($phone);
+        if($checkPhone != 0){
+            return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'该手机号已被注册']);
+        }
         $code = $req->param('code');
         $artificial = $req->param('artificial');
         $enterprise = $req->param('enterprise');

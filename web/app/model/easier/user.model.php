@@ -22,6 +22,11 @@ class UserModel{
         return $this->_db->GetOne($sql,[$username]);
     }
 
+    public function checkPhoneUnique($phone){
+        $sql = "select count(*) from ".DB::TB_USER." where phone = ? ";
+        return $this->_db->GetOne($sql,[$phone]);
+    }
+
     public function addUser($username,$password){
         $time = date('Y-m-d H:i:s');
         $sql = "insert into ".DB::TB_USER."(username,pwd,createtime) values(?,?,?)";

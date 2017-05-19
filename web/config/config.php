@@ -34,5 +34,10 @@ return [
         '/admin/process/getProInfo'=>true,
         '/admin/process/agreePro'=>true,
         '/admin/process/denyPro'=>true,
+        '/admin/index/lastPeriodSta'=>true,
+        '/admin/index/departSta'=>true,
+        '/admin/process/getProInstanceIng'=>true,
+        '/admin/process/getProInstanceEd'=>true,
+        '/admin/department/getUserDetail'=>true,
     ]
 ];

@@ -145,6 +145,10 @@ class ProcessController extends Controller{
             return $this->returnJson(['code'=>CODE_NOT_VALUED]);
         }
         else{
+            $check = Box::getObject('process','model','easier')->checkApplyUserType($user['valued'],$proId);
+            if($check == false){
+                return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'您不能申报该项目']);
+            }
             $res = Box::getObject('process','model','easier')->apply($proId,$proName,$user['id']);
             if($res == false){
                 return $this->returnJson(['code'=>CODE_ERROR,'msg'=>'服务器出错了']);

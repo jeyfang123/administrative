@@ -36,6 +36,7 @@ class ProcessModel{
         $proId = rand(10,99).substr(time(),2);
         $sql = "insert into ".DB::TB_PROCESS."(pro_id,pro_name,pro_content,enable,create_date,create_userid) values(?,?,?,'1','{$time}',?)";
         $res = $this->_db->Execute($sql,[$proId,$process['processName'],$process['examineContent'],$userId]);
+//        echo $this->_db->errorMsg();
         if($res === false){
             return false;
         }
@@ -47,6 +48,7 @@ class ProcessModel{
                 values(?,?,?,?,?,?,?,?,?,?,?)";
         $res = $this->_db->Execute($sql,[$proId,$process['perType'],$process['enterType'],$process['exerciseBasis'],$process['accConditions'],
             $process['fee'],$process['term'],$process['contact'],$process['supervise'],$process['flowImg'],$process['appendix']]);
+//        echo $this->_db->errorMsg();
         if($res === false){
             return false;
         }
@@ -72,6 +74,7 @@ class ProcessModel{
         }
         $sql = $sql.$placeholders.' returning node_id';
         $res = $this->_db->GetAll($sql,$params);
+//        echo $this->_db->errorMsg();
         if($res == false){
             return false;
         }
@@ -99,6 +102,7 @@ class ProcessModel{
         $params[] = null;
         $sql = $sql.$placeholders;
         $res = $this->_db->Execute($sql,$params);
+//        echo $this->_db->errorMsg();
         if($res == false){
             return false;
         }
@@ -144,7 +148,7 @@ class ProcessModel{
 
     /**
      * 获取待发起事项（无差异）
-     * @param $keywords
+     * @param $insId
      * @param $page
      * @param $pageSize
      * @return array|bool|null
@@ -193,7 +197,7 @@ class ProcessModel{
                   where status = '1' {$map}";
         $res = $this->_db->GetAll($sql);
         $total = $this->_db->GetOne($count);
-        return DB::returnModelRes(['data'=>$res,'count'=>$total]);
+        return DB::returnModelRes(['data'=>$res,'count'=>$total])[0];
     }
 
 
@@ -209,14 +213,13 @@ class ProcessModel{
                   LEFT JOIN instance_log log on ins.log_id = log.log_id
                   LEFT JOIN ea_role roles on roles.role_id = verify_role
                   LEFT JOIN ea_user on ins.create_userid = ea_user.id
-                where end_time is not null 1=1 and {$map} ORDER BY create_time desc offset {$offset} limit {$pageSize}";
+                where end_time is not null {$map} ORDER BY ins.create_time desc offset {$offset} limit {$pageSize}";
         $count = "select count(*) from process_instance ins 
                   LEFT JOIN instance_log log on ins.log_id = log.log_id
-                where end_time is not null 1=1 and {$map}";
+                where end_time is not null 1=1 {$map}";
         $res = $this->_db->GetAll($sql);
         $total = $this->_db->GetOne($count);
-        return DB::returnModelRes(['data'=>$res,'count'=>$total]);
-
+        return DB::returnModelRes(['data'=>$res,'count'=>$total])[0];
     }
 
     /**
@@ -227,12 +230,13 @@ class ProcessModel{
      * @param $pageSize
      * @return array|bool|null
      */
-    public function getProInstanceIng($role,$keywords,$page,$pageSize){
+    public function getProInstanceIng($role =null,$keywords =null,$page,$pageSize){
         $map = " and pro_name = pro_name like '%{$keywords}%' ";
+        $map = '';
+        return $this->proInstanceIng($map,$page,$pageSize);
         if(!in_array($role,$this->adminRole)){
             $map .= " and  verify_role =  '{$role}' ";
         }
-        return $this->proInstanceIng($map,$page,$pageSize);
     }
 
     /**
@@ -245,6 +249,7 @@ class ProcessModel{
      */
     public function getProInstanceEd($role,$keywords,$page,$pageSize){
         $map = " and pro_name = pro_name like '%{$keywords}%' ";
+        $map = '';
         return $this->proInstanceEd($map,$page,$pageSize);
         if(!in_array($role,$this->adminRole)){
             $map .= " and  verify_role =  '{$role}' ";
@@ -421,6 +426,26 @@ class ProcessModel{
         return $res;
     }
 
+    function getPendingCount($userId,$role){
+        if($role == '094611aa-bbe4-47f3-b3c2-60692927f095'){
+            $sql = "select count(*) from process_instance ins left JOIN(
+                    select rolename,flow.pro_id from (
+                        select * from (select * ,row_number() over (PARTITION by pro_id ORDER BY flow_id asc ) as row_index from process_flow) innerflow where row_index =1) flow 
+                    left JOIN process_node node on flow.last_nodeid = node.node_id
+                LEFT JOIN ea_role on node.role = role_id) roles on ins.pro_id = roles.pro_id 
+                where 1=1 and status = '0' ";
+            $total = $this->_db->GetOne($sql);
+        }
+        else{
+            $sql = "select count(*) from process_instance ins 
+                LEFT JOIN instance_log logs on ins.log_id = logs.log_id
+                LEFT JOIN ea_user users on users.\"id\" = ins.create_userid
+                where verify_userid = '{$userId}' and verify_time is null  ";
+            $total = $this->_db->GetOne($sql);
+        }
+        return $total;
+    }
+
     /**
      * 获取事项实例用户
      * @param $insId
@@ -517,8 +542,131 @@ class ProcessModel{
             if($updateRes === false){
                 return false;
             }
+            //发送信息
+            $time = date('H:i:s');
+            $messageObj = Box::getObject('message','controller','public');
+            $toUser = $userId;
+            $info = $this->getProUser($insId);
+            $content = [
+                'proName'=>$info['proName'],
+                'fromUser'=>($info['compellation'] ? $info['compellation'] : $info['artificial']),
+                'time'=>$time
+            ];
+            $messageObj->systemToWorker($toUser,$content);
+
             return true;
         }
+    }
+
+    /**
+     * 更新部门办结数目
+     * @param $role
+     */
+    function updateRoleFinished($role){
+        $sql = "update ea_role set finished = finished +1 where role_id = ?";
+        $this->_db->Execute($sql,[$role]);
+    }
+
+    //统计
+
+    /**
+     * 总发起数
+     * @return mixed
+     */
+    function totalInstance(){
+        $sql = "select count(*) from process_instance";
+        $res = $this->_db->GetOne($sql);
+        return $res;
+    }
+
+    /**
+     * 总受理数
+     * @return mixed
+     */
+    function totalAccept(){
+        $sql = "select count(*) from process_instance where status != '0'";
+        $res = $this->_db->GetOne($sql);
+        return $res;
+    }
+
+    /**
+     * 总办结数
+     * @return mixed
+     */
+    function totalFinished(){
+        $sql = "select count(*) from process_instance where status = '2' or status = '3' ";
+        $res = $this->_db->GetOne($sql);
+        return $res;
+    }
+
+    /**
+     * 总待办数
+     * @return mixed
+     */
+    function totalUnFinished(){
+        $sql = "select count(*) from process_instance where status = '1' ";
+        $res = $this->_db->GetOne($sql);
+        return $res;
+    }
+
+    function lastPeriodSta(){
+        $sql = "select lastdate,COALESCE(instable.total,0) count from(
+                    SELECT
+                    regexp_split_to_table(to_char(
+                            CURRENT_DATE,
+                            'YYYY-MM-DD'
+                        ) || ',' ||	to_char(
+                            CURRENT_DATE - INTERVAL '1 day',
+                            'YYYY-MM-DD'
+                        ) || ',' || to_char(
+                            CURRENT_DATE - INTERVAL '2 day',
+                            'YYYY-MM-DD'
+                        ) || ',' || to_char(
+                            CURRENT_DATE - INTERVAL '3 day',
+                            'YYYY-MM-DD'
+                        ) || ',' || to_char(
+                            CURRENT_DATE - INTERVAL '4 day',
+                            'YYYY-MM-DD'
+                        ) || ',' || to_char(
+                            CURRENT_DATE - INTERVAL '5 day',
+                            'YYYY-MM-DD'
+                        ) || ',' || to_char(
+                            CURRENT_DATE - INTERVAL '6 day',
+                            'YYYY-MM-DD'
+                        ), ',' ) as lastdate) perior
+                    LEFT JOIN 
+                    (select count(*) as total,to_char(ins.create_time,'YYYY-MM-DD') as createtime from process_instance ins GROUP BY
+                    to_char( ins.create_time,'YYYY-MM-DD')) instable on instable.createtime = perior.lastdate
+                    ORDER BY perior.lastdate asc";
+        $res = $this->_db->GetAll($sql);
+        return $res;
+    }
+
+    /**
+     * 部门工作统计
+     * @return mixed
+     */
+    function departSta(){
+        $sql = "select accept.rolename,total_accept,finished from 
+                  (select rolename,total_accept,role_id from ea_role where role_id != '664e38e7-3a58-4bf2-9b6a-60614f105bb7'
+                    and role_id != 'c6a919ac-0191-46f2-b938-84a387596ec8'
+                    and role_id != '094611aa-bbe4-47f3-b3c2-60692927f095'
+                    and role_id != 'c6b813da-2ef4-439d-a8b1-9ae019352ff1') accept
+                LEFT JOIN(
+                    select ea_role.rolename,ea_role.role_id,COALESCE(finished.count,0) finished from ea_role
+                    LEFT JOIN
+                    (select verify_role,count(*) count,rolename from instance_log ins
+                    LEFT JOIN ea_role roles on ins.verify_role = roles.role_id
+                    where ins.verify_time is not null
+                    GROUP BY ins.verify_role,rolename) finished
+                on ea_role.role_id = finished.verify_role
+                where role_id != '664e38e7-3a58-4bf2-9b6a-60614f105bb7'
+                and role_id != 'c6a919ac-0191-46f2-b938-84a387596ec8'
+                and role_id != '094611aa-bbe4-47f3-b3c2-60692927f095'
+                and role_id != 'c6b813da-2ef4-439d-a8b1-9ae019352ff1') finished
+                on finished.role_id = accept.role_id";
+        $res = $this->_db->GetAll($sql);
+        return $res;
     }
 
 

@@ -16,38 +16,82 @@
 
     <link href="/hadmin/css/animate.css" rel="stylesheet">
     <link href="/hadmin/css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="stylesheet" href="/admin/css/accpetPro.css">
 
 </head>
 
-<body class="gray-bg">
+<body class="gray-bg" style="min-width: 768px;">
 <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-sm-4">
-        <h2>标题</h2>
-        <ol class="breadcrumb">
-            <li>
-                <a href="index.html">主页</a>
-            </li>
-            <li>
-                <strong>包屑导航</strong>
-            </li>
-        </ol>
-    </div>
-    <div class="col-sm-8">
-        <div class="title-action">
-            <a href="empty_page.html" class="btn btn-primary">活动区域</a>
-        </div>
-    </div>
-</div>
-
-<div class="wrapper wrapper-content">
     <div class="row">
-        <div class="col-sm-12">
-            <div class="middle-box text-center animated fadeInRightBig">
-                <h3 class="font-bold">这里是页面内容</h3>
+        <div class="col-sm-12" style="border: 1px solid #ddd;padding-top: 8px;padding-bottom:8px;height: 500px;min-width: 768px">
+            <h5 class="text-title">所有受理事项</h5>
+            <div class="tabs-container">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 待受理 </a>
+                    </li>
+                    <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false"> 审核中 </a>
+                    </li>
+                    <li class=""><a data-toggle="tab" href="#tab-3" aria-expanded="false"> 已办结 </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tab-1" class="tab-pane active">
+                        <div class="panel-body">
+                            <div class="col-sm-12" style="padding: 0;margin-top: 10px;">
+                                <div class="detail-content">
+                                    <div class="pro-header">
+                                        <div class="pro-header-sub col-sm-1">编号</div>
+                                        <div class="pro-header-sub col-sm-3">事项名称</div>
+                                        <div class="pro-header-sub col-sm-2">申请用户</div>
+                                        <div class="pro-header-sub col-sm-2">发起时间</div>
+                                        <div class="pro-header-sub col-sm-2">下一处理部门</div>
+                                        <div class="pro-header-sub col-sm-2">操作</div>
+                                    </div>
+                                    <div class="pro-body">
 
-                <div class="error-desc">
-                    您可以在这里添加栅格，参考首页及其他页面完成不同的布局
-                    <br/><a href="#" class="btn btn-primary m-t">打开主页</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-2" class="tab-pane">
+                        <div class="panel-body">
+                            <div class="col-sm-12" style="padding: 0;margin-top: 10px;">
+                                <div class="detail-content">
+                                    <div class="pro-header">
+                                        <div class="pro-header-sub col-sm-1">编号</div>
+                                        <div class="pro-header-sub col-sm-3">事项名称</div>
+                                        <div class="pro-header-sub col-sm-2">申请用户</div>
+                                        <div class="pro-header-sub col-sm-2">发起时间</div>
+                                        <div class="pro-header-sub col-sm-2">当前审核部门</div>
+                                        <div class="pro-header-sub col-sm-2">操作</div>
+                                    </div>
+                                    <div class="pro-body">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-3" class="tab-pane">
+                        <div class="panel-body">
+                            <div class="col-sm-12" style="padding: 0;margin-top: 10px;">
+                                <div class="detail-content">
+                                    <div class="pro-header">
+                                        <div class="pro-header-sub col-sm-1">编号</div>
+                                        <div class="pro-header-sub col-sm-3">事项名称</div>
+                                        <div class="pro-header-sub col-sm-2">申请用户</div>
+                                        <div class="pro-header-sub col-sm-2">发起时间</div>
+                                        <div class="pro-header-sub col-sm-2">结束时间</div>
+                                        <div class="pro-header-sub col-sm-2">状态</div>
+                                    </div>
+                                    <div class="pro-body">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,8 +103,119 @@
 <script src="/hadmin/js/bootstrap.min.js?v=3.3.6"></script>
 
 <!-- 自定义js -->
-<script src="js/content.js?v=1.0.0"></script>
+<script src="/hadmin/js/content.js?v=1.0.0"></script>
+<script src="/plugins/bower_components/cookie/jquery.cookie.min.js"></script>
+<!-- Sweet alert -->
+<script src="/hadmin/js/plugins/sweetalert/sweetalert.min.js"></script>
 
+<script src="/public/js/public.js"></script>
+<script src="/admin/js/model.js"></script>
+<script>
+
+    initHtml1();
+    function initHtml1() {
+        Model.getProUnInstance({
+            'page':1,
+            'pageSize':100,
+            'token':$.cookie('token')
+        },function(data) {
+            if(data.code === CODE_SUCCESS){
+                appendHtml1(data);
+            }else{
+                swal({
+                    title: "出错了！",
+                    text: data.msg
+                });
+            }
+        },{},{});
+    }
+    function appendHtml1(data) {
+        var list = data.data;
+        var length = list.length;
+        var html = '';
+        for(var i=0;i<length;i++){
+            html += '<div class="pro-body-row">\
+                    <div class="pro-content-sub col-sm-1">'+ list[i]['pro_ins_id'] +'</div>\
+                    <div class="pro-content-sub col-sm-3 ins-item-title" title="'+ list[i]['pro_name'] +'">'+ list[i]['pro_name'] +'</div>\
+                    <div class="pro-content-sub col-sm-2">'+ (list[i]['compellation'] ? list[i]['compellation'] : list[i]['artificial']) +'</div>\
+                    <div class="pro-content-sub col-sm-2">'+ list[i]['create_time'] +'</div>\
+                    <div class="pro-content-sub col-sm-2">'+ list[i]['rolename'] +'</div>\
+                    <div class="pro-content-sub col-sm-2"><button data-content-id="'+ list[i]['pro_ins_id'] +'" data-id="'+ list[i]['pro_id'] +'" data-toggle="modal" data-target="#materialmodal" class="btn btn-success btn-operate">详情</button></div>\
+                    </div>';
+        }
+        $("#tab-1 .pro-body").html(html);
+    }
+
+    initHtml2();
+    function initHtml2() {
+        Model.getProInstanceIng({
+            'page':1,
+            'pageSize':100,
+            'token':$.cookie('token')
+        },function(data) {
+            if(data.code === CODE_SUCCESS){
+                appendHtml2(data);
+            }else{
+                swal({
+                    title: "出错了！",
+                    text: data.msg
+                });
+            }
+        },{},{});
+    }
+    function appendHtml2(data) {
+        var list = data.data;
+        var length = list.length;
+        var html = '';
+        for(var i=0;i<length;i++){
+            html += '<div class="pro-body-row">\
+                    <div class="pro-content-sub col-sm-1">'+ list[i]['instance_id'] +'</div>\
+                    <div class="pro-content-sub col-sm-3 ins-item-title" title="'+ list[i]['pro_name'] +'">'+ list[i]['pro_name'] +'</div>\
+                    <div class="pro-content-sub col-sm-2">'+ (list[i]['compellation'] ? list[i]['compellation'] : list[i]['artificial']) +'</div>\
+                    <div class="pro-content-sub col-sm-2">'+ list[i]['create_time'] +'</div>\
+                    <div class="pro-content-sub col-sm-2">'+ list[i]['rolename'] +'</div>\
+                    <div class="pro-content-sub col-sm-2"><button data-content-id="'+ list[i]['pro_ins_id'] +'" data-id="'+ list[i]['pro_id'] +'" data-toggle="modal" data-target="#materialmodal" class="btn btn-success btn-operate">详情</button></div>\
+                    </div>';
+        }
+        $("#tab-2 .pro-body").html(html);
+    }
+
+    initHtml3();
+    function initHtml3() {
+        Model.getProInstanceEd({
+            'page':1,
+            'pageSize':100,
+            'token':$.cookie('token')
+        },function(data) {
+            if(data.code === CODE_SUCCESS){
+                appendHtml3(data);
+            }else{
+                swal({
+                    title: "出错了！",
+                    text: data.msg
+                });
+            }
+        },{},{});
+    }
+    function appendHtml3(data) {
+        var list = data.data;
+        var length = list.length;
+        var html = '';
+        for(var i=0;i<length;i++){
+            html += '<div class="pro-body-row">\
+                    <div class="pro-content-sub col-sm-1">'+ list[i]['instance_id'] +'</div>\
+                    <div class="pro-content-sub col-sm-3 ins-item-title" title="'+ list[i]['pro_name'] +'">'+ list[i]['pro_name'] +'</div>\
+                    <div class="pro-content-sub col-sm-2">'+ (list[i]['compellation'] ? list[i]['compellation'] : list[i]['artificial']) +'</div>\
+                    <div class="pro-content-sub col-sm-2">'+ list[i]['create_time'] +'</div>\
+                    <div class="pro-content-sub col-sm-2">'+ list[i]['end_time'] +'</div>\
+                    <div class="pro-content-sub col-sm-2">'+ (list[i]['status'] == '2' ? '通过' : '拒绝' ) +'</div>\
+                    </div>';
+        }
+        $("#tab-3 .pro-body").html(html);
+    }
+
+
+</script>
 
 
 

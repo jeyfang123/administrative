@@ -49,6 +49,11 @@ var
         'getProInfo':{'url':'/admin/process/getProInfo'},   //获取实例详情信息
         'denyPro':{'url':'/admin/process/denyPro'},     //拒绝申请
         'agreePro':{'url':'/admin/process/agreePro'},   //同意申请
+        'lastPeriodSta':{'url':'/admin/index/lastPeriodSta'},   //统计过去7天
+        'departSta':{'url':'/admin/index/departSta'},   //统计部门
+        'getProInstanceIng':{'url':'/admin/process/getProInstanceIng'},     //获取进行中事项
+        'getProInstanceEd':{'url':'/admin/process/getProInstanceEd'},     //获取办结事项
+        'getUserDetail':{'url':'/admin/department/getUserDetail'},      //获取人员详情
     };
     var handler = {};
     for(var name in urlMap){

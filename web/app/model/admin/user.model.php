@@ -90,4 +90,39 @@ class UserModel{
         }
 
     }
+
+    /**
+     * 用户统计
+     * @return array
+     */
+    function userSta(){
+        $sqlTotal = "select count(*) from ea_user";
+        $sqlUnv = "select count(*) from ea_user where valued = '0'";
+        $sqlSingle = "select count(*) from ea_user where valued = '1'";
+        $sqlArt = "select count(*) from ea_user where valued = '2'";
+
+        $total = $this->_db->GetOne($sqlTotal);
+        $unverify = $this->_db->GetOne($sqlUnv);
+        $single = $this->_db->GetOne($sqlSingle);
+        $artificial = $this->_db->GetOne($sqlArt);
+        return ['total'=>$total,'unverify'=>$unverify,'single'=>$single,'artificial'=>$artificial];
+    }
+
+    /**
+     * 人员详情
+     * @param $userId
+     * @return array
+     */
+    function getUserDetail($userId){
+        $sql = " select rolename,phone,email,ea_role.createtime,nickname,avatar from role_user LEFT JOIN ea_role on role_user.role = role_id where depart_user_id = ? ";
+        $unSql = " select count(*) count from instance_log where verify_userid = ? and verify_time is null ";
+        $finishedSql = " select count (*) count from instance_id where verify_userid = ? and verify_time is not null ";
+
+        $detail = $this->_db->GetRow($sql,[$userId]);
+//        echo $this->_db->errorMsg();
+        $undeal = $this->_db->GetOne($unSql,[$userId]);
+//        echo $this->_db->errorMsg();
+        $finished = $this->_db->GetOne($finishedSql,[$userId]);
+        return ['detail'=>$detail,'undeal'=>(int)$undeal,'finished'=>(int)$finished];
+    }
 }

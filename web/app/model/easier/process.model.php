@@ -101,6 +101,33 @@ where \"role\" = '7588a16a-d216-43e7-a97f-bbd2b46e6c30')";
         return $this->_db->GetOne($sql,[$proId,$proName,$userId,$time]);
     }
 
+    function checkApplyUserType($type,$proId){
+        if($type == '1'){
+            $sql = "select count(*) from process_detail where pop_id = ? and enter_type = '-1' ";
+            $res = $this->_db->GetOne($sql,[$proId]);
+            if($res != 0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else if($type == '2'){
+            $sql = "select count(*) from process_detail where pop_id = ? and per_type = '-1' ";
+            $res = $this->_db->GetOne($sql,[$proId]);
+            if($res != 0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+
+    }
+
     /**
      * 流动信息
      * @return mixed

@@ -22,6 +22,12 @@ class DepartmentController extends Controller{
             $departmentUser = [];
         }
         foreach ($department as &$row){
+            if($row['total_accept'] == 0){
+                $row['rate'] = 0;
+            }
+            else{
+                $row['rate'] = round($row['finished']/$row['total_accept'],2) * 100;
+            }
             $row['user'] = [];
             foreach ($departmentUser as $item){
                 if($row['role_id'] == $item['role']){
@@ -92,5 +98,11 @@ class DepartmentController extends Controller{
         else if($res === true){
             return $this->returnJson(['code'=>CODE_SUCCESS]);
         }
+    }
+
+    function getUserDetail($req){
+        $userId = $req->param('userId');
+        $res = Box::getObject('user','model','admin')->getUserDetail($userId);
+        return $this->returnJson(['code'=>CODE_SUCCESS,'data'=>$res]);
     }
 }

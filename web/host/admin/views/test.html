@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="/hadmin/css/plugins/chosen/chosen.css" rel="stylesheet">
+    <!-- 全局js -->
+    <script src="/hadmin/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/public/js/socket.io.js"></script>
+    <script src="/public/js/notify.js"></script>
 </head>
 <body>
 <select data-placeholder="选择省份..." class="chosen-select" style="width:350px;" tabindex="2">
@@ -14,16 +18,48 @@
     <option value="140000" hassubinfo="true">山西省</option>
     <option value="150000" hassubinfo="true">内蒙古自治区</option>
 </select>
+<div class="notification sticky hide">
+    <p id="content"> </p>
+    <a class="close" href="javascript:"> <img src="/icon-close.png" /></a>
+</div>
+当前用户uid：<b class="uid"></b><br>
+可以通过url：<a id="send_to_one" href="http://www.workerman.net:2121/?type=publish&to=1445590039000&content=%E6%B6%88%E6%81%AF%E5%86%85%E5%AE%B9" target="_blank"><font style="color:#91BD09">http://<font class="domain"></font>:2121?type=publish&to=<b class="uid"></b>&content=消息内容</font></a>  向当前用户发送消息<br>
+可以通过url：<a href="http://www.workerman.net:2121/?type=publish&to=&content=%E6%B6%88%E6%81%AF%E5%86%85%E5%AE%B9" target="_blank"  id="send_to_all" ><font style="color:#91BD09">http://<font class="domain"></font>:2121?type=publish&to=&content=消息内容</font></a> 想所有在线用户推送消息<br>
+<script>
+    // 使用时替换成真实的uid，这里方便演示使用时间戳
+    var uid = Date.parse(new Date());
+    $('#send_to_one').attr('href', 'http://'+document.domain+':2121/?type=publish&content=%E6%B6%88%E6%81%AF%E5%86%85%E5%AE%B9&to='+uid);
+    $('.uid').html(uid);
+    $('#send_to_all').attr('href', 'http://'+document.domain+':2121/?type=publish&content=%E6%B6%88%E6%81%AF%E5%86%85%E5%AE%B9');
+    $('.uid').html(uid);
+    $('.domain').html(document.domain);
+</script>
 </body>
-<!-- 全局js -->
-<script src="/hadmin/js/jquery.min.js?v=2.1.4"></script>
+
 <!-- Chosen -->
 <script src="/hadmin/js/plugins/chosen/chosen.jquery.js"></script>
 <script>
 
     $(function () {
         $('.chosen-container.chosen-container-single').css('width',$('.chosen-select').css('width'));
+
+        // 连接服务端
+        var socket = io('http://'+document.domain+':2120');
+        // 连接后登录
+        socket.on('connect', function(){
+        socket.emit('login', uid);
+        });
+        // 后端推送来消息时
+        socket.on('new_msg', function(msg){
+        $('#content').html('收到消息：'+msg);
+        $('.notification.sticky').notify();
+        });
     })
+
+
+
+
+
     var config = {
         '.chosen-select': {},
         '.chosen-select-deselect': {
